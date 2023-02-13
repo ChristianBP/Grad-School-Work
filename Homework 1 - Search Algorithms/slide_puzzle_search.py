@@ -1,40 +1,25 @@
+import sys
+
 from collections import deque
-from functions import *
-# 1 2 *
-# 4 5 3
-# 7 8 6
-puzzle_start_position = "1 2 *\n4 5 3\n7 8 6"
-solution = False
+from PriorityStack import *
+from SlidePuzzle import *
+from depth_first_search import depth_first_search
+from iterative_deepening_search import iterative_deepening_search
+from astar import astar
 
-puzzle_stack = deque([input_to_slide_puzzle(puzzle_start_position)])
+puzzle_start_position = "6 7 1 \n8 2 *\n5 4 3"
 
-
-
-# It works but I'm not convinced it's actually running depth first search
-
-
-
-
-while(not solution):
-    if(len(puzzle_stack) == 0):
-        solution = True
-        continue
-
-    current_puzzle = puzzle_stack.pop()
-
-    if current_puzzle.isSolved():
-        solution = current_puzzle 
-        continue
-    if current_puzzle.depth > 2:
-        continue
-
-    if current_puzzle.move_up():
-        puzzle_stack.append(current_puzzle.shift(-3))
-    if current_puzzle.move_left():
-        puzzle_stack.append(current_puzzle.shift(-1))
-    if current_puzzle.move_right():
-        puzzle_stack.append(current_puzzle.shift(1))
-    if current_puzzle.move_down():
-        puzzle_stack.append(current_puzzle.shift(3))
-
-solution.print_history()
+if(sys.argv[1] == "dfs"):
+    puzzle_stack = deque([input_to_slide_puzzle(puzzle_start_position)])
+    depth_first_search(puzzle_stack)
+elif(sys.argv[1] == "ids"):
+    puzzle_stack = deque([input_to_slide_puzzle(puzzle_start_position)])
+    iterative_deepening_search(puzzle_stack)
+elif(sys.argv[1] == "astar1"):
+    puzzle_stack = PriorityStack()
+    puzzle_stack.put(input_to_slide_puzzle(puzzle_start_position))
+    astar(puzzle_stack, 1)
+elif(sys.argv[1] == "astar2"):
+    puzzle_stack = PriorityStack()
+    puzzle_stack.put(input_to_slide_puzzle(puzzle_start_position))
+    astar(puzzle_stack, 2)
