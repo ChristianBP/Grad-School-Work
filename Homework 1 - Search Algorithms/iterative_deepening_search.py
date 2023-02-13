@@ -52,10 +52,4 @@ def iterative_deepening_search(puzzle_stack):
             puzzle_stack.append(current_puzzle.shift(-1))
             enqueued += 1
 
-    if(solution == True):
-        print("No solution found at depth 10")
-    else:
-        solution.print_history()
-
-    print(f"Number of moves = {solution.depth}")
-    print(f"Number of states enqueued = {str(enqueued)}")
+    print_solution(solution, enqueued)

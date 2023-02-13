@@ -22,31 +22,27 @@ def astar(puzzle_stack, one_or_two):
 
         # Check if we can move in a direction
         # If so, then make the move and add the new node to the queue
+        # The priority of each node is set to (new_puzzle.depth + heuristic)
+        # where the depth is g*(n) (the cost from the start node to the current node)
+        # and the heuristic is h*(n) (the minimum cost from the current node to the goal node).
         if current_puzzle.move_down():
             new_puzzle = current_puzzle.shift(3)
-            puzzle_stack.put(new_puzzle, heuristic(new_puzzle, one_or_two))
+            puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
         if current_puzzle.move_right():
             new_puzzle = current_puzzle.shift(1)
-            puzzle_stack.put(new_puzzle, heuristic(new_puzzle, one_or_two))
+            puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
         if current_puzzle.move_up():
             new_puzzle = current_puzzle.shift(-3)
-            puzzle_stack.put(new_puzzle, heuristic(new_puzzle, one_or_two))
+            puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
         if current_puzzle.move_left():
             new_puzzle = current_puzzle.shift(-1)
-            puzzle_stack.put(new_puzzle, heuristic(new_puzzle, one_or_two))
+            puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
 
-    if(solution == True):
-        print("No solution found at depth 10")
-    else:
-        solution.print_history()
-
-    print(f"Number of moves = {solution.depth}")
-    print(f"Number of states enqueued = {str(enqueued)}")
-
+    print_solution(solution, enqueued)
 
 def heuristic(puzzle, one_or_two):
     return puzzle.heuristic1() if one_or_two == 1 else puzzle.heuristic2()

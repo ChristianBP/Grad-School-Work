@@ -62,10 +62,11 @@ class SlidePuzzle():
     def print_history(self):
         if self.previous_puzzle:
             self.previous_puzzle.print_history()
-        print(self, end='\n\n')
+            print()
+        print(self)
 
     def __str__(self):
-        return self.puzzle_string[:3] + "\n" + self.puzzle_string[3:6] + "\n" + self.puzzle_string[6:]
+        return ' '.join(self.puzzle_string[:3]) + '\n' + ' '.join(self.puzzle_string[3:6]) + '\n' + ' '.join(self.puzzle_string[6:])
 
 
 # Converts a string like:
@@ -77,3 +78,15 @@ class SlidePuzzle():
 # and then creates a slide puzzle_string object with the new string
 def input_to_slide_puzzle(input_string):
     return SlidePuzzle(puzzle_string=''.join([x.strip() for x in input_string.split()]))
+
+def print_solution(solution, enqueued):
+    if(solution == True):
+        print("No solution found at depth " + str(SlidePuzzle.MAX_DEPTH + 1))
+    else:
+        print('\nList of states starting from input to goal state, if found\n')
+        print("Initial input state")
+        solution.print_history()
+        print("Goal state", end='\n\n')
+        print(f"Number of moves = {solution.depth}")
+
+    print(f"Number of states enqueued = {str(enqueued)}")
