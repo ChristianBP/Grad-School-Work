@@ -8,9 +8,7 @@ For example: python homework1.py <algorithm_name> <input_file_path>
 
 # Steps to run this program:
 1) Set the contents of a file to be the starting position of the slide puzzle, delimited by spaces. For example set the contents of `input_file.txt` to be `6 7 1 8 2 3 5 4 *`
-2) Run this command to solve the slide puzzle: `py main.py <algorithm_name> <input_file_path>`
-
-Where `<input_file_path>` is the file you created in step 1 (i.e. `input_file.txt`), and `<algorithm_name>` is any of the following
+2) Run this command to solve the slide puzzle: `py main.py <algorithm_name> <input_file_path>`, where `<input_file_path>` is the file you created in step 1 (i.e. `input_file.txt`), and `<algorithm_name>` is any of the following
     - dfs for depth first search
     - ids for itereative deepening search
     - astar1 for A* search with the number of tiles in the wrong position heuristic
