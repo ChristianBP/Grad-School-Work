@@ -10,12 +10,12 @@
 
 Sample inputs and outputs:
 
-$ py main.py dfs input_file.txt 
+```$ py main.py dfs input_file.txt 
 
 List of states starting from input to goal state, if found
 
 Initial input state  
-```7 8 1
+7 8 1
 6 4 *
 5 3 2
 
@@ -53,7 +53,7 @@ Initial input state
 
 7 8 1
 6 * 2
-5 4 3```
+5 4 3
 Goal state
 
 Number of moves = 9
@@ -65,7 +65,7 @@ $ py main.py ids input_file.txt
 List of states starting from input to goal state, if found
 
 Initial input state
-```7 8 1
+7 8 1
 6 4 *
 5 3 2
 
@@ -79,7 +79,7 @@ Initial input state
 
 7 8 1
 6 * 2
-5 4 3```
+5 4 3
 Goal state
 
 Number of moves = 3
@@ -91,7 +91,7 @@ $ py main.py astar1 input_file.txt
 List of states starting from input to goal state, if found
 
 Initial input state
-```7 8 1
+7 8 1
 6 4 *
 5 3 2
 
@@ -105,7 +105,7 @@ Initial input state
 
 7 8 1
 6 * 2
-5 4 3```
+5 4 3
 Goal state
 
 Number of moves = 3
@@ -117,7 +117,7 @@ $ py main.py astar2 input_file.txt
 List of states starting from input to goal state, if found
 
 Initial input state
-```7 8 1
+7 8 1
 6 4 *
 5 3 2
 
@@ -131,12 +131,12 @@ Initial input state
 
 7 8 1
 6 * 2
-5 4 3```
+5 4 3
 Goal state
 
 Number of moves = 3
 Number of states enqueued = 6
-
+```
 
 ## A* Analysis
 - The first heuristic that this program uses for A* is the *number of tiles in the wrong position*. This heuristic is calculating the cost of solving the puzzle if we change the rules to allow each tile to be moved to it's goal position in one move.
