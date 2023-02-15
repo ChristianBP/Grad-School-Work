@@ -3,15 +3,17 @@ from math import floor
 class SlidePuzzle():
     puzzle_string = None
     blank_index = None
-    previous_position = None
+    previous_puzzle = None
+    previous_move = 0
     depth = 0
     MAX_DEPTH = 9
     SOLUTION = "7816*2543"
 
-    def __init__(self, puzzle_string, previous_puzzle=None, depth=0):
+    def __init__(self, puzzle_string, previous_puzzle=None, previous_move=0, depth=0):
         self.puzzle_string = puzzle_string
         self.blank_index = puzzle_string.index('*')
         self.previous_puzzle = previous_puzzle
+        self.previous_move = previous_move
         self.depth = depth
 
     def isSolved(self):
@@ -57,7 +59,7 @@ class SlidePuzzle():
     def shift(self, direction):
         new_position = list(self.puzzle_string)
         new_position[self.blank_index], new_position[self.blank_index + direction] = new_position[self.blank_index + direction], new_position[self.blank_index]
-        return SlidePuzzle(puzzle_string=''.join(new_position), previous_puzzle=self, depth=self.depth + 1)
+        return SlidePuzzle(puzzle_string=''.join(new_position), previous_puzzle=self, previous_move=direction, depth=self.depth + 1)
 
     def print_history(self):
         if self.previous_puzzle:

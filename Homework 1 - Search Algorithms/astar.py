@@ -25,19 +25,19 @@ def astar(puzzle_stack, one_or_two):
         # The priority of each node is set to (new_puzzle.depth + heuristic)
         # where the depth is g*(n) (the cost from the start node to the current node)
         # and the heuristic is h*(n) (the minimum cost from the current node to the goal node).
-        if current_puzzle.move_down():
+        if current_puzzle.move_down() and current_puzzle.previous_move != -3:
             new_puzzle = current_puzzle.shift(3)
             puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
-        if current_puzzle.move_right():
+        if current_puzzle.move_right() and current_puzzle.previous_move != -1:
             new_puzzle = current_puzzle.shift(1)
             puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
-        if current_puzzle.move_up():
+        if current_puzzle.move_up() and current_puzzle.previous_move != 3:
             new_puzzle = current_puzzle.shift(-3)
             puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
-        if current_puzzle.move_left():
+        if current_puzzle.move_left() and current_puzzle.previous_move != 1:
             new_puzzle = current_puzzle.shift(-1)
             puzzle_stack.put(new_puzzle, new_puzzle.depth + heuristic(new_puzzle, one_or_two))
             enqueued += 1
