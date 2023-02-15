@@ -9,8 +9,8 @@
 
 
 Sample inputs and outputs:
-
-```$ py main.py dfs input_file.txt 
+```
+$ py main.py dfs input_file.txt 
 
 List of states starting from input to goal state, if found
 
