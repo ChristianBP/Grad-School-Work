@@ -6,7 +6,7 @@ For example: python homework1.py <algorithm_name> <input_file_path>
 
 
 
-# H1 Steps to run this program:
+# Steps to run this program:
 1) Set the contents of a file to be the starting position of the slide puzzle, delimited by spaces. For example set the contents of `input_file.txt` to be `6 7 1 8 2 3 5 4 *`
 2) Run this command to solve the slide puzzle: `py main.py <algorithm_name> <input_file_path>`
     Where `<input_file_path>` is the file you created in step 1 (i.e. `input_file.txt`)
@@ -20,7 +20,7 @@ For example: python homework1.py <algorithm_name> <input_file_path>
 
 Sample inputs and outputs:
 
-# H2 A* Analysis
+## A* Analysis
 The first heuristic that this program uses for A* is the number of tiles in the wrong position. This heuristic is calculating the cost of solving the puzzle if we change the rules to allow each tile to be moved to it's goal position in one move.
 The second heuristic is the sum of the Manhattan distances of all tiles from their goal positions. This heuristic is calculating the cost of solving the puzzle if we can move all of the tiles along the shortest path to their goal position, without worrying about colliding with other tiles.
 What we're looking for in an effective heuristic is to get as close to the ground truth as possible. If a position is 3 moves away from the solution, we want the heuristic to return 3 rather than 2. This prevents us from traveling down paths that the heuristic thinks are close to the goal when they actually aren't. For example, if we have a position that is 10 moves away from the solution, an admissable heuristic might tell us that we're 3 moves away from the solution. While we waste time searching that tree, there might be another solution in 6 moves along another path.
