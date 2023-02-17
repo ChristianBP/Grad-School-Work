@@ -8,9 +8,10 @@ def train_bigram_model(text, smoothing):
     # starts with a value of 1 which is exactly what we want for smoothing
     model = defaultdict(lambda: defaultdict(lambda: 1)) if smoothing else defaultdict(dict)
 
-    sentences = remove_punctuation(text).split('\n')
+    sentences = text.split('\n')
     for sentence in sentences:
-        words = sentence.split()
+        # Adding start and end tokens to each sentence
+        words = ('<start> ' + sentence + ' <end>').split()
         for i in range(len(words)-1):
             first_word = words[i]
             second_word = words[i+1]
@@ -26,7 +27,7 @@ def train_bigram_model(text, smoothing):
     return model
 
 def bigram_counts(text, model):
-    words = remove_punctuation(text).split()
+    words = ('<start> ' + text + ' <end>').split()
     for i in range(len(words)-1):
         first_word = words[i]
         second_word = words[i+1]
@@ -34,10 +35,6 @@ def bigram_counts(text, model):
             print(f'{first_word} {second_word}: {model[first_word][second_word]}')
         else:
             print(f'{first_word} {second_word}: 0')
-
-
-def remove_punctuation(text):
-    return re.sub(r'[^\w\s]', ' ', text)
 
 
 
