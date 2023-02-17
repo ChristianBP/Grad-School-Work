@@ -1,0 +1,14 @@
+Can I submit a github link instead of a zip?
+
+N gram homework
+----------------
+What do the tables need to look like? If I include every possible word they'll be gigantic.
+Should I include punctuation?
+Should I be counting when words are at the start or end of a line?
+
+Slide puzzle homework
+----------------------
+Should I prevent repeated moves?
+Does the analysis need to be a proof or just clear we understand?
+What is the number of states enqueued?
+Do we need to try moves in a certain order?
