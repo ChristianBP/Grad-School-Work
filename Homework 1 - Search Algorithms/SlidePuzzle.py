@@ -1,3 +1,4 @@
+from collections import deque
 from math import floor
 
 class SlidePuzzle():
@@ -30,6 +31,20 @@ class SlidePuzzle():
         
     def move_down(self):
         return self.blank_index in range(0,6)
+    
+    def get_next_moves(self):
+        next_moves = deque()
+        # Check if we can move a direction and if the move isn't a repeated move
+        # If so, then make the move and return the new node
+        if self.move_right() and self.previous_move != -1:
+            next_moves.append(self.shift(1))
+        if self.move_down() and self.previous_move != -3:
+            next_moves.append(self.shift(3))
+        if self.move_up() and self.previous_move != 3:
+            next_moves.append(self.shift(-3))
+        if self.move_left() and self.previous_move != 1:
+            next_moves.append(self.shift(-1))
+        return next_moves
 
     # Number of tiles in the wrong position.
     # This is admissible because every tile in the wrong position

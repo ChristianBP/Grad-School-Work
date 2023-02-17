@@ -37,19 +37,8 @@ def iterative_deepening_search(puzzle_stack):
             deeper_stack.appendleft(current_puzzle)
             continue
 
-        # Check if we can move a direction
-        # If so, then make the move and add the new node to the stack
-        if current_puzzle.move_down() and current_puzzle.previous_move != -3:
-            puzzle_stack.append(current_puzzle.shift(3))
-            enqueued += 1
-        if current_puzzle.move_right() and current_puzzle.previous_move != -1:
-            puzzle_stack.append(current_puzzle.shift(1))
-            enqueued += 1
-        if current_puzzle.move_up() and current_puzzle.previous_move != 3:
-            puzzle_stack.append(current_puzzle.shift(-3))
-            enqueued += 1
-        if current_puzzle.move_left() and current_puzzle.previous_move != 1:
-            puzzle_stack.append(current_puzzle.shift(-1))
+        for puzzle in current_puzzle.get_next_moves():
+            puzzle_stack.append(puzzle)
             enqueued += 1
 
     print_solution(solution, enqueued)

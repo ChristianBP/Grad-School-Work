@@ -14,7 +14,7 @@ $ py main.py dfs input_file.txt
 
 List of states starting from input to goal state, if found
 
-Initial input state  
+Initial input state
 7 8 1
 6 4 *
 5 3 2
