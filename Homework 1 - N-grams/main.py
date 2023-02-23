@@ -6,13 +6,13 @@ def train_bigram_model(text):
     # Always start the bigram count with a value of 0 if
     # we aren't smoothing and 1 if we are smoothing
     model = defaultdict(lambda: defaultdict(lambda: 0))
-    unigram_set = set()
+    unigram_set = set(['<start>', '<end>'])
 
     sentences = text.split('\n')
     for sentence in sentences:
         # Adding start and end tokens to each sentence
         words = ('<start> ' + sentence + ' <end>').split()
-        # Exclude start and end tokens from unigram total
+        # Start and end tokens are already added to the unigram set
         unigram_set.update(words[1:-1])
 
         for i in range(len(words)-1):
