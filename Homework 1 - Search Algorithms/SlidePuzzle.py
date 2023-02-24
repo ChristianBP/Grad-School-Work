@@ -20,6 +20,7 @@ class SlidePuzzle():
     def isSolved(self):
         return self.puzzle_string == self.SOLUTION
 
+    # These return True if the blank tile can move in the direction specified
     def move_right(self):
         return self.blank_index in [0,1,3,4,6,7]
 
@@ -34,8 +35,8 @@ class SlidePuzzle():
     
     def get_next_moves(self):
         next_moves = deque()
-        # Check if we can move a direction and if the move isn't a repeated move
-        # If so, then make the move and return the new node
+        # Check if we can move in a direction and if the move isn't a repeated move
+        # If so, then make the move and return the new nodes
         if self.move_right() and self.previous_move != -1:
             next_moves.append(self.shift(1))
         if self.move_down() and self.previous_move != -3:
@@ -92,9 +93,9 @@ class SlidePuzzle():
 # 7 8 *
 # to a string we can manipulate easily:
 # 12345678*
-# and then creates a slide puzzle_string object with the new string
+# and then creates a SlidePuzzle object with the new string
 def input_to_slide_puzzle(input_string):
-    return SlidePuzzle(puzzle_string=''.join([x.strip() for x in input_string.split()]))
+    return SlidePuzzle(puzzle_string=''.join(input_string.split()))
 
 def print_solution(solution, enqueued):
     if(solution == True):
