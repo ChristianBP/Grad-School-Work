@@ -1,0 +1,9 @@
+formulas(sos).
+  all x exists y ((entered(x) & -vip(x)) -> (customofficial(y) & searched(y,x))).
+  exists x all y (drug_pusher(x) & entered(x) & (searched(y,x) -> customofficial(y))).
+  all x (drug_pusher(x) -> -vip(x)).
+end_of_list.
+
+formulas(goals).
+  exists x (customofficial(x) & drug_pusher(x)).
+end_of_list.

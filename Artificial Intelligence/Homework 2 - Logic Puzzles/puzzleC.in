@@ -1,0 +1,12 @@
+formulas(sos).
+  all x all y (Pizza(y) & Eats(x,y) -> Happy(x)).
+  all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y)).
+  all x all y (Salad(y) & Eats(x,y) -> Healthy(x)).
+  all x (Healthy(x) -> Gyms(x)).
+  all x all y (Nice(x) -> Happy(y) & -Dated(x,y)).
+  Nice(Ann) & Foodie(Peter).
+end_of_list.
+
+formulas(goals).
+  Gyms(Peter) -> -Dated(Ann, Peter).
+end_of_list.
