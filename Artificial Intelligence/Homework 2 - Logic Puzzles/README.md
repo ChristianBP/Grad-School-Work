@@ -5,7 +5,7 @@
 4. (Conclusion) exists x customofficial(x) & drug_pusher(x).
 
 ### Input
----
+```
 formulas(sos).
   all x exists y ((entered(x) & -vip(x)) -> (customofficial(y) & searched(y,x))).
   exists x all y (drug_pusher(x) & entered(x) & (searched(y,x) -> customofficial(y))).
@@ -15,10 +15,10 @@ end_of_list.
 formulas(goals).
   exists x (customofficial(x) & drug_pusher(x)).
 end_of_list.
----
+```
 
 ### Output
----
+```
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
 Process 5506 was started by Christian on DESKTOP-U2JP5RS,
@@ -168,7 +168,7 @@ SEARCH FAILED
 Exiting with failure.
 
 Process 5506 exit (sos_empty) Sun Mar  5 23:32:33 2023
----
+```
 
 ## 3. Puzzle C
 1. all x all y (Pizza(y) & Eats(x,y) -> Happy(x)).
@@ -180,7 +180,7 @@ Process 5506 exit (sos_empty) Sun Mar  5 23:32:33 2023
 7. (Conclusion) Gyms(Peter) -> -Dated(Ann, Peter).
 
 ### Input
----
+```
 formulas(sos).
   all x all y (Pizza(y) & Eats(x,y) -> Happy(x)).
   all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y)).
@@ -193,10 +193,10 @@ end_of_list.
 formulas(goals).
   Gyms(Peter) -> -Dated(Ann, Peter).
 end_of_list.
----
+```
 
 ### Output
----
+```
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
 Process 5480 was started by Christian on DESKTOP-U2JP5RS,
@@ -365,4 +365,4 @@ THEOREM PROVED
 Exiting with 1 proof.
 
 Process 5480 exit (max_proofs) Sun Mar  5 23:31:08 2023
----
+```
