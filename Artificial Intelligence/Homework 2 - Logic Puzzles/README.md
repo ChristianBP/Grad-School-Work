@@ -1,6 +1,6 @@
 ## 2. Puzzle B
-1. all x exists y (entered(x) & -vip(x) -> customofficial(y) & searched(y,x)).
-2. exists x all y (drug_pusher(x) & entered(x) & (searched(y,x) -> customofficial(y))).
+1. all x (entered(x) & -vip(x) -> exists y (customofficial(y) & searched(y,x))).
+2. exists x (drug_pusher(x) & entered(x) & all y (searched(y,x) -> customofficial(y) & drug_pusher(y))).
 3. all x drug_pusher(x) -> -vip(x).
 4. (Conclusion) exists x customofficial(x) & drug_pusher(x).
 

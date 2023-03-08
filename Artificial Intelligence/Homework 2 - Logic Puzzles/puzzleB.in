@@ -1,6 +1,6 @@
 formulas(sos).
-  all x exists y ((entered(x) & -vip(x)) -> (customofficial(y) & searched(y,x))).
-  exists x all y (drug_pusher(x) & entered(x) & (searched(y,x) -> customofficial(y))).
+  all x ((entered(x) & -vip(x)) -> exists y (customofficial(y) & searched(y,x))).
+  exists x (drug_pusher(x) & entered(x) & all y (searched(y,x) -> customofficial(y) & drug_pusher(y))).
   all x (drug_pusher(x) -> -vip(x)).
 end_of_list.
 
