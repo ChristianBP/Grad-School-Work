@@ -39,9 +39,11 @@ def print_bigram_counts_or_probabilities(sentence, smoothing, model, unigram_set
 
             # Get the bigram and unigram counts from the model if they exist
             if first_word in model:
-                unigram_count += sum(model[first_word][x] for x in model[first_word])
+                unigram_count += sum(x for x in model[first_word].values())
                 if second_word in model[first_word]:
                     bigram_count = model[first_word][second_word]
+            elif smoothing:
+                unigram_count += 1
 
             if smoothing:
                 bigram_count += 1
