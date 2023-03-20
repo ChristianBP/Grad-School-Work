@@ -1,7 +1,7 @@
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
-Process 55 was started by Christian on DESKTOP-U2JP5RS,
-Mon Mar 20 12:28:43 2023
+Process 131 was started by Christian on DESKTOP-U2JP5RS,
+Mon Mar 20 14:01:45 2023
 The command was "prover9 -f puzzleC.in".
 ============================== end of head ===========================
 
@@ -11,11 +11,11 @@ The command was "prover9 -f puzzleC.in".
 
 
 formulas(sos).
-(all x all y (Pizza(y) & Eats(x,y) -> Happy(x))).
-(all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y))).
-(all x all y (Salad(y) & Eats(x,y) -> Healthy(x))).
+(all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x))).
+(all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y)))))).
+(all x ((exists y (Salad(y) & Eats(x,y))) -> Healthy(x))).
 (all x (Healthy(x) -> Gyms(x))).
-(all x (Nice(x) -> (all y (Happy(y) -> -Dated(x,y))))).
+(all x all y (Nice(x) & Happy(y) -> -Dated(x,y))).
 Nice(Ann) & Foodie(Peter).
 end_of_list.
 
@@ -28,11 +28,11 @@ end_of_list.
 ============================== PROCESS NON-CLAUSAL FORMULAS ==========
 
 % Formulas that are not ordinary clauses:
-1 (all x all y (Pizza(y) & Eats(x,y) -> Happy(x))) # label(non_clause).  [assumption].
-2 (all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y))) # label(non_clause).  [assumption].
-3 (all x all y (Salad(y) & Eats(x,y) -> Healthy(x))) # label(non_clause).  [assumption].
+1 (all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x))) # label(non_clause).  [assumption].
+2 (all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y)))))) # label(non_clause).  [assumption].
+3 (all x ((exists y (Salad(y) & Eats(x,y))) -> Healthy(x))) # label(non_clause).  [assumption].
 4 (all x (Healthy(x) -> Gyms(x))) # label(non_clause).  [assumption].
-5 (all x (Nice(x) -> (all y (Happy(y) -> -Dated(x,y))))) # label(non_clause).  [assumption].
+5 (all x all y (Nice(x) & Happy(y) -> -Dated(x,y))) # label(non_clause).  [assumption].
 6 Nice(Ann) & Foodie(Peter) # label(non_clause).  [assumption].
 7 -Gyms(Peter) -> -Dated(Ann,Peter) # label(non_clause) # label(goal).  [goal].
 
@@ -47,8 +47,8 @@ end_of_list.
 
 formulas(sos).
 -Pizza(x) | -Eats(y,x) | Happy(y).  [clausify(1)].
--Foodie(x) | Pizza(f1(x)) | Salad(f1(x)).  [clausify(2)].
 -Foodie(x) | Eats(x,f1(x)).  [clausify(2)].
+-Foodie(x) | Pizza(f1(x)) | Salad(f1(x)).  [clausify(2)].
 -Salad(x) | -Eats(y,x) | Healthy(y).  [clausify(3)].
 -Healthy(x) | Gyms(x).  [clausify(4)].
 -Nice(x) | -Happy(y) | -Dated(x,y).  [clausify(5)].
@@ -130,17 +130,17 @@ kept:      25 Eats(Peter,f1(Peter)).  [resolve(10,a,11,a)].
 
 ============================== PROOF =================================
 
-% Proof 1 at 0.00 (+ 0.02) seconds.
+% Proof 1 at 0.02 (+ 0.00) seconds.
 % Length of proof is 27.
 % Level of proof is 8.
 % Maximum clause weight is 4.000.
 % Given clauses 0.
 
-1 (all x all y (Pizza(y) & Eats(x,y) -> Happy(x))) # label(non_clause).  [assumption].
-2 (all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y))) # label(non_clause).  [assumption].
-3 (all x all y (Salad(y) & Eats(x,y) -> Healthy(x))) # label(non_clause).  [assumption].
+1 (all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x))) # label(non_clause).  [assumption].
+2 (all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y)))))) # label(non_clause).  [assumption].
+3 (all x ((exists y (Salad(y) & Eats(x,y))) -> Healthy(x))) # label(non_clause).  [assumption].
 4 (all x (Healthy(x) -> Gyms(x))) # label(non_clause).  [assumption].
-5 (all x (Nice(x) -> (all y (Happy(y) -> -Dated(x,y))))) # label(non_clause).  [assumption].
+5 (all x all y (Nice(x) & Happy(y) -> -Dated(x,y))) # label(non_clause).  [assumption].
 6 Nice(Ann) & Foodie(Peter) # label(non_clause).  [assumption].
 7 -Gyms(Peter) -> -Dated(Ann,Peter) # label(non_clause) # label(goal).  [goal].
 8 -Foodie(x) | Pizza(f1(x)) | Salad(f1(x)).  [clausify(2)].
@@ -178,7 +178,7 @@ Demod_attempts=0. Demod_rewrites=0.
 Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
 Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=0.
 Megabytes=0.04.
-User_CPU=0.00, System_CPU=0.02, Wall_clock=0.
+User_CPU=0.02, System_CPU=0.00, Wall_clock=0.
 
 ============================== end of statistics =====================
 
@@ -188,4 +188,4 @@ THEOREM PROVED
 
 Exiting with 1 proof.
 
-Process 55 exit (max_proofs) Mon Mar 20 12:28:43 2023
+Process 131 exit (max_proofs) Mon Mar 20 14:01:45 2023

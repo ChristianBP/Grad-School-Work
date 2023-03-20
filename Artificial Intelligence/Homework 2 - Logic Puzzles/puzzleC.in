@@ -1,9 +1,9 @@
 formulas(sos).
-  all x all y (Pizza(y) & Eats(x,y) -> Happy(x)).
-  all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y)).
-  all x all y (Salad(y) & Eats(x,y) -> Healthy(x)).
+  all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x)).
+  all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y))))).
+  all x (exists y (Salad(y) & Eats(x,y)) -> Healthy(x)).
   all x (Healthy(x) -> Gyms(x)).
-  all x (Nice(x) -> all y (Happy(y) -> -Dated(x,y))).
+  all x all y ((Nice(x) & Happy(y)) -> -Dated(x,y)).
   Nice(Ann) & Foodie(Peter).
 end_of_list.
 

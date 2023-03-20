@@ -202,11 +202,11 @@ To prove the conclusion: "There exists someone who is a custom official and a dr
 ### Input
 ```
 formulas(sos).
-  all x all y (Pizza(y) & Eats(x,y) -> Happy(x)).
-  all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y)).
-  all x all y (Salad(y) & Eats(x,y) -> Healthy(x)).
+  all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x)).
+  all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y))))).
+  all x (exists y (Salad(y) & Eats(x,y)) -> Healthy(x)).
   all x (Healthy(x) -> Gyms(x)).
-  all x all y (Nice(x) -> Happy(y) & -Dated(x,y)).
+  all x all y ((Nice(x) & Happy(y)) -> -Dated(x,y)).
   Nice(Ann) & Foodie(Peter).
 end_of_list.
 
@@ -219,8 +219,8 @@ end_of_list.
 ```
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
-Process 5480 was started by Christian on DESKTOP-U2JP5RS,
-Sun Mar  5 23:31:08 2023
+Process 131 was started by Christian on DESKTOP-U2JP5RS,
+Mon Mar 20 14:01:45 2023
 The command was "prover9 -f puzzleC.in".
 ============================== end of head ===========================
 
@@ -230,16 +230,16 @@ The command was "prover9 -f puzzleC.in".
 
 
 formulas(sos).
-(all x all y (Pizza(y) & Eats(x,y) -> Happy(x))).
-(all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y))).
-(all x all y (Salad(y) & Eats(x,y) -> Healthy(x))).
+(all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x))).
+(all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y)))))).
+(all x ((exists y (Salad(y) & Eats(x,y))) -> Healthy(x))).
 (all x (Healthy(x) -> Gyms(x))).
-(all x all y (Nice(x) -> Happy(y) & -Dated(x,y))).
+(all x all y (Nice(x) & Happy(y) -> -Dated(x,y))).
 Nice(Ann) & Foodie(Peter).
 end_of_list.
 
 formulas(goals).
-Gyms(Peter) -> -Dated(Ann,Peter).
+-Gyms(Peter) -> -Dated(Ann,Peter).
 end_of_list.
 
 ============================== end of input ==========================
@@ -247,13 +247,13 @@ end_of_list.
 ============================== PROCESS NON-CLAUSAL FORMULAS ==========
 
 % Formulas that are not ordinary clauses:
-1 (all x all y (Pizza(y) & Eats(x,y) -> Happy(x))) # label(non_clause).  [assumption].
-2 (all x exists y (Foodie(x) -> (Pizza(y) | Salad(y)) & Eats(x,y))) # label(non_clause).  [assumption].
-3 (all x all y (Salad(y) & Eats(x,y) -> Healthy(x))) # label(non_clause).  [assumption].
+1 (all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x))) # label(non_clause).  [assumption].
+2 (all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y)))))) # label(non_clause).  [assumption].
+3 (all x ((exists y (Salad(y) & Eats(x,y))) -> Healthy(x))) # label(non_clause).  [assumption].
 4 (all x (Healthy(x) -> Gyms(x))) # label(non_clause).  [assumption].
-5 (all x all y (Nice(x) -> Happy(y) & -Dated(x,y))) # label(non_clause).  [assumption].
+5 (all x all y (Nice(x) & Happy(y) -> -Dated(x,y))) # label(non_clause).  [assumption].
 6 Nice(Ann) & Foodie(Peter) # label(non_clause).  [assumption].
-7 Gyms(Peter) -> -Dated(Ann,Peter) # label(non_clause) # label(goal).  [goal].
+7 -Gyms(Peter) -> -Dated(Ann,Peter) # label(non_clause) # label(goal).  [goal].
 
 ============================== end of process non-clausal formulas ===
 
@@ -266,15 +266,14 @@ end_of_list.
 
 formulas(sos).
 -Pizza(x) | -Eats(y,x) | Happy(y).  [clausify(1)].
--Foodie(x) | Pizza(f1(x)) | Salad(f1(x)).  [clausify(2)].
 -Foodie(x) | Eats(x,f1(x)).  [clausify(2)].
+-Foodie(x) | Pizza(f1(x)) | Salad(f1(x)).  [clausify(2)].
 -Salad(x) | -Eats(y,x) | Healthy(y).  [clausify(3)].
 -Healthy(x) | Gyms(x).  [clausify(4)].
--Nice(x) | Happy(y).  [clausify(5)].
--Nice(x) | -Dated(x,y).  [clausify(5)].
+-Nice(x) | -Happy(y) | -Dated(x,y).  [clausify(5)].
 Nice(Ann).  [clausify(6)].
 Foodie(Peter).  [clausify(6)].
-Gyms(Peter).  [deny(7)].
+-Gyms(Peter).  [deny(7)].
 Dated(Ann,Peter).  [deny(7)].
 end_of_list.
 
@@ -307,29 +306,31 @@ Derived: -Eats(x,f1(Peter)) | Happy(x) | -Eats(y,f1(Peter)) | Gyms(y).  [resolve
 
 Eliminating Nice/1
 17 Nice(Ann).  [clausify(6)].
-18 -Nice(x) | Happy(y).  [clausify(5)].
-19 -Nice(x) | -Dated(x,y).  [clausify(5)].
-Derived: Happy(x).  [resolve(17,a,18,a)].
-Derived: -Dated(Ann,x).  [resolve(17,a,19,a)].
+18 -Nice(x) | -Happy(y) | -Dated(x,y).  [clausify(5)].
+Derived: -Happy(x) | -Dated(Ann,x).  [resolve(17,a,18,a)].
 
 Eliminating Gyms/1
+19 -Eats(x,f1(Peter)) | Happy(x) | -Eats(y,f1(Peter)) | Gyms(y).  [resolve(15,d,16,a)].
+20 -Gyms(Peter).  [deny(7)].
+Derived: -Eats(x,f1(Peter)) | Happy(x) | -Eats(Peter,f1(Peter)).  [resolve(19,d,20,a)].
 
 Eliminating Dated/2
-20 -Dated(Ann,x).  [resolve(17,a,19,a)].
-21 Dated(Ann,Peter).  [deny(7)].
-Derived: $F.  [resolve(20,a,21,a)].
-
-Eliminating Eats/2
+21 -Happy(x) | -Dated(Ann,x).  [resolve(17,a,18,a)].
+22 Dated(Ann,Peter).  [deny(7)].
+Derived: -Happy(Peter).  [resolve(21,b,22,a)].
 
 Eliminating Happy/1
+23 -Happy(Peter).  [resolve(21,b,22,a)].
+24 -Eats(x,f1(Peter)) | Happy(x) | -Eats(Peter,f1(Peter)).  [resolve(19,d,20,a)].
+Derived: -Eats(Peter,f1(Peter)) | -Eats(Peter,f1(Peter)).  [resolve(23,a,24,b)].
 
 ============================== end predicate elimination =============
 
 Auto_denials:  (no changes).
 
 Term ordering decisions:
-Predicate symbol precedence:  predicate_order([ ]).
-Function symbol precedence:  function_order([ ]).
+Predicate symbol precedence:  predicate_order([ Eats ]).
+Function symbol precedence:  function_order([ Peter, f1 ]).
 After inverse_order:  (no changes).
 Unfolding symbols: (none).
 
@@ -340,32 +341,54 @@ Auto_inference settings:
     % set(ur_resolution) -> set(pos_ur_resolution).
     % set(ur_resolution) -> set(neg_ur_resolution).
 
-Auto_process settings:  (no changes).
+Auto_process settings:
+  % set(unit_deletion).  % (Horn set with negative nonunits)
 
+kept:      25 Eats(Peter,f1(Peter)).  [resolve(10,a,11,a)].
+           26 -Eats(Peter,f1(Peter)) | -Eats(Peter,f1(Peter)).  [resolve(23,a,24,b)].
 
 ============================== PROOF =================================
 
-% Proof 1 at 0.00 (+ 0.02) seconds.
-% Length of proof is 8.
-% Level of proof is 3.
-% Maximum clause weight is 0.000.
+% Proof 1 at 0.02 (+ 0.00) seconds.
+% Length of proof is 27.
+% Level of proof is 8.
+% Maximum clause weight is 4.000.
 % Given clauses 0.
 
-5 (all x all y (Nice(x) -> Happy(y) & -Dated(x,y))) # label(non_clause).  [assumption].
+1 (all x ((exists y (Pizza(y) & Eats(x,y))) -> Happy(x))) # label(non_clause).  [assumption].
+2 (all x (Foodie(x) -> (exists y (Eats(x,y) & (Pizza(y) | Salad(y)))))) # label(non_clause).  [assumption].
+3 (all x ((exists y (Salad(y) & Eats(x,y))) -> Healthy(x))) # label(non_clause).  [assumption].
+4 (all x (Healthy(x) -> Gyms(x))) # label(non_clause).  [assumption].
+5 (all x all y (Nice(x) & Happy(y) -> -Dated(x,y))) # label(non_clause).  [assumption].
 6 Nice(Ann) & Foodie(Peter) # label(non_clause).  [assumption].
-7 Gyms(Peter) -> -Dated(Ann,Peter) # label(non_clause) # label(goal).  [goal].
+7 -Gyms(Peter) -> -Dated(Ann,Peter) # label(non_clause) # label(goal).  [goal].
+8 -Foodie(x) | Pizza(f1(x)) | Salad(f1(x)).  [clausify(2)].
+9 -Pizza(x) | -Eats(y,x) | Happy(y).  [clausify(1)].
+10 Foodie(Peter).  [clausify(6)].
+11 -Foodie(x) | Eats(x,f1(x)).  [clausify(2)].
+12 -Foodie(x) | Salad(f1(x)) | -Eats(y,f1(x)) | Happy(y).  [resolve(8,b,9,a)].
+13 Salad(f1(Peter)) | -Eats(x,f1(Peter)) | Happy(x).  [resolve(12,a,10,a)].
+14 -Salad(x) | -Eats(y,x) | Healthy(y).  [clausify(3)].
+15 -Eats(x,f1(Peter)) | Happy(x) | -Eats(y,f1(Peter)) | Healthy(y).  [resolve(13,a,14,a)].
+16 -Healthy(x) | Gyms(x).  [clausify(4)].
 17 Nice(Ann).  [clausify(6)].
-19 -Nice(x) | -Dated(x,y).  [clausify(5)].
-20 -Dated(Ann,x).  [resolve(17,a,19,a)].
-21 Dated(Ann,Peter).  [deny(7)].
-22 $F.  [resolve(20,a,21,a)].
+18 -Nice(x) | -Happy(y) | -Dated(x,y).  [clausify(5)].
+19 -Eats(x,f1(Peter)) | Happy(x) | -Eats(y,f1(Peter)) | Gyms(y).  [resolve(15,d,16,a)].
+20 -Gyms(Peter).  [deny(7)].
+21 -Happy(x) | -Dated(Ann,x).  [resolve(17,a,18,a)].
+22 Dated(Ann,Peter).  [deny(7)].
+23 -Happy(Peter).  [resolve(21,b,22,a)].
+24 -Eats(x,f1(Peter)) | Happy(x) | -Eats(Peter,f1(Peter)).  [resolve(19,d,20,a)].
+25 Eats(Peter,f1(Peter)).  [resolve(10,a,11,a)].
+26 -Eats(Peter,f1(Peter)) | -Eats(Peter,f1(Peter)).  [resolve(23,a,24,b)].
+27 $F.  [copy(26),merge(b),unit_del(a,25)].
 
 ============================== end of proof ==========================
 
 ============================== STATISTICS ============================
 
-Given=0. Generated=1. Kept=0. proofs=1.
-Usable=0. Sos=0. Demods=0. Limbo=0, Disabled=19. Hints=0.
+Given=0. Generated=2. Kept=1. proofs=1.
+Usable=0. Sos=0. Demods=0. Limbo=1, Disabled=19. Hints=0.
 Kept_by_rule=0, Deleted_by_rule=0.
 Forward_subsumed=0. Back_subsumed=0.
 Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
@@ -374,7 +397,7 @@ Demod_attempts=0. Demod_rewrites=0.
 Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
 Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=0.
 Megabytes=0.04.
-User_CPU=0.00, System_CPU=0.02, Wall_clock=0.
+User_CPU=0.02, System_CPU=0.00, Wall_clock=0.
 
 ============================== end of statistics =====================
 
@@ -384,7 +407,7 @@ THEOREM PROVED
 
 Exiting with 1 proof.
 
-Process 5480 exit (max_proofs) Sun Mar  5 23:31:08 2023
+Process 131 exit (max_proofs) Mon Mar 20 14:01:45 2023
 ```
 
 ### Conclusion
