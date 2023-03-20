@@ -1,4 +1,5 @@
 ## 2. Puzzle B
+### Assumptions and Goal
 1. all x (entered(x) & -vip(x) -> exists y (customofficial(y) & searched(y,x))).
 2. exists x (drug_pusher(x) & entered(x) & all y (searched(y,x) -> customofficial(y) & drug_pusher(y))).
 3. all x drug_pusher(x) -> -vip(x).
@@ -21,8 +22,8 @@ end_of_list.
 ```
 ============================== Prover9 ===============================
 Prover9 (64) version 2009-11A, November 2009.
-Process 5506 was started by Christian on DESKTOP-U2JP5RS,
-Sun Mar  5 23:32:33 2023
+Process 80 was started by Christian on DESKTOP-U2JP5RS,
+Tue Mar  7 17:26:19 2023
 The command was "prover9 -f puzzleB.in".
 ============================== end of head ===========================
 
@@ -32,8 +33,8 @@ The command was "prover9 -f puzzleB.in".
 
 
 formulas(sos).
-(all x exists y (entered(x) & -vip(x) -> customofficial(y) & searched(y,x))).
-(exists x all y (drug_pusher(x) & entered(x) & (searched(y,x) -> customofficial(y)))).
+(all x (entered(x) & -vip(x) -> (exists y (customofficial(y) & searched(y,x))))).
+(exists x (drug_pusher(x) & entered(x) & (all y (searched(y,x) -> customofficial(y) & drug_pusher(y))))).
 (all x (drug_pusher(x) -> -vip(x))).
 end_of_list.
 
@@ -46,8 +47,8 @@ end_of_list.
 ============================== PROCESS NON-CLAUSAL FORMULAS ==========
 
 % Formulas that are not ordinary clauses:
-1 (all x exists y (entered(x) & -vip(x) -> customofficial(y) & searched(y,x))) # label(non_clause).  [assumption].
-2 (exists x all y (drug_pusher(x) & entered(x) & (searched(y,x) -> customofficial(y)))) # label(non_clause).  [assumption].
+1 (all x (entered(x) & -vip(x) -> (exists y (customofficial(y) & searched(y,x))))) # label(non_clause).  [assumption].
+2 (exists x (drug_pusher(x) & entered(x) & (all y (searched(y,x) -> customofficial(y) & drug_pusher(y))))) # label(non_clause).  [assumption].
 3 (all x (drug_pusher(x) -> -vip(x))) # label(non_clause).  [assumption].
 4 (exists x (customofficial(x) & drug_pusher(x))) # label(non_clause) # label(goal).  [goal].
 
@@ -66,6 +67,7 @@ formulas(sos).
 drug_pusher(c1).  [clausify(2)].
 entered(c1).  [clausify(2)].
 -searched(x,c1) | customofficial(x).  [clausify(2)].
+-searched(x,c1) | drug_pusher(x).  [clausify(2)].
 -drug_pusher(x) | -vip(x).  [clausify(3)].
 -customofficial(x) | -drug_pusher(x).  [deny(4)].
 end_of_list.
@@ -85,70 +87,85 @@ Derived: vip(c1) | searched(f1(c1),c1).  [resolve(5,a,7,a)].
 Eliminating drug_pusher/1
 8 -drug_pusher(x) | -vip(x).  [clausify(3)].
 9 drug_pusher(c1).  [clausify(2)].
+10 -searched(x,c1) | drug_pusher(x).  [clausify(2)].
 Derived: -vip(c1).  [resolve(8,a,9,a)].
-10 -customofficial(x) | -drug_pusher(x).  [deny(4)].
-Derived: -customofficial(c1).  [resolve(10,b,9,a)].
+Derived: -vip(x) | -searched(x,c1).  [resolve(8,a,10,b)].
+11 -customofficial(x) | -drug_pusher(x).  [deny(4)].
+Derived: -customofficial(c1).  [resolve(11,b,9,a)].
+Derived: -customofficial(x) | -searched(x,c1).  [resolve(11,b,10,b)].
 
 Eliminating searched/2
-11 vip(c1) | searched(f1(c1),c1).  [resolve(5,a,7,a)].
-12 -searched(x,c1) | customofficial(x).  [clausify(2)].
-Derived: vip(c1) | customofficial(f1(c1)).  [resolve(11,b,12,a)].
-
-Eliminating vip/1
-13 -vip(c1).  [resolve(8,a,9,a)].
-14 vip(c1) | customofficial(f1(c1)).  [resolve(5,a,6,a)].
-Derived: customofficial(f1(c1)).  [resolve(13,a,14,a)].
-15 vip(c1) | customofficial(f1(c1)).  [resolve(11,b,12,a)].
+12 vip(c1) | searched(f1(c1),c1).  [resolve(5,a,7,a)].
+13 -searched(x,c1) | customofficial(x).  [clausify(2)].
+Derived: vip(c1) | customofficial(f1(c1)).  [resolve(12,b,13,a)].
+14 -vip(x) | -searched(x,c1).  [resolve(8,a,10,b)].
+Derived: -vip(f1(c1)) | vip(c1).  [resolve(14,b,12,b)].
+15 -customofficial(x) | -searched(x,c1).  [resolve(11,b,10,b)].
+Derived: -customofficial(f1(c1)) | vip(c1).  [resolve(15,b,12,b)].
 
 Eliminating customofficial/1
-16 customofficial(f1(c1)).  [resolve(13,a,14,a)].
-17 -customofficial(c1).  [resolve(10,b,9,a)].
+16 -customofficial(c1).  [resolve(11,b,9,a)].
+17 vip(c1) | customofficial(f1(c1)).  [resolve(5,a,6,a)].
+18 vip(c1) | customofficial(f1(c1)).  [resolve(12,b,13,a)].
+19 -customofficial(f1(c1)) | vip(c1).  [resolve(15,b,12,b)].
+Derived: vip(c1) | vip(c1).  [resolve(19,a,17,b)].
 
 ============================== end predicate elimination =============
 
-Auto_denials:  (no changes).
+Auto_denials:  (non-Horn, no changes).
 
 Term ordering decisions:
-Predicate symbol precedence:  predicate_order([ ]).
-Function symbol precedence:  function_order([ ]).
+Predicate symbol precedence:  predicate_order([ vip ]).
+Function symbol precedence:  function_order([ c1, f1 ]).
 After inverse_order:  (no changes).
 Unfolding symbols: (none).
 
 Auto_inference settings:
-  % set(neg_binary_resolution).  % (HNE depth_diff=0)
-  % clear(ordered_res).  % (HNE depth_diff=0)
-  % set(ur_resolution).  % (HNE depth_diff=0)
-    % set(ur_resolution) -> set(pos_ur_resolution).
-    % set(ur_resolution) -> set(neg_ur_resolution).
+  % set(binary_resolution).  % (non-Horn)
+  % set(neg_ur_resolution).  % (non-Horn, less than 100 clauses)
 
-Auto_process settings:  (no changes).
+Auto_process settings:
+  % set(factor).  % (non-Horn)
+  % set(unit_deletion).  % (non-Horn)
 
+kept:      20 -vip(c1).  [resolve(8,a,9,a)].
+           21 -vip(f1(c1)) | vip(c1).  [resolve(14,b,12,b)].
+kept:      22 -vip(f1(c1)).  [copy(21),unit_del(b,20)].
+           23 vip(c1) | vip(c1).  [resolve(19,a,17,b)].
 
-============================== end of process initial clauses ========
+============================== PROOF =================================
 
-============================== CLAUSES FOR SEARCH ====================
+% Proof 1 at 0.00 (+ 0.02) seconds.
+% Length of proof is 18.
+% Level of proof is 5.
+% Maximum clause weight is 2.000.
+% Given clauses 0.
 
-% Clauses after input processing:
+1 (all x (entered(x) & -vip(x) -> (exists y (customofficial(y) & searched(y,x))))) # label(non_clause).  [assumption].
+2 (exists x (drug_pusher(x) & entered(x) & (all y (searched(y,x) -> customofficial(y) & drug_pusher(y))))) # label(non_clause).  [assumption].
+3 (all x (drug_pusher(x) -> -vip(x))) # label(non_clause).  [assumption].
+4 (exists x (customofficial(x) & drug_pusher(x))) # label(non_clause) # label(goal).  [goal].
+5 entered(c1).  [clausify(2)].
+6 -entered(x) | vip(x) | customofficial(f1(x)).  [clausify(1)].
+7 -entered(x) | vip(x) | searched(f1(x),x).  [clausify(1)].
+8 -drug_pusher(x) | -vip(x).  [clausify(3)].
+9 drug_pusher(c1).  [clausify(2)].
+10 -searched(x,c1) | drug_pusher(x).  [clausify(2)].
+11 -customofficial(x) | -drug_pusher(x).  [deny(4)].
+12 vip(c1) | searched(f1(c1),c1).  [resolve(5,a,7,a)].
+15 -customofficial(x) | -searched(x,c1).  [resolve(11,b,10,b)].
+17 vip(c1) | customofficial(f1(c1)).  [resolve(5,a,6,a)].
+19 -customofficial(f1(c1)) | vip(c1).  [resolve(15,b,12,b)].
+20 -vip(c1).  [resolve(8,a,9,a)].
+23 vip(c1) | vip(c1).  [resolve(19,a,17,b)].
+24 $F.  [copy(23),merge(b),unit_del(a,20)].
 
-formulas(usable).
-end_of_list.
-
-formulas(sos).
-end_of_list.
-
-formulas(demodulators).
-end_of_list.
-
-============================== end of clauses for search =============
-
-============================== SEARCH ================================
-
-% Starting search at 0.00 seconds.
+============================== end of proof ==========================
 
 ============================== STATISTICS ============================
 
-Given=0. Generated=0. Kept=0. proofs=0.
-Usable=0. Sos=0. Demods=0. Limbo=0, Disabled=13. Hints=0.
+Given=0. Generated=3. Kept=2. proofs=1.
+Usable=0. Sos=0. Demods=0. Limbo=2, Disabled=18. Hints=0.
 Kept_by_rule=0, Deleted_by_rule=0.
 Forward_subsumed=0. Back_subsumed=0.
 Sos_limit_deleted=0. Sos_displaced=0. Sos_removed=0.
@@ -156,19 +173,22 @@ New_demodulators=0 (0 lex), Back_demodulated=0. Back_unit_deleted=0.
 Demod_attempts=0. Demod_rewrites=0.
 Res_instance_prunes=0. Para_instance_prunes=0. Basic_paramod_prunes=0.
 Nonunit_fsub_feature_tests=0. Nonunit_bsub_feature_tests=0.
-Megabytes=0.03.
+Megabytes=0.04.
 User_CPU=0.00, System_CPU=0.02, Wall_clock=0.
 
 ============================== end of statistics =====================
 
 ============================== end of search =========================
 
-SEARCH FAILED
+THEOREM PROVED
 
-Exiting with failure.
+Exiting with 1 proof.
 
-Process 5506 exit (sos_empty) Sun Mar  5 23:32:33 2023
+Process 80 exit (max_proofs) Tue Mar  7 17:26:19 2023
 ```
+
+### Conclusion
+To prove the conclusion: "There exists someone who is a custom official and a drug_pusher", we use resolution refutation to prove that the negation cannot be true within the model. The negation of the conclusion is that, for all people, they must be one of the following: not a custom official, not a drug_pusher, or neither. The logical steps are shown in the proof section of the Prover9 output. Prover9 concludes that, when added to the model, the negation results in vip(c1) and -vip(c1) both being asserted. These negate and return NIL, thus we know the negation must be false and the original conclusion must be true.
 
 ## 3. Puzzle C
 1. all x all y (Pizza(y) & Eats(x,y) -> Happy(x)).
@@ -191,7 +211,7 @@ formulas(sos).
 end_of_list.
 
 formulas(goals).
-  Gyms(Peter) -> -Dated(Ann, Peter).
+  -Gyms(Peter) -> -Dated(Ann, Peter).
 end_of_list.
 ```
 
@@ -366,3 +386,6 @@ Exiting with 1 proof.
 
 Process 5480 exit (max_proofs) Sun Mar  5 23:31:08 2023
 ```
+
+### Conclusion
+To prove the conclusion: "If Peter does not go to the gym then Ann does not date Peter", we use resolution refutation to prove that the negation cannot be true within the model. The negation of the conclusion is that Peter does not go to the gym, then Ann dates himr. The logical steps are shown in the proof section of the Prover9 output. Prover9 concludes that, when added to the model, the negation results in Dated(Ann, Peter) and -Dated(Ann, Peter) both being asserted. These negate and return NIL, thus we know the negation must be false and the original conclusion must be true.
