@@ -1,0 +1,11 @@
+4. A short report describing your results and what lessons you learned.
+
+For the HMM, I found that it was a natural extension to Homework 1 where we made a bigram model. However, for the HMM we were able to consider more than just the previous tag or word. The viterbi algorithm allowed us to use probability of the full sentence in our predictions. We could find the probability that the sentence led to the previous tag, and then use that to weight the probabilities of the each tag emitting the given word and the previous tags transitioning to the each tag. The calculations for the emission and transition probabilities used almost exactly the bigram algorithm. Putting all the probabilities together allowed us expand on this idea and give a fairly accurate prediction for the POS tag of a word in a sentence rather than just predicting a bigram. The HMM's biggest pitfall seems to be making accurate predictions when it lacks data. For instance, the word process was marked as a noun when it should have been a verb. When you look at the data it's understandable why this happened.
+
+
+ADD MORE TO ABOVE PARAGRAPH
+
+
+
+
+For the RNN I learned a lot about which parameters are the best for which cases. I tried a few different activation functions but found that all of them except softmax were causing the loss to explode. I researched that ReLU is the go to activation function for deep learning. It is extremely fast compared to sigmoid and tanh, avoids gradient descent, and doesn't activate all the neurons at the same time. However, I didn't use it for the RNN because ReLU would only work as the activation function for a classification problem if I added more layers at the end that didn't use ReLU. I also learned that cross entropy loss is typically used for classification and in this instance I had to use categorical cross entropy loss because I was inputting the data in the form of one hot vectors. I tried a varying the learning rate and found that somewhere around 0.01 was optimal. Both 0.1 and 0.001 were getting incorrect results. 0.1 seemed to be learning too fast and 0.001 was too slow.
