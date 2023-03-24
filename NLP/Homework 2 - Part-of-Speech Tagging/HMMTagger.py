@@ -1,19 +1,5 @@
-import os
-import re
-
 from collections import defaultdict
-
-def load_corpus(path):
-    corpus = []
-    for filename in os.listdir(path):
-        with open(os.path.join(path, filename), 'r') as file:
-            text = file.read()
-            sentences = text.split('\n')
-            for sentence in sentences:
-                words = sentence.split()
-                if len(words):
-                    corpus.append([tuple(word.split('/')) for word in words])
-    return corpus
+from load_corpus import *
 
 class HMMTagger():
 
