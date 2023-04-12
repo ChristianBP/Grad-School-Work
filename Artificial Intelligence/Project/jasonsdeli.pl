@@ -1,3 +1,7 @@
+customer(Customer, Location, Time) :-
+    orders(Customer, _, Location, Time).
+
+
 /* Meat */
 buys(Customer, 'bacon') :-
     orders(Customer, 'California Club Sandwich', _) ;
@@ -182,16 +186,33 @@ brings(Customer, money ; creditcard, Location) :-
     spends(Customer, money, Location).
 
 /* Q5 */
-/* The customer leaves after they arrive. */
+subevent(at(Customer, Location), Event) :-
+    customer(Customer, Location, Event).
+subevent(orders(Customer, Item, Location), at(Customer, Location)) :-
+    orders(Customer, Item, Location).
+
+/* Sub events are transitive */
+subevent(A, C) :-
+    subevent(A, B),
+    subevent(B, C).
+
+/* If A is true after B, then A is also true after all of B's parent events. */    
+after(A, C) :-
+    after(A, B),
+    subevent(B, C).
+
+after(hasless(Customer, money), orders(Customer, _, _)) :-
+    orders(Customer, _, _).
+
+/* The customer leaves after they arrive. 
 after(leaves(Customer, Location), arrives(Customer, Location)) :-
     customer(Customer, Location, _).
-
+*/
 /* 
 The customer:
     orders after they arrive
     has less money after they order
     leaves after they spend money
-*/
 after(orders(Customer, Item, Location), arrives(Customer, Location)) :-
     orders(Customer, Item, Location).
 after(hasless(Customer, money), orders(Customer, Item, Location)) :-
@@ -206,6 +227,7 @@ during(arrives(Customer, Location), Time) :-
     customer(Customer, Location, Time).
 during(leaves(Customer, Location), Time) :-
     customer(Customer, Location, Time).
+*/
 
 /* Q6 */
 at(Location, staff, Time) :-
