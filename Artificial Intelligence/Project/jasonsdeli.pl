@@ -184,7 +184,7 @@ brings(Customer, money ; creditcard, Location) :-
 /* Q5 */
 customer(Customer, Location, Time) :-
     orders(Customer, _, Location, Time).
-
+/*
 member(E, C), subevent(E, I):-
     e(C, I).
 
@@ -194,46 +194,50 @@ e(orders(Customer, Item, Location, Time), E) :-
     member(E, at(Customer, Location)),
     subevent(E, Time),
     orders(Customer, Item, Location, Time).
-
+*/
 /* Sub events are transitive */
-subevent(A, C) :-
+/*subevent(A, C) :-
     subevent(A, B),
     subevent(B, C).
 
 after(hasless(Customer, money), E) :-
     member(E, orders(Customer, _, _, Time)),
     subevent(E, Time).
-
-/* If A is true after B, then A is also true after all of B's parent events. */    
-after(A, C) :-
-    after(A, B),
-    subevent(B, C).
-
-
-/* The customer leaves after they arrive. 
-after(leaves(Customer, Location), arrives(Customer, Location)) :-
-    customer(Customer, Location, _).
 */
-/* 
-The customer:
+/* If A is true after B, then A is also true after all of B's parent events. */    
+/*after(A, C) :-
+    after(A, B),
+    subevent(B, C). */
+
+
+/* The customer leaves after they arrive.
+after(leaves(Customer, Location), arrives(Customer, Location)) :-
+    customer(Customer, Location, _). */
+
+/* The customer:
     orders after they arrive
     has less money after they order
-    leaves after they spend money
+    leaves after they spend money  
 after(orders(Customer, Item, Location), arrives(Customer, Location)) :-
     orders(Customer, Item, Location).
 after(hasless(Customer, money), orders(Customer, Item, Location)) :-
     orders(Customer, Item, Location).
 after(leaves(Customer, Location), hasless(Customer, money)) :-
     orders(Customer, _, Location).
-
-after(X, Z) :- after(X, Y), after(Y, Z).
-before(A, B) :- after(B, A).
-
-during(arrives(Customer, Location), Time) :-
-    customer(Customer, Location, Time).
-during(leaves(Customer, Location), Time) :-
-    customer(Customer, Location, Time).
 */
+
+/* after(X, Z) :- after(X, Y), after(Y, Z), X \= Y, Y \= Z, X \= Z.
+before(A, B) :- after(B, A). */
+
+
+subevent(orders(Customer, Item, Location, Time), at(Customer, Location, Time)) :-
+    orders(Customer, Item, Location, Time).
+after(hasless(Customer, money), orders(Customer, _, _, _)) :-
+    orders(Customer, _, _, _).
+
+after(A, C) :-
+    after(A, B),
+    subevent(B, C).
 
 /* Q6 */
 at(Location, staff, Time) :-
@@ -251,5 +255,11 @@ vegetarian(Customer) :-
 buys(Customer, ounce('roast beef')) :-
     buys(Customer, 'roast beef').
 has(A, B) :- buys(A, B).
+
+
+moreThanOunce(Customer, 'roast beef') :-
+    Ounces > 1,
+    buys(Customer, 'roast beef', Ounces).
+
 
 /* Q9 */
