@@ -402,9 +402,6 @@ Money = 'credit card'.
 ```
 
 ### Q5
-### The customer must have ordered while at the location.
-### The customer has less money after they order.
-### Therefore, they must also have less money after leaving the location.
 Orders happen while the customer who is ordering is at the location
 The customer has less money after they order
 If event A happens after B and event C happens during B, then C is also true after A.
@@ -416,8 +413,7 @@ true .
 ```
 
 ### Q6
-### If someone orders from a location at a certain time then there must be staff there to prepare the order
-If a customer orders at a certain location and time, then there must be staff at that location at that time
+If someone orders from a location at a certain time then there must be staff there to prepare the order
 If a customer orders then they must be at the location at the time they order
 
 Are there other people at Jason’s deli while John is there?
@@ -432,7 +428,7 @@ false.
 ### Q7
 A customer is a vegetarian if they eat at least one thing and nothing they eat is meat or fish
 A customer is a pescetarian if they eat at least one thing and nothing they eat is meat
-If the customer does not eat anything then we don't know if the customer is a vegetarian or not
+If the customer does not eat anything then we don't know if the customer is a vegetarian, pescetarian, or neither
 
 Is John a vegetarian?
 ```
