@@ -1,3 +1,6 @@
+## Knowledge base description
+## Examples that work and their explanations
+
 ### Meat
 A customer buys bacon if they order
     California Club Sandwich or
@@ -451,3 +454,27 @@ Did John have an ounce of roast beef?
 ?- have(john, ounce('roast beef')).
 false.
 ```
+
+## Examples that don't work and their explanations
+### Q9
+The knowledge base does not include the weights of the individual items or the total weight John might be able to carry.
+carry(Customer, Y),
+Y = aggregate_all(sum(Weight), (buys(Customer, Item), weighs(Item, Weight)), Weight).
+
+
+The knowledge base does not include all of the items on the Jason's Deli menu
+orders(john, 'Bigger Better BLT', 'South Coit Road\'s Jason\'s Deli', yesterday).
+```
+?- buys(john, 'bacon').
+false.
+```
+
+
+The knowledge base treats every time variable that is entered into orders(Customer, Item, Location, Time) as it's own point in time, unrelated to any other points in time.
+yesterday = today - 2400.
+
+
+## What I learned
+- I learned all about prolog for this assignment. I originally was tracking each topping a person had ordered by using a series of OR statements. While reading about prolog more, I learned that I could more effectively represent this by stating that a customer buys a topping if that topping is a member of the group of items that includes that topping.
+- To know if a customer is an adult, I said that they must have ordered at least one meal that isn't a children's meal. The code I was writing at first was instead going through each meal and saying whether it was an adult or children's meal. I learned that it was easier to write the child axiom as, a customer is a child if they order a meal and every meal they order only includes things from the children's menu. Then I just said that an adult is the inverse of a child and got the intended results.
+- I also learned how quickly axioms could exponentiate when I tried to represent different concepts. Just thinking about representing time, I'd have to select a time standard and create axioms that could appropriately represent a variety of concepts within that time standard. I'd have to assign numbers to specific time units including years, months, days, hours, and seconds. And then I'd have to say how the units relate to days or the week, yesterday, today, tomorrow, next year, etc. Then I'd have to use my new system to represent what it means for staff to be at the restaurant from 10am-10pm M-F. This could quickly become 50-100 axioms or more.
