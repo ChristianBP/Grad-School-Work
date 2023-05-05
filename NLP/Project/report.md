@@ -1,0 +1,14 @@
+Throughout this assignment I learned and implemented each of these methods in order to try to improve my model:
+- Downsampling
+- Upsampling
+- Downsampling Other and upsampling all other relations
+- Tried different learning rate, batch size, and epochs
+- Switched to using BERT for preprocessing, embedding, and tokenization
+
+In the Results folder, I have provided the results of some of my various attempts at improving the model along with their training loss graphs. All relevant statistics can be found within the `Results/{model type}/results.txt` files. The manual analysis is in the `Manual Analysis.md` file and is based on the results of the BERT Upsampled 20 Epochs 3e-5 Learning Rate model.
+
+The most effective improvements I found were using BERT and changing the learning rate from 0.2 to 3e-5. Each of these seemed to improve the accuracy, precision, recall, and f1 score by 5-10%. The number of epochs improved the results up to around 20 epochs. Downsampling the Other relation and upsampling all other relations resulted in decreased accuracy, recall, and f1 score by 10-15%. My best models had somewhere around 70% on accuracy, precision, recall, and F1 score. This is worse than the 85% or higher that I was seeing from the papers that attempted this same task. This makes sense as the models from those papers were using special preprocessing techniques and layers that I did not have time to learn about.
+
+These results taught me how important preprocessing and hyperparameters are. BERT provided much more powerful embeddings for each word since it was pretrained on a much larger dataset. This extra information allowed my model to perform better on it's proportionally small dataset. I also learned how drastically learning rate could effect my results. A 0.2 learning rate was causing overshooting and decreasing it to 3e-5 allowed the model to converge more effectively. Upsampling, downsampling, and batch size seemed to have little to no effect on my results. I assume these would improve my results if I had a more effective model or more/less data but it's hard to say without being able to test. Learning all of the techniques for preprocessing data and constructing models has made me more confident about the next time I have to make one.
+
+Another benefit from this project was learning about performance metrics. Specifically accuracy, precision, recall, and f1 score. I had a good grasp on the first 3 coming into this but it helped to see what they looked like on real data. F1 score was new to me and seems handy for datasets like the one we used. It can help recognize when a model's accuracy is only high because it is overfitting. This is a likely problem for this dataset as the prepocessing we perform results in Other being the most frequent relation by a significant amount.
