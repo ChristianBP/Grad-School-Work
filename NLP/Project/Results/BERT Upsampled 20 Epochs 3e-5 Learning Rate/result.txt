@@ -1,0 +1,135 @@
+Loading sentences from:
+SemEval2010_task8_all_data/SemEval2010_task8_training/TRAIN_FILE.TXT
+Max sentence length = 89
+
+Label Distribution
+Other                       4835
+Cause-Effect(e2,e1)         1011
+Component-Whole(e1,e2)       725
+Component-Whole(e2,e1)       670
+Instrument-Agency(e2,e1)     657
+Product-Producer(e2,e1)      581
+Cause-Effect(e1,e2)          544
+Product-Producer(e1,e2)      489
+Instrument-Agency(e1,e2)     158
+
+
+Train/Dev split: 8703/967
+
+
+136/136 [==============================] - 29s 181ms/step - loss: 1.6134 - accuracy: 0.5002 - recall: 0.2827 - precision: 0.6329 - val_loss: 1.4432 - val_accuracy: 0.5305 - val_recall: 0.3961 - val_precision: 0.6803
+Epoch 2/20
+136/136 [==============================] - 24s 173ms/step - loss: 1.3500 - accuracy: 0.5566 - recall: 0.3834 - precision: 0.6879 - val_loss: 1.2601 - val_accuracy: 0.5791 - val_recall: 0.4571 - val_precision: 0.6972
+Epoch 3/20
+136/136 [==============================] - 24s 174ms/step - loss: 1.1786 - accuracy: 0.6026 - recall: 0.4419 - precision: 0.7312 - val_loss: 1.1309 - val_accuracy: 0.6174 - val_recall: 0.4881 - val_precision: 0.7504
+Epoch 4/20
+136/136 [==============================] - 23s 173ms/step - loss: 1.0429 - accuracy: 0.6463 - recall: 0.4909 - precision: 0.7703 - val_loss: 1.0216 - val_accuracy: 0.6525 - val_recall: 0.5129 - val_precision: 0.7786
+Epoch 5/20
+136/136 [==============================] - 24s 174ms/step - loss: 0.9274 - accuracy: 0.6872 - recall: 0.5492 - precision: 0.8000 - val_loss: 0.9333 - val_accuracy: 0.6753 - val_recall: 0.5553 - val_precision: 0.8039
+Epoch 6/20
+136/136 [==============================] - 24s 174ms/step - loss: 0.8215 - accuracy: 0.7242 - recall: 0.6062 - precision: 0.8289 - val_loss: 0.8675 - val_accuracy: 0.7073 - val_recall: 0.5905 - val_precision: 0.7931
+Epoch 7/20
+136/136 [==============================] - 24s 173ms/step - loss: 0.7273 - accuracy: 0.7636 - recall: 0.6607 - precision: 0.8516 - val_loss: 0.7944 - val_accuracy: 0.7332 - val_recall: 0.6236 - val_precision: 0.8204
+Epoch 8/20
+136/136 [==============================] - 24s 173ms/step - loss: 0.6413 - accuracy: 0.7910 - recall: 0.7077 - precision: 0.8730 - val_loss: 0.7545 - val_accuracy: 0.7466 - val_recall: 0.6556 - val_precision: 0.8266
+Epoch 9/20
+136/136 [==============================] - 24s 175ms/step - loss: 0.5659 - accuracy: 0.8203 - recall: 0.7509 - precision: 0.8889 - val_loss: 0.7032 - val_accuracy: 0.7725 - val_recall: 0.6794 - val_precision: 0.8521
+Epoch 10/20
+136/136 [==============================] - 24s 177ms/step - loss: 0.4929 - accuracy: 0.8542 - recall: 0.7913 - precision: 0.9069 - val_loss: 0.6793 - val_accuracy: 0.7766 - val_recall: 0.7022 - val_precision: 0.8617
+Epoch 11/20
+136/136 [==============================] - 24s 176ms/step - loss: 0.4291 - accuracy: 0.8748 - recall: 0.8245 - precision: 0.9225 - val_loss: 0.6198 - val_accuracy: 0.8014 - val_recall: 0.7404 - val_precision: 0.8658
+Epoch 12/20
+136/136 [==============================] - 24s 175ms/step - loss: 0.3698 - accuracy: 0.8973 - recall: 0.8492 - precision: 0.9381 - val_loss: 0.6101 - val_accuracy: 0.8087 - val_recall: 0.7622 - val_precision: 0.8610
+Epoch 13/20
+136/136 [==============================] - 24s 176ms/step - loss: 0.3190 - accuracy: 0.9127 - recall: 0.8742 - precision: 0.9492 - val_loss: 0.6014 - val_accuracy: 0.8242 - val_recall: 0.7735 - val_precision: 0.8698
+Epoch 14/20
+136/136 [==============================] - 24s 174ms/step - loss: 0.2793 - accuracy: 0.9272 - recall: 0.8920 - precision: 0.9574 - val_loss: 0.5662 - val_accuracy: 0.8345 - val_recall: 0.7870 - val_precision: 0.8808
+Epoch 15/20
+136/136 [==============================] - 24s 175ms/step - loss: 0.2385 - accuracy: 0.9417 - recall: 0.9127 - precision: 0.9635 - val_loss: 0.5555 - val_accuracy: 0.8397 - val_recall: 0.8077 - val_precision: 0.8756
+Epoch 16/20
+136/136 [==============================] - 24s 175ms/step - loss: 0.2079 - accuracy: 0.9489 - recall: 0.9249 - precision: 0.9703 - val_loss: 0.5362 - val_accuracy: 0.8501 - val_recall: 0.8170 - val_precision: 0.8778
+Epoch 17/20
+136/136 [==============================] - 24s 174ms/step - loss: 0.1812 - accuracy: 0.9581 - recall: 0.9380 - precision: 0.9752 - val_loss: 0.5372 - val_accuracy: 0.8501 - val_recall: 0.8190 - val_precision: 0.8859
+Epoch 18/20
+136/136 [==============================] - 24s 175ms/step - loss: 0.1724 - accuracy: 0.9620 - recall: 0.9406 - precision: 0.9762 - val_loss: 0.5446 - val_accuracy: 0.8521 - val_recall: 0.8304 - val_precision: 0.8844
+Epoch 19/20
+136/136 [==============================] - 24s 173ms/step - loss: 0.1458 - accuracy: 0.9667 - recall: 0.9520 - precision: 0.9804 - val_loss: 0.5604 - val_accuracy: 0.8438 - val_recall: 0.8201 - val_precision: 0.8724
+Epoch 20/20
+136/136 [==============================] - 24s 174ms/step - loss: 0.1167 - accuracy: 0.9784 - recall: 0.9655 - precision: 0.9882 - val_loss: 0.5628 - val_accuracy: 0.8480 - val_recall: 0.8221 - val_precision: 0.8679
+Loading sentences from:
+SemEval2010_task8_all_data/SemEval2010_task8_testing_keys/TEST_FILE_FULL.TXT
+Max sentence length = 68
+
+Label Distribution
+Other                       1690
+Cause-Effect(e2,e1)          194
+Component-Whole(e1,e2)       162
+Component-Whole(e2,e1)       150
+Instrument-Agency(e2,e1)     134
+Cause-Effect(e1,e2)          134
+Product-Producer(e2,e1)      123
+Product-Producer(e1,e2)      108
+Instrument-Agency(e1,e2)      22
+
+
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ text (InputLayer)              [(None,)]            0           []                               
+                                                                                                  
+ keras_layer (KerasLayer)       {'input_type_ids':   0           ['text[0][0]']                   
+                                (None, 128),                                                      
+                                 'input_mask': (Non                                               
+                                e, 128),                                                          
+                                 'input_word_ids':                                                
+                                (None, 128)}                                                      
+                                                                                                  
+ keras_layer_1 (KerasLayer)     {'pooled_output': (  28763649    ['keras_layer[0][0]',            
+                                None, 512),                       'keras_layer[0][1]',            
+                                 'sequence_output':               'keras_layer[0][2]']            
+                                 (None, 128, 512),                                                
+                                 'encoder_outputs':                                               
+                                 [(None, 128, 512),                                               
+                                 (None, 128, 512),                                                
+                                 (None, 128, 512),                                                
+                                 (None, 128, 512)],                                               
+                                 'default': (None,                                                
+                                512)}                                                             
+                                                                                                  
+ bidirectional (Bidirectional)  (None, 128, 512)     1574912     ['keras_layer_1[0][6]']          
+                                                                                                  
+ time_distributed (TimeDistribu  (None, 128, 9)      4617        ['bidirectional[0][0]']          
+ ted)                                                                                             
+                                                                                                  
+ global_average_pooling1d (Glob  (None, 9)           0           ['time_distributed[0][0]']       
+ alAveragePooling1D)                                                                              
+                                                                                                  
+ activation (Activation)        (None, 9)            0           ['global_average_pooling1d[0][0]'
+                                                                 ]                                
+                                                                                                  
+==================================================================================================
+Total params: 30,343,178
+Trainable params: 1,579,529
+Non-trainable params: 28,763,649
+__________________________________________________________________________________________________
+None
+
+Overall accuracy:  0.7165991902834008
+Overall precision:  0.7124576417973179
+Overall recall:  0.7165991902834008
+Overall F1:  0.714163459947647
+Support:  [1690  134  194  162  150   22  134  108  123]
+Confusion matrix: 
+[[1436   24   35   32   47   10   33   33   40]
+ [  19   84   16    6    2    0    2    1    4]
+ [  38   12  135    1    1    0    4    3    0]
+ [  52    1    2   78   18    0    4    4    3]
+ [  46    3    2   18   66    0    5    1    9]
+ [  11    0    0    1    1    1    4    2    2]
+ [  38    2    4    1   11    4   57    4   13]
+ [  45    0    6    3    2    1    1   40   10]
+ [  37    0    2    1    8    1    9   15   50]]
+Macro-average precision:  0.4947788882379126
+Macro-average recall:  0.48240329988764724
+Macro-average F1-score:  0.4878504175983925
