@@ -1,0 +1,170 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+\usepackage{amsmath}
+
+\title{ML - Assignment 4}
+\author{Christian Parker}
+\date{November 2023}
+
+\begin{document}
+    \maketitle
+    \begin{enumerate}
+        \item[1.]
+            \begin{itemize}
+                \item Logistic Regression vs Neural Network
+                    \begin{itemize}
+                        \item Bias
+                        
+                            Since it's a linear model, Logistic Regression is prone to underfit higher complexity models and therefore is prone to high bias. In contrast, Neural Networks can track higher complexity models and will have lower bias.
+                        \item Variance
+                        
+                            The complexity of Neural Networks makes them prone to overfitting which means higher variance. Logistic regression is unlikely to have this variance as it will underfit most datasets.
+                    \end{itemize}
+
+                \item Logistic Regression vs Decision Tree
+                    \begin{itemize}
+                        \item Bias
+                        
+                            Logistic Regression has higher bias because it can't fit the training data as well as a decision tree can. A straight line can't divide the data up as well as a decision tree can.
+                        \item Variance
+                        
+                            Logistic Regression has lower variance than Decision Trees because Decision Trees can slice the data up into more complex patterns which makes them prone to overfitting and higher variance.
+                    \end{itemize}
+                
+                \item Decision Tree vs Random Forest
+                    \begin{itemize}
+                        \item Bias
+                        
+                            Random forest is just the decision tree algorithm with bagging. Bias should be similar across both because bagging doesn't affect bias much.
+                        \item Variance
+                        
+                            Random forest will have lower variance because bagging lowers variance.
+                    \end{itemize}
+                
+                \item Decision Tree vs Gradient Boosted Tree
+                    \begin{itemize}
+                        \item Bias
+                        
+                            Gradient Boosted Tree is just the decision tree algorithm with boosting. Gradient Boosted Tree will have lower bias because boosting decreases bias.
+                        \item Variance
+                        
+                            Boosting won't affect variance much.
+                    \end{itemize}
+
+                \item Logistic Regression vs 1NN classifier
+                    \begin{itemize}
+                        \item Bias
+                        
+                            1NN tends to have slightly lower bias because it can fit more complex models.
+                        \item Variance
+                        
+                            1NN will have high variance because it will match the training set perfectly but the testing set results will be highly influenced by outliers.
+                    \end{itemize}
+            \end{itemize}
+            
+        \item[2.]
+            \begin{itemize}
+                \item Create a subset of the data by randomly selecting N(hyperparameter) samples from the dataset (with replacement)
+                \item Use linear regression on the subset to predict a line. Store the equation for this line
+                \item Repeat the first two steps M(hyperparameter) times
+                \item Pick a sample to test
+                \item For each equation you've stored, calculate the output for the sample, then average the outputs. This is the prediction for that sample
+                \item Do this for all test samples
+            \end{itemize}
+
+            Since bootstrapping chooses samples at random, the model might not be identical but it will be close. Linear Regression already has low variance because it averages the data and so it won't overfit on outliers. Bagging will still decrease the variance by smoothing out these outliers, but, since the variance is already low, it won't decrease by much. The bias should remain unchanged because bagging doesn't have a strong effect on the bias.
+            
+        \item[3.]
+            \textbf{Generalized Gradient Boosting Algorithm}
+            \[
+                \begin{aligned}
+                    & \text{Initialize } \forall i F_0(x_i) = 0 \\
+                    & \text{For } m = 1 \text{ to } M: \\
+                    & \quad \text{Compute } y_i' = -\frac{\partial L}{\partial F} \Big|_{F_{m-1}(x)} \\
+                    & \quad \text{Using the dataset and residuals } (x, y_i'), \text{ train } h_m(x) \text{ to predict } y_i' \\
+                    & \quad F_m(x) = F_{m-1}(x) + \alpha_m h_m(x)
+                \end{aligned}
+            \]
+            
+            To use each loss function in this algorithm, all we have to do is calculate the gradient and plug it into \(\frac{\partial L}{\partial F}\)
+            
+            \textbf{Logistic Loss}
+            \[
+                \begin{aligned}
+                    \frac{\partial L}{\partial F} & = \frac{\partial}{\partial F} log(1 + e^{-yF(x)}) \\
+                    & = \frac{-ye^{-yF(x)}}{1 + e^{-yF(x)}} \\
+                    & = \frac{-ye^{-yF(x)}}{1 + e^{-yF(x)}} \cdot \frac{e^{yF(x)}}{e^{yF(x)}} \\
+                    & = \frac{-y}{1 + e^{yF(x)}}
+                \end{aligned}
+            \]
+            
+            \textbf{Hinge Loss}
+            \[
+                \begin{aligned}
+                    \frac{\partial L}{\partial F} & = \frac{\partial}{\partial F} max(0, 1 - yF(x)) \\
+                    & = -y \cdot sign(1 - yF(x))
+                \end{aligned}
+            \]
+
+        \item[4.]
+            To derive the recursive expressions, we find the partial derivatives of the loss function and the activation function. Then we can plug them into the backpropagation equations.
+
+            \textbf{Initial Gradient}
+                \[\delta^{L} = [\frac{\partial L}{\partial a^L}] [\frac{\partial a^L}{\partial z^L}]\]
+
+            \textbf{Logistic Loss Partial}
+            \[
+                \begin{aligned}
+                    \frac{\partial L}{\partial a^L} & = \frac{\partial}{\partial a^L} log(1 + e^{-y \cdot a^L}) \\
+                    & = \frac{-y}{1 + e^{y \cdot a^L}}
+                \end{aligned}
+            \]
+
+            \textbf{ReLU Activation Partial}
+            \[
+                \begin{aligned}
+                    \frac{\partial a^L}{\partial z^L} & = \frac{\partial}{\partial z^L} max(0, z^L) \\
+                    & = \begin{cases}
+                        1 & z^L > 0 \\
+                        0 & z^L \leq 0
+                    \end{cases} \\
+                    & = sign(z^L)
+                \end{aligned}
+            \]
+
+            \textbf{Back to the Initial Gradient}
+                \[
+                    \begin{aligned}
+                        \delta^{L} & = [\frac{\partial L}{\partial a^L}] [\frac{\partial a^L}{\partial z^L}] \\
+                        & = [\frac{-y}{1 + e^{y \cdot a^L}}]^T [diag(sign(z^L))]
+                    \end{aligned}
+                \]
+            Now that we have our initial gradient, we can derive recursive expressions for the rest of the gradients.
+
+            \textbf{The Rest of the Gradients}
+                \[
+                    \begin{aligned}
+                        \delta^{l-1} & = \delta^{l}[\frac{\partial z^l}{\partial a^{l-1}}] [\frac{\partial a^{l-1}}{\partial z^{l-1}}] \\
+                        & = \delta^{l} [\frac{\partial}{\partial a^{l-1}} (W^l a^{l-1} + b^l)] [\frac{\partial a^{l-1}}{\partial z^{l-1}}] \\
+                        & = \delta^{l} [W^l] [\frac{\partial a^{l-1}}{\partial z^{l-1}}] \\
+                        & = \delta^{l} [W^l] [\frac{\partial}{\partial z^{l-1}} max(0, z^{l-1})] \\
+                        & = \delta^{l} [W^l] [diag(sign(z^{l-1}))]
+                    \end{aligned}
+                \]
+
+            \textbf{Backpropagation}
+                Now we can perform the full backpropagation algorithm with these steps:
+
+                \begin{enumerate}
+                    \item Compute all inputs and outputs for each layer (forward pass)
+                    \item Compute \( \delta^L \) for the output layer
+                        \[ \delta^L = [\frac{-y}{1 + e^{y \cdot a^L}}]^T [diag(sign(z^L))] \]
+                    \item Starting from \(l = L - 1\) and working backwards, compute (backward pass)
+                        \[ \delta^{l-1} = \delta^{l} [W^l] [diag(sign(z^{l-1}))] \]
+                    \item Perform gradient descent
+                        \[ b^l_j = b^l_j - \gamma \cdot \delta^l_j \]
+                        \[ W^l_{jk} = w^l_{jk} - \gamma \cdot \delta^l_j a^{l-1}_k \]
+                \end{enumerate}
+    \end{enumerate}
+\end{document}
