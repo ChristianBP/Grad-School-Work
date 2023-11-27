@@ -26,10 +26,10 @@
                     \begin{itemize}
                         \item Bias
                         
-                            Logistic Regression has higher bias because it can't fit the training data as well as a decision tree can. A straight line can't divide the data up as well as a decision tree can.
+                            Logistic Regression has higher bias because a line can't separate complex models as well as a decision tree can.
                         \item Variance
                         
-                            Logistic Regression has lower variance than Decision Trees because Decision Trees can slice the data up into more complex patterns which makes them prone to overfitting and higher variance.
+                            Logistic Regression has lower variance because Decision Trees can slice the data up into more complex patterns which makes them prone to overfitting and high variance.
                     \end{itemize}
                 
                 \item Decision Tree vs Random Forest
@@ -64,30 +64,40 @@
             \end{itemize}
             
         \item[2.]
-            \begin{itemize}
-                \item Create a subset of the data by randomly selecting N(hyperparameter) samples from the dataset (with replacement)
-                \item Use linear regression on the subset to predict a line. Store the equation for this line
-                \item Repeat the first two steps M(hyperparameter) times
-                \item Pick a sample to test
-                \item For each equation you've stored, calculate the output for the sample, then average the outputs. This is the prediction for that sample
-                \item Do this for all test samples
-            \end{itemize}
+            \textbf{Bagging with Linear Regression}
+            \begin{enumerate}
+                \item[1)] For M (hyperparameter) iterations
+                \begin{enumerate}
+                    \item Create a subset of the data by randomly selecting N (hyperparameter) samples from the dataset (with replacement)
+                    \item Use linear regression on the subset to predict a line. Store the equation for this line
+                \end{enumerate}
+                \item[2)] For each test sample
+                \begin{enumerate}
+                    \item For each equation stored
+                    \begin{enumerate}
+                        \item[a.] Calculate the output given the sample 
+                    \end{enumerate}
+                    \item Average the outputs. This is the prediction for that sample
+                \end{enumerate}
+            \end{enumerate}
 
-            Since bootstrapping chooses samples at random, the model might not be identical but it will be close. Linear Regression already has low variance because it averages the data and so it won't overfit on outliers. Bagging will still decrease the variance by smoothing out these outliers, but, since the variance is already low, it won't decrease by much. The bias should remain unchanged because bagging doesn't have a strong effect on the bias.
+            Since bootstrapping chooses samples at random, the model might not be identical but it will be close. Linear Regression already has low variance because it averages the training data. Averaging minimizes the pull of outliers and stifles overfitting.
             
+            Bagging will still decrease the variance by smoothing out these outliers, but, since the variance is already low, it won't decrease by much. The bias should remain unchanged because bagging doesn't have a strong effect on the bias.
+
         \item[3.]
             \textbf{Generalized Gradient Boosting Algorithm}
             \[
                 \begin{aligned}
                     & \text{Initialize } \forall i F_0(x_i) = 0 \\
                     & \text{For } m = 1 \text{ to } M: \\
-                    & \quad \text{Compute } y_i' = -\frac{\partial L}{\partial F} \Big|_{F_{m-1}(x)} \\
-                    & \quad \text{Using the dataset and residuals } (x, y_i'), \text{ train } h_m(x) \text{ to predict } y_i' \\
+                    & \quad \text{Compute } y_m' = -\frac{\partial L}{\partial F} \Big|_{F_{m-1}(x)} \\
+                    & \quad \text{Using the dataset and residuals } (x, y_m'), \text{ train } h_m(x_i) \text{ to predict } y_m' \\
                     & \quad F_m(x) = F_{m-1}(x) + \alpha_m h_m(x)
                 \end{aligned}
             \]
             
-            To use each loss function in this algorithm, all we have to do is calculate the gradient and plug it into \(\frac{\partial L}{\partial F}\)
+            To use each loss function with this algorithm, all we have to do is calculate the gradient and plug it into \(\frac{\partial L}{\partial F}\)
             
             \textbf{Logistic Loss}
             \[
@@ -103,6 +113,10 @@
             \[
                 \begin{aligned}
                     \frac{\partial L}{\partial F} & = \frac{\partial}{\partial F} max(0, 1 - yF(x)) \\
+                    & = \begin{cases}
+                        -y & 1 - yF(x) > 0 \\
+                        0 & 1 - yF(x) \leq 0
+                    \end{cases} \\
                     & = -y \cdot sign(1 - yF(x))
                 \end{aligned}
             \]
