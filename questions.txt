@@ -1,4 +1,0 @@
-N gram homework
-----------------
-What do the tables need to look like? If I include every possible word they'll be gigantic.
-    Just do the words in the test sentence
