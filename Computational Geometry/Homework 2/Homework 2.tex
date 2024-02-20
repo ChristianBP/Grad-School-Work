@@ -1,0 +1,237 @@
+% ---------
+%  Compile with "pdflatex hw1".
+% --------
+%!TEX TS-program = pdflatex
+%!TEX encoding = UTF-8 Unicode
+
+% Template borrowed from Jeff Erickson.
+
+\documentclass[11pt]{article}
+\usepackage{jeffe,handout,graphicx}
+\usepackage[utf8]{inputenc}		% Allow some non-ASCII Unicode in source
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{arydshln}
+
+% =========================================================
+%   Define common stuff for solution headers
+% =========================================================
+\Class{CS 6319.001}
+\Semester{Spring 2024}
+\Authors{1}
+\AuthorOne{Christian Parker}{cxp220034}
+%\Section{}
+
+% =========================================================
+\begin{document}
+\HomeworkHeader{2}{1}% homework number, problem number
+% ---------------------------------------------------------
+\begin{enumerate}[(a)]\itemsep0pt
+  \item
+    Suppose you are given a triangulation with \(v\) vertices, \(h\) of which lie on the outer face.
+    Use Euler's formula to derive the number of triangles \(t\) and the number of edges \(e\) in
+    the triangulation as functions of \(v\) and h.
+    
+\begin{solution}
+
+  There's always one more face than there are triangles because of the external face.
+
+  \(f = t + 1\)
+
+  Euler's formula:
+
+  \(v - e + f = 2\)
+
+  \(v - e + t + 1 = 2\)
+
+  \(v - e + t = 1\)
+
+  \(2v - 2e + 2t = 2\)
+
+  Total number of edges incident to all triangles:
+
+  \(3t = 2e - h\)
+
+  \(2e = 3t + h\)
+
+  Replace \(2e\) with \(3t + h\) in the equation \(2v - 2e + 2t = 2\):
+
+  \(2v - 3t - h + 2t = 2\)
+
+  \(2v - t - h = 2\)
+
+  \(t = 2v - h - 2\)
+
+  Plug \(t\) back into \(v - e + t = 1\):
+
+  \(v - e + 2v - h - 2 = 1\)
+
+  \(3v - e - h = 3\)
+
+  \(e = 3v - h - 3\)
+\end{solution}
+
+  \item
+    Suppose you are given a quandrangulation with \(v\) vertices, \(h\) of which lie on the outer
+    face. Use Euler’s formula to derive the number of quadrangles \(q\) and the number of
+    edges \(e\) in the quadrangulation as functions of \(v\) and h.
+
+\begin{solution}
+  Total number of edges incident to all quadrangles:
+
+  \(4q = 2e - h\)
+
+  \(2e = 4q + h\)
+
+  Euler's formula (skipping steps shown in (a)):
+
+  \(v - e + q = 1\)
+
+  \(2v - 2e + 2q = 2\)
+
+  Replace \(2e\) with \(4q + h\) in the equation \(2v - 2e + 2q = 2\):
+
+  \(2v - 4q - h + 2q = 2\)
+
+  \(2v - 2q - h = 2\)
+
+  \(2q = 2v - h - 2\)
+
+  \(q = v - \frac{h}{2} - 1\)
+
+  Plug \(q\) back into \(v - e + q = 1\):
+
+  \(v - e + v - \frac{h}{2} - 1 = 1\)
+
+  \(2v - e - \frac{h}{2} = 2\)
+
+  \(e = 2v - \frac{h}{2} - 2\)
+
+\end{solution}
+
+  \item
+    Explain why your answer to part (b) implies that no quadrangulation exists where
+    the number of vertices on the outer face is odd.
+
+\begin{solution}
+  If \(h\) was odd, then \(\frac{h}{2}\) would not be an integer, therefore both the number of quadrangles and the number of edges would not be integers.
+  We couldn't have a partial quadrangle or edge though so \(h\) must not be odd.
+\end{solution}
+
+\end{enumerate}
+
+% ---------------------------------------------------------
+\HomeworkHeader{2}{2}% homework number, problem number
+% ---------------------------------------------------------
+\begin{enumerate}[(a)]\itemsep0pt
+  \item
+    Compute the line equations of the two "crossing tangents", that is, the lines
+    \(l_1: y = a_1 x - b_1\) and \(l_2: y = a_2 x - b_2\) that are both supporting lines for the convex
+    hulls of each of \(P\) and \(Q\) such that \(P\) lies below \(l_1\) and above \(l_2\) and the reverse holds
+    for \(Q\). (Note that you are not given the hulls, just the point sets.) Your algorithm
+    should run in \(O(n + m)\) time.
+    
+\begin{solution}
+  
+\end{solution}
+
+  \item
+    You have a cannon in \(\mathbb{R}^2\). It has three controls labeled "a", "b", and "c". A projectile
+    shot from this cannon travels along the parabolic arc \(y = a + bx - c x^2\). You are
+    asked to determine whether it is possible to adjust the controls so that the projectile
+    travels above a set of \(n\) building tops, represented by a point set \(P = \{p_1,..., p_n\}\) and
+    beneath a set of \(m\) floating balloons, represented by a point set \(Q = \{q_1,...,q_m\}\). Your
+    algorithm should run in time \(O(n + m)\). (Do not worry about the cannon's location.
+    Just determine if there is some parabola along which the projectile can travel.)
+
+\begin{solution}
+
+\end{solution}
+
+  \item
+    You are given a set of \(n\) halfplanes \(H = \{h1,...,hn\}\). Each halfplane \(h_i\) is given as a
+    pair \((a_i , b_i)\) and consists of all the points \((x, y)\) such that \(y \leq a_i x - b_i\). Compute the
+    axis-parallel square of the largest side length lying in \(h_1 \cap ... \cap h_n\) whose lower edge
+    lies on the x-axis. If no such square exists, your algorithm should indicate this.
+
+\begin{solution}
+  
+\end{solution}
+
+\end{enumerate}
+
+% ---------------------------------------------------------
+\HomeworkHeader{2}{3}% homework number, problem number
+% ---------------------------------------------------------
+\begin{enumerate}[(a)]\itemsep0pt
+  \item
+    Suppose we are given \(n\) points and create a subdivision as described above. Show
+    that the resulting subdivision has size \(O(n)\) (counting vertices, edges, and faces).
+    
+\begin{solution}
+  Each time we add a point to the subdivision, there are three possible cases:
+  \begin{enumerate}
+    \item
+      The point is inside an existing face. In this case, we shoot bullets left, right, and up. Each of these creates a new vertex when it hits an edge.
+      Add in the point itself and that's 4 new vertices. Each bullet creates a new edge so 3 new edges. There's now a face below the horizontal line and
+      to the left and right of the vertical line. This adds 2 faces.
+
+      So in total we add 4 vertices, 3 edges, and 2 faces.
+    \item
+      The point is on a horizontal edge. In this case, we split the edge into two edges and shoot a bullet up. The face is split into two faces. One new vertex is created
+      at the end of the bullet path and a vertex is added for the new point.
+
+      So in total we add 2 vertices, 2 edges, and 1 face.
+    \item
+      The point is on a vertical edge. In this case, we split the edge into two edges and shoot a bullet left and right. The left and right faces are split into two faces each.
+      One new vertex is created at the end of each bullet path and a vertex is added for the new point.
+
+      So we add 3 vertices, 3 edges, and 2 faces.
+  \end{enumerate}
+  In the worst case, we add 4 vertices, 3 edges, and 2 faces for each point. So the size of the subdivision is \((4 + 3 + 2) \cdot n = 9n = O(n)\).
+\end{solution}
+
+  \item
+    Prove that for any \(1 \leq i \leq n\), the expected
+    number of new boxes created during the ith addition is \(O(1)\).
+
+\begin{solution} Pulling heavily from Mount's notes because this is basically the same as the proof that the expected number of new trapezoids created during
+  the \(i\)th addition to a trapezoidal map is \(O(1)\).
+
+  \textbf{Lemma:} Consider the randomized incremental construction of a subdivision given points \(P = \{p_1,...,p_n\}\), and let \(k_i\) denote the
+  number of new boxes created when the \(i\)th point is added. Then \(E[k_i] = O(1)\), where the expectation is taken over all possible permutations of the
+  points as the insertion orders.
+
+  \textbf{Proof:} Let \(S_i\) denote the subdivision resulting from the insertion of the \(i\)th point. Because we are averaging over all permutations, among the \(i\) points
+  in \(S_i\), each point has an equal probability \(\frac{1}{i}\) of being the last one added. For each of the points \(p\), we want to count the number of boxes
+  that would have been created if \(p\) had been the last point added (The worst case scenario for \(p\)).
+
+  We say that a box \(b\) depends on a point \(p\) if \(p\) would have caused \(b\) to be created had \(p\) been the last point inserted. We want to count the number of boxes
+  that depend on each point and then compute the average over all points. If we let \(\delta(b,p)=\) 1 if \(b\) depends on \(p\) and 0 otherwise, then the expected value is:
+
+  \(E[k_i] = \sum_{p \in P_i}\) (probability that \(p\) is last) \(\cdot\) (number of boxes that depend on \(p\))
+
+  Where \(P_i\) is the set of points we've considered so far. We can rewrite this as:
+
+  \begin{align*}
+    E[k_i] &= \sum_{p \in P_i} \frac{1}{i} \left( \sum_{b \in S_i} \delta(b,p) \right) \\
+    &= \frac{1}{i} \sum_{p \in P_i} \sum_{b \in S_i} \delta(b,p) \\
+    &= \frac{1}{i} \sum_{b \in S_i} \sum_{p \in P_i} \delta(b,p)
+  \end{align*}
+
+  Each box is bounded by lines from at most 4 points. It may be less than 4 if the box is bounded by the bounding rectangle instead. The top and bottom of each box are formed by bullet paths going left
+  or right from two points (or by the boundary rectangle of course). The left and right are formed by bullet paths going up from two points.
+  
+  Therefore, \(\sum_{p \in P_i} \delta(b,p) \leq 4\).
+
+  Since \(S_i\) consists of at most \(2i + 1\) boxes (we start with 1 box and, as stated in part (a), add at most 2 boxes for each point), we have:
+
+  \begin{align*}
+    E[k_i] \leq \frac{1}{i} \sum_{b \in S_i} 4 = \frac{4}{i} |S_i| \leq \frac{4}{i}(2i + 1) = O(1)
+  \end{align*}
+
+\end{solution}
+
+\end{enumerate}
+
+\end{document}
