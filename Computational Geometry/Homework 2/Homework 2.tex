@@ -33,8 +33,7 @@
     the triangulation as functions of \(v\) and h.
     
 \begin{solution}
-
-  There's always one more face than there are triangles because of the external face.
+  There's always one more face than there are triangles because of the external face:
 
   \(f = t + 1\)
 
@@ -115,7 +114,7 @@
 
 \begin{solution}
   If \(h\) was odd, then \(\frac{h}{2}\) would not be an integer, therefore both the number of quadrangles and the number of edges would not be integers.
-  We couldn't have a partial quadrangle or edge though so \(h\) must not be odd.
+  We can't have a partial quadrangle or edge, so \(h\) must not be odd.
 \end{solution}
 
 \end{enumerate}
@@ -126,13 +125,61 @@
 \begin{enumerate}[(a)]\itemsep0pt
   \item
     Compute the line equations of the two "crossing tangents", that is, the lines
-    \(l_1: y = a_1 x - b_1\) and \(l_2: y = a_2 x - b_2\) that are both supporting lines for the convex
-    hulls of each of \(P\) and \(Q\) such that \(P\) lies below \(l_1\) and above \(l_2\) and the reverse holds
+    \(\ell_1: y = a_1 x - b_1\) and \(\ell_2: y = a_2 x - b_2\) that are both supporting lines for the convex
+    hulls of each of \(P\) and \(Q\) such that \(P\) lies below \(\ell_1\) and above \(\ell_2\) and the reverse holds
     for \(Q\). (Note that you are not given the hulls, just the point sets.) Your algorithm
     should run in \(O(n + m)\) time.
     
 \begin{solution}
+  To find the lines \(\ell_1\) and \(\ell_2\), we will convert the problem into an upper and lower envelope problem and solve for the optimal vertex using linear programming.
+  To accomplish this, we will convert the points in \(P\) and \(Q\) into their duals, swap their x and y coordinates, and then find the optimal vertices by minimizing \(y\) within the
+  upper envelope and the maximimizing \(y\) within the the lower envelope.
+  We begin by converting the points in \(P\) and \(Q\) into their duals.
+  \begin{align*}
+    P^* = \Bigl\{ \ y = c_i x - d_i \ \Big| \ \forall (c_i, d_i) \in P \ \Bigl\} \\
+    Q^* = \Bigl\{ \ y = c_i x - d_i \ \Big| \ \forall (c_i, d_i) \in Q \ \Bigl\}
+  \end{align*}
+
+  From here the optimal vertices would reside within the left and right envelopes. To convert to upper and lower envelopes, we just swap the x and y coordinates.
+  \begin{align*}
+    P^* &= \Bigl\{ \ x = c_i y - d_i \ \Big| \ \forall (c_i, d_i) \in P \ \Bigl\} \\
+    &= \Bigl\{ \ y = \frac{x + d_i}{c_i} \ \Big| \ \forall (c_i, d_i) \in P \ \Bigl\} \\
+    Q^* &= \Bigl\{ \ x = c_i y - d_i \ \Big| \ \forall (c_i, d_i) \in Q \ \Bigl\} \\
+    &= \Bigl\{ \ y = \frac{x + d_i}{c_i} \ \Big| \ \forall (c_i, d_i) \in Q \ \Bigl\}
+  \end{align*}
+
+  Now we can construct our linear programming problems.
+
+  \(\ell_1\) is a line above \(P\) and below \(Q\). Therefore, it's dual point would be below \(P^*\) and above \(Q^*\). So we convert the lines in \(P^*\) into closed lower halfplanes
+  \(y \leq \frac{x + d_i}{c_i}\). And the lines in \(Q^*\) into closed upper halfplanes \(y \geq \frac{x + d_i}{c_i}\). This way our optimal vertex for the dual of \(\ell_1\) will
+  always fall equal to or below \(P^*\) and equal to or above \(Q^*\). Our problem is then:
+
+  \textbf{Maximize} \(y\)
+
+  \textbf{Subject to:}
+  \begin{align*}
+    \Bigl\{ \ y &\leq \frac{x + d_i}{c_i} \ \Big| \ \forall (c_i, d_i) \in P^* \ \Bigl\} \\
+    \Bigl\{ \ y &\geq \frac{x + d_i}{c_i} \ \Big| \ \forall (c_i, d_i) \in Q^* \ \Bigl\}
+  \end{align*}
+
+  \(\ell_2\) is a line below \(P\) and above \(Q\), so we reverse the halfplanes. \(P^*\) would then be converted into closed upper halfplanes \(y \geq \frac{x + d_i}{c_i}\) and \(Q^*\) would
+  be closed lower halfplanes \(y \leq \frac{x + d_i}{c_i}\). Our problem is then:
+
+  \textbf{Minimize} \(y\)
+
+  \textbf{Subject to:}
+  \begin{align*}
+    \Bigl\{ \ y &\geq \frac{x + d_i}{c_i} \ \Big| \ \forall (c_i, d_i) \in P^* \ \Bigl\} \\
+    \Bigl\{ \ y &\leq \frac{x + d_i}{c_i} \ \Big| \ \forall (c_i, d_i) \in Q^* \ \Bigl\}
+  \end{align*}
+
+  Each problem will give us an optimal vertex, \(\ell_1^* = (b_1, a_1)\) and \(\ell_2^* = (b_2, a_2)\). After swapping the x and y values back (\(\ell_1^* = (a_1, b_1)\) and \(\ell_2^* = (a_2, b_2)\)),
+  we will find that their duals are the supporting lines for the convex hulls of \(P\) and \(Q\).
   
+  \(\ell_1: y = a_1 x - b_1\)
+  
+  \(\ell_2: y = a_2 x - b_2\).
+
 \end{solution}
 
   \item
@@ -145,7 +192,24 @@
     Just determine if there is some parabola along which the projectile can travel.)
 
 \begin{solution}
+  To convert this problem into a form that we can solve with linear programming, we will introduce an error term \(\epsilon\) to the parabolic equation. This error term represents
+  the margin between the parabola and the points in \(P\) and \(Q\). If there exists a margin \(\epsilon > 0\), then we'll know that a parabola with margin \(\epsilon\) exists that
+  can separate \(P\) and \(Q\). Since \(P\) is expected to be below the parabola, the points in \(P\) must be at least \(\epsilon\) distance
+  below the parabola. Since \(Q\) is expected to be above the parabola, the points in \(Q\) must be at least \(\epsilon\) distance above the parabola.
+  We will maximize \(\epsilon\) subject to these constraints.
 
+  \textbf{Maximize} \(\epsilon\)
+
+  \textbf{Subject to:}
+  \begin{align*}
+    \Bigl\{ \ y_i \leq a + bx_i - cx_i^2 - \epsilon & \ \Big| \ \forall (x_i, y_i) \in P \ \Bigl\} \\
+    \Bigl\{ \ y_i \geq a + bx_i - cx_i^2 + \epsilon & \ \Big| \ \forall (x_i, y_i) \in Q \ \Bigl\}
+  \end{align*}
+
+  This linear programming problem will return \(\epsilon\). If \(\epsilon > 0\), then there is a parabola between \(P\) and \(Q\) with at least \(\epsilon\) 
+  distance to every point in \(P\) and \(Q\). Therefore, it is possible to adjust the controls so that the projectile travels above \(P\) and beneath \(Q\).
+  If \(\epsilon \leq 0\), then there will be some point in \(P\) or \(Q\) with at least \(\epsilon\) distance across any parabola.
+  Therefore, it is not possible to adjust the controls so that the projectile travels above \(P\) and beneath \(Q\).
 \end{solution}
 
   \item
@@ -155,7 +219,35 @@
     lies on the x-axis. If no such square exists, your algorithm should indicate this.
 
 \begin{solution}
-  
+  To find the axis-parallel square of the largest side length, we can treat the problem as a linear programming problem modified to find two optimal vertices instead of one.
+  The vertices will be the horizontal bounds for the top edge of the square. Each vertice will be constrained by the halfplanes in \(H\). In addition, we will have
+  to add a couple more constraints to ensure that all sides of the square will have equal length.
+
+  \(x_1\) and \(x_2\) will be the x-values that bound the left and right edges of the square. \(\ell\) will be the length of all sides and will also serve as the y-value of the top edge.
+  The problem is then:
+
+  \textbf{Maximize} \(l\)
+
+  \textbf{Subject to:}
+  \begin{align*}
+    \Bigl\{ \ \ell &\leq a_i x_1 - b_i \ \Big| \ \forall (a_i, b_i) \in H \ \Bigl\} \\
+    \Bigl\{ \ \ell &\leq a_i x_2 - b_i \ \Big| \ \forall (a_i, b_i) \in H \ \Bigl\} \\
+    &x_2 - x_1 \geq \ell \\
+    &x_1 < x_2
+  \end{align*}
+
+  \(x_2 - x_1 \geq \ell\) ensures that the width between the bounding halfplanes is at least the side length of the square. \(x_1 < x_2\) ensures that \(x_1\) is the left edge and \(x_2\) is the
+  right edge.
+
+  Solving this linear programming problem will either result in the optimal length of the square as well the the x-values that bound the top edge, or it will
+  fail to return a solution, indicating that no such square exists. If a square exists we can calculate corners for it:
+  \begin{align*}
+    x_1 \leq &\ L \leq x_2 - \ell \\
+    x_1 + \ell \leq &\ R \leq x_2 \\
+    R - L &= \ell \\
+    (L, 0), (R, 0)&, (L, \ell), (R, \ell)
+  \end{align*}
+
 \end{solution}
 
 \end{enumerate}
@@ -212,7 +304,6 @@
   \(E[k_i] = \sum_{p \in P_i}\) (probability that \(p\) is last) \(\cdot\) (number of boxes that depend on \(p\))
 
   Where \(P_i\) is the set of points we've considered so far. We can rewrite this as:
-
   \begin{align*}
     E[k_i] &= \sum_{p \in P_i} \frac{1}{i} \left( \sum_{b \in S_i} \delta(b,p) \right) \\
     &= \frac{1}{i} \sum_{p \in P_i} \sum_{b \in S_i} \delta(b,p) \\
@@ -225,7 +316,6 @@
   Therefore, \(\sum_{p \in P_i} \delta(b,p) \leq 4\).
 
   Since \(S_i\) consists of at most \(2i + 1\) boxes (we start with 1 box and, as stated in part (a), add at most 2 boxes for each point), we have:
-
   \begin{align*}
     E[k_i] \leq \frac{1}{i} \sum_{b \in S_i} 4 = \frac{4}{i} |S_i| \leq \frac{4}{i}(2i + 1) = O(1)
   \end{align*}
