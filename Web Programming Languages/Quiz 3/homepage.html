@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+    </head>
+    <body>
+        <div id="header">
+            <h1>Christian Parker's Homepage</h1>
+            <h5>CXP220034</h5>
+        </div>
+        <div id="content">
+            <p>
+                Hello, my name is Christian, and my hobbies include:
+                <ul>
+                    <li>Ultimate Frisbee</li>
+                    <li>Reading</li>
+                    <li>Video games</li>
+                </ul>
+                <img src="ultimate.jpg" alt="Me catching a frisbee" title="Me catching a frisbee"/>
+                <div style="margin-left: 25%; margin-right: 50%;">
+                    I've played ultimate for seven years and even played semi-professionally for <a href="https://watchufa.com/legion/players/cparker">Dallas Legion</a> last year.
+                    Here's the teams I've played for in order:
+                    <ol>
+                        <li>ACU Ultimate</li>
+                        <li><abbr title="Dallas Ultimate C-team">DUCs</abbr></li>
+                        <li>Glycerine</li>
+                        <li>Outlaws</li>
+                        <li>Brawl</li>
+                        <li>Dallas Legion</li>
+                    </ol>
+            
+                    <form>
+                        Do you play any sports?<br>
+                        <input type="radio" name="sports" value="yes"/>
+                        <label style="padding-right: 20px;">Yes</label>
+                        <input type="radio" name="sports" value="no" checked/>
+                        <label>No</label><br>
+                        If so, which ones?<br>
+                        <input type="text"/><br>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
+            </p>
+            
+            <p>Here are a few books I've read recently:</p>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+                <tr class="dune">
+                    <td>Dune</td>
+                    <td>Frank Herbert</td>
+                </tr>
+                <tr class="project-hail-mary">
+                    <td>Project Hail Mary</td>
+                    <td>Andy Weir</td>
+                </tr>
+                <tr class="time-of-contempt">
+                    <td>The Time of Contempt</td>
+                    <td>Andrzej Sapkowski</td>
+                </tr>
+                <tr class="life-the-universe-and-everything">
+                    <td>Life, the Universe, and Everything</td>
+                    <td>Douglas Adams</td>
+                </tr>
+            </table>
+            
+            <p>Here are some tags I wasn't aware of until this class and their uses:</p>
+            <dl>
+                <dt>abbr</dt> <dd>For abbreviations. The title attribute is set to the full name.</dd>
+                <dt>del</dt> <dd>Adds a <del>strikethrough</del> to text.</dd>
+                <dt>ins</dt> <dd>Adds an <ins>underline</ins> to text.</dd>
+                <dt>dl</dt> <dd>Definition list. Like this one right now.</dd>
+            </dl>
+        </div>
+    </body>
+</html>

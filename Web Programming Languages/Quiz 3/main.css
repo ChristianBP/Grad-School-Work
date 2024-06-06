@@ -1,0 +1,90 @@
+#header {
+    background-color: rgba(128, 0, 128, 0.33);
+    margin: auto;
+}
+
+#header h1, h5 {
+    text-align: center;
+    color: blue;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 1rem;
+}
+
+#content {
+    padding-left: 10%;
+    padding-top: 20px;
+    background-image: url("stars.png");
+    color: white;
+}
+
+img {
+    height: 250px;
+    float: left;
+}
+
+table {
+    width: 50%;
+    border-width: 5px;
+    border-color: purple;
+    border-style: ridge;
+    font-size: 1.5rem;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    padding: 8px;
+}
+
+tr.dune td {
+    border-left: 6px solid gold;
+    background-color: rgba(255, 215, 0, 0.25);
+}
+
+tr.project-hail-mary td {
+    border-left: 6px solid darkturquoise;
+    background-color: rgba(0, 206, 209, 0.25);
+}
+
+tr.time-of-contempt td {
+    border-left: 6px solid saddlebrown;
+    background-color: rgba(139, 69, 19, 0.25);
+}
+
+tr.life-the-universe-and-everything td {
+    border-left: 6px solid hotpink;
+    background-color: rgba(255, 105, 180, 0.25);
+}
+
+form input {
+    margin-bottom: 10px;
+}
+
+form label {
+    margin-top: 20px;
+}
+
+dt {
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.5rem;
+}
+
+a:link {
+    color: hotpink;
+}
+
+a:visited {
+    color: purple;
+}
+
+a:hover {
+    color: blue;
+}
+
+a:active {
+    color: black;
+}
