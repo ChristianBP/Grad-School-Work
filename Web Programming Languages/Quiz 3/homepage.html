@@ -6,19 +6,28 @@
     </head>
     <body>
         <div id="header">
+            <h4>CXP220034</h4>
             <h1>Christian Parker's Homepage</h1>
-            <h5>CXP220034</h5>
         </div>
-        <div id="content">
+
+        <div id="nav-menu">
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="books.html">Books</a></li>
+                <li><a href="ultimate.html">Ultimate</a></li>
+            </ul>
+        </div>
+
+        <div id="main-content">
             <p>
                 Hello, my name is Christian, and my hobbies include:
-                <ul>
+                <ul class="hobbies">
                     <li>Ultimate Frisbee</li>
                     <li>Reading</li>
                     <li>Video games</li>
                 </ul>
                 <img src="ultimate.jpg" alt="Me catching a frisbee" title="Me catching a frisbee"/>
-                <div style="margin-left: 25%; margin-right: 50%;">
+                <div class="sports">
                     I've played ultimate for seven years and even played semi-professionally for <a href="https://watchufa.com/legion/players/cparker">Dallas Legion</a> last year.
                     Here's the teams I've played for in order:
                     <ol>
@@ -36,7 +45,8 @@
                         <label style="padding-right: 20px;">Yes</label>
                         <input type="radio" name="sports" value="no" checked/>
                         <label>No</label><br>
-                        If so, which ones?<br>
+                        <input class="hidden" type="radio" name="sports" value="maybe"/>
+                        If so, which ones?
                         <input type="text"/><br>
                         <input type="submit" value="Submit"/>
                     </form>
@@ -66,7 +76,9 @@
                     <td>Douglas Adams</td>
                 </tr>
             </table>
-            
+        </div>
+
+        <div id="side-content">
             <p>Here are some tags I wasn't aware of until this class and their uses:</p>
             <dl>
                 <dt>abbr</dt> <dd>For abbreviations. The title attribute is set to the full name.</dd>
@@ -74,6 +86,10 @@
                 <dt>ins</dt> <dd>Adds an <ins>underline</ins> to text.</dd>
                 <dt>dl</dt> <dd>Definition list. Like this one right now.</dd>
             </dl>
+        </div>
+
+        <div id="footer">
+            <p>Web Programming Languages</p>
         </div>
     </body>
 </html>

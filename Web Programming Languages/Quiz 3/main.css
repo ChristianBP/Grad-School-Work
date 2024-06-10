@@ -1,34 +1,108 @@
-#header {
-    background-color: rgba(128, 0, 128, 0.33);
-    margin: auto;
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    line-height: 1.6;
+    margin: 0;
 }
 
-#header h1, h5 {
-    text-align: center;
+#header {
+    background-color: rgba(128, 0, 128, 0.5);
+    height: 100px;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#header h1, h4 {
     color: blue;
     margin-bottom: 0;
     margin-top: 0;
+}
+
+#header h1 {
+    text-align: center;
     padding-bottom: 1rem;
 }
 
-#content {
-    padding-left: 10%;
-    padding-top: 20px;
+#header h4 {
+    text-align: right;
+    font-style: italic;
+    padding: 0;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
+#nav-menu ul {
+    list-style-type: none;
+    margin: 0;
+    margin-top: 100px;
+    padding: 0;
+    text-align: center;
+}
+
+#nav-menu a {
+    background-color: rgba(128, 0, 128, 0.33);
+    display: block;
+    font-size: 24px;
+    height: 40px;
+    text-decoration: none;
+}
+
+#main-content {
     background-image: url("stars.png");
+    background-repeat: repeat;
     color: white;
+    float: left;
+    padding-left: 5%;
+    padding-top: 20px;
+    width: 70%;
+}
+
+.hobbies {
+    list-style-type: square;
 }
 
 img {
-    height: 250px;
-    float: left;
+    float: right;
+    margin-right: 10%;
+    opacity: 0.75;
+    width: 33%;
+}
+
+li::first-letter {
+    font-size: 2rem;
+    color: mediumspringgreen;
+}
+
+.sports {
+    text-align: justify;
+    text-justify: inter-word;
+    width: 50%;
+}
+
+form input {
+    margin: 10px;
+}
+
+form input[type="text"] {
+    margin-left: 30px;
+}
+
+form label {
+    margin-top: 20px;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 table {
-    width: 50%;
     border-width: 5px;
     border-color: purple;
     border-style: ridge;
     font-size: 1.5rem;
+    margin-bottom: 2rem;
+    width: 50%;
 }
 
 th {
@@ -37,6 +111,7 @@ th {
 
 td {
     padding: 8px;
+    vertical-align: middle;
 }
 
 tr.dune td {
@@ -59,12 +134,10 @@ tr.life-the-universe-and-everything td {
     background-color: rgba(255, 105, 180, 0.25);
 }
 
-form input {
-    margin-bottom: 10px;
-}
-
-form label {
-    margin-top: 20px;
+#side-content {
+    float: right;
+    margin-right: 3%;
+    width: 20%;
 }
 
 dt {
@@ -82,9 +155,17 @@ a:visited {
 }
 
 a:hover {
-    color: blue;
+    color: green;
 }
 
 a:active {
     color: black;
+}
+
+#footer {
+    clear: both;
+    background-color: skyblue;
+    text-align: center;
+    text-shadow: 2px 2px 4px black;
+    padding: 10px;
 }
