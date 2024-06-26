@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="header">
+            <h4>CXP220034</h4>
+            <h1>Christian Parker's Homepage</h1>
+        </div>
+
+        <div id="nav-menu">
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="books.html">Books</a></li>
+                <li><a href="ultimate.html">Ultimate</a></li>
+            </ul>
+        </div>
+
+        <div id="main-content">
+            <p>
+                Hello, my name is Christian, and my hobbies include:
+                <ul class="hobbies">
+                    <li>Ultimate Frisbee</li>
+                    <li>Reading</li>
+                    <li>Video games</li>
+                </ul>
+                <img src="ultimate.jpg" alt="Me catching a frisbee" title="Me catching a frisbee"/>
+                <div class="sports">
+                    I've played ultimate for seven years and even played semi-professionally for <a href="https://watchufa.com/legion/players/cparker">Dallas Legion</a> last year.
+                    Here's the teams I've played for in order:
+                    <ol>
+                        <li>ACU Ultimate</li>
+                        <li><abbr title="Dallas Ultimate C-team">DUCs</abbr></li>
+                        <li>Glycerine</li>
+                        <li>Outlaws</li>
+                        <li>Brawl</li>
+                        <li>Dallas Legion</li>
+                    </ol>
+                </div>
+            </p>
+            
+            <p>Here are a few books I've read recently:</p>
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+                <tr class="dune">
+                    <td>Dune</td>
+                    <td>Frank Herbert</td>
+                </tr>
+                <tr class="project-hail-mary">
+                    <td>Project Hail Mary</td>
+                    <td>Andy Weir</td>
+                </tr>
+                <tr class="time-of-contempt">
+                    <td>The Time of Contempt</td>
+                    <td>Andrzej Sapkowski</td>
+                </tr>
+                <tr class="hitchhikers-guide-to-the-galaxy">
+                    <td>Life, the Universe, and Everything</td>
+                    <td>Douglas Adams</td>
+                </tr>
+            </table>
+
+            <div>
+                <h2>Display First HTML Element With:</h2>
+                <button onClick="display(document.getElementById('del_definition').innerHTML)">id = del_definition</button>
+                <button onClick="display(document.getElementsByTagName('td')[0].innerHTML)">tag name = td</button>
+                <button onClick="display(document.getElementsByClassName('hobbies')[0].innerHTML)">class name = hobbies</button>
+                <button onClick="display(document.querySelectorAll('.sports ol li')[0].innerHTML)">CSS selector = .sports ol li</button>
+                <button onClick="display(document.images[0].title)">HTML Object Collection images title</button>
+                <div id="display"></div>
+            </div>
+
+            <div class="javascript-functions">
+                <h2>Javascript Functions</h2>
+                <button onClick="removePHM()">Remove Project Hail Mary onClick</button>
+                <input type="text" value="Replace Dune onkeydown" onkeydown="replaceDune()"/>
+                <input type="text" value="Remove The Time of Contempt onchange" onchange="removeToC()"/>
+                <button onmouseout="insertBeforeLUE()">Insert before Life, the Universe, and Everything onmouseout</button>
+            </div>
+        </div>
+
+        <div id="side-content">
+            <p>Here are some tags I wasn't aware of until this class and their uses:</p>
+            <dl>
+                <dt>abbr</dt> <dd id="abbr_definition">For abbreviations. The title attribute is set to the full name.</dd>
+                <button type="button" onclick="document.getElementById('abbr_definition').style.display = 'block'; this.style.display = 'none';">
+                    Show Description
+                </button>
+
+                <dt>del</dt> <dd id="del_definition">Adds a <del>strikethrough</del> to text.</dd>
+                <button type="button" onclick="document.getElementById('del_definition').style.display = 'block'; this.style.display = 'none';">
+                    Show Description
+                </button>
+
+                <dt>ins</dt> <dd id="ins_definition">Adds an <ins>underline</ins> to text.</dd>
+                <button type="button" onclick="document.getElementById('ins_definition').style.display = 'block'; this.style.display = 'none';">
+                    Show Description
+                </button>
+
+                <dt>dl</dt> <dd id="dl_definition">Definition list. Like this one right now.</dd>
+                <button type="button" onclick="document.getElementById('dl_definition').style.display = 'block'; this.style.display = 'none';">
+                    Show Description
+                </button>
+            </dl>
+
+            <hr>
+            <form>
+                <h2>Contact Form</h2>
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname"/><br>
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname"/><br>
+                <label for="age">Age:</label>
+                <input type="text" id="age"/><br>
+                <label for="email">Email:</label>
+                <input type="text" id="email"/><br>
+                <button type="button" onclick="validateContactForm()"> Submit </button>
+            </form>
+
+            <p id="contact-form-error"></p>
+
+            <div>
+                <h3>Contact Information</h3>
+                <p id="contact-name"></p>
+                <p id="contact-age"></p>
+                <p id="contact-email"></p>
+            </div>
+
+            <hr>
+            <form>
+                <h2>Do you play any sports?</h2>
+                <input type="radio" name="sports" value="yes"/>
+                <label style="padding-right: 20px;">Yes</label>
+                <input type="radio" name="sports" value="no" checked/>
+                <label>No</label>
+                <input class="hidden" type="radio" name="sports" value="maybe"/>
+                <br>
+                If so, which ones?
+                <input type="text"/><br>
+                <button type="submit">Submit</button>
+            </form>
+
+            <hr>
+            <h2>Display Using Property</h2>
+            <button onClick="navigateTable()">Navigate Table</button>
+            <div id="navigateTable"></div>
+        </div>
+
+        <div id="footer">
+            <p>Web Programming Languages</p>
+        </div>
+
+        <script type="text/javascript" src="main.js"></script>
+    </body>
+</html>
