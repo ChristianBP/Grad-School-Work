@@ -1,0 +1,212 @@
+html, body, main {
+    height: 100%;
+}
+
+body {
+    background-color: #fcfcfc;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+input, select, textarea, button {
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: cadetblue;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+#style-settings {
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+#style-settings label, #style-settings input, #style-settings select {
+    display: block;
+    margin: 0.5rem;
+}
+
+#datetime {
+    float: right;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav ul li:hover {
+    background-color: darkslategray;
+    border-radius: 5px;
+}
+
+nav ul li a {
+    color: white;
+    display: block;
+    font-size: 1.5em;
+    padding: 1rem;
+    text-decoration: none;
+}
+
+/* Main */
+main > * {
+    padding-top: 2rem !important;
+}
+
+main > .col {
+    padding-left: 3rem !important;
+}
+
+/* Flex */
+.row {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.col {
+    box-sizing: border-box;
+    flex: 0 1 50%;
+    padding: 0 1rem;
+}
+
+.col-side {
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+    flex: 0 1 25%;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.col-side h1 {
+    color: darkslateblue;
+    text-align: center;
+}
+
+.col-side ul {
+    color: crimson;
+    font-size: 1.5em;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Forms */
+form {
+    flex: 0 1 50%;
+}
+
+form input, form textarea, form select {
+    border-radius: 10px;
+    font-size: 1.25em;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+form input[type="checkbox"] {
+    height: 1.5rem;
+}
+
+form input[type="radio"] {
+    appearance: none;
+    background-color: gold;
+    height: 1.75rem;
+    margin-right: 0.5rem;
+    position: relative;
+    top: 0.25rem;
+    width: 2.5rem;
+}
+
+form input[type="radio"]:checked::before {
+    background-color: darkslateblue;
+    border-radius: 33%;
+    content: "";
+    height: 1rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1rem;
+}
+
+form label {
+    display: inline-block;
+    font-size: 1.5em;
+    line-height: 1.75rem;
+    margin: 0.5rem;
+}
+
+form button {
+    background-color: darkslateblue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 1rem;
+    width: 100%;
+}
+
+#returning {
+    display: none;
+}
+
+table {
+    border: 2px solid darkslateblue;
+    font-size: 1.25em;
+    margin: 0 auto;
+}
+
+table td {
+    padding: 0.5rem;
+}
+
+#passengers {
+    display: none;
+}
+
+#passengers > .row > :last-child {
+    display: none;
+}
+
+#passengers-icon {
+    height: 5rem;
+    width: 5rem;
+    cursor: pointer;
+}
+
+img {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.ml-50 {
+    margin-left: 50% !important;
+}
+
+#error {
+    color: red;
+    font-size: 1.25em;
+    min-height: 1.25rem;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background-color: darkslategray;
+    bottom: 0;
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}

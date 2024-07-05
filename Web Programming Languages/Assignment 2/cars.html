@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/mystyle.css"/>
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/cars.js" type="module"></script>
+    </head>
+    <body>
+        <header></header>
+        <main class="row">
+            <div class="col-side">
+                <h1>Cars</h1>
+                <table id="car-info"></table>
+            </div>
+            <form id="car-form" class="col">
+                <div class="row">
+                    <div class="col">
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city">
+                    </div>
+                    <div class="col">
+                        <label for="car-type">Car Type:</label>
+                        <select id="car-type" name="car-type">
+                            <option value="economy" selected>Economy</option>
+                            <option value="suv">SUV</option>
+                            <option value="compact">Compact</option>
+                            <option value="midsize">Midsize</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label for="check-in-date">Check-in Date:</label>
+                        <input type="date" id="check-in-date" name="check-in-date">
+                    </div>
+                    <div class="col">
+                        <label for="check-out-date">Check-out Date:</label>
+                        <input type="date" id="check-out-date" name="check-out-date">
+                    </div>
+                </div>
+
+                <p id="error"></p>
+
+                <div class="row">
+                    <div class="col ml-50">
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </main>
+        <footer></footer>
+    </body>
+</html>
