@@ -76,14 +76,20 @@ main > .col {
 
 .col {
     box-sizing: border-box;
-    flex: 0 1 50%;
+    flex: 0 1 100%;
+    padding: 0 1rem;
+}
+
+.col-50 {
+    box-sizing: border-box;
+    flex: 0 0 50%;
     padding: 0 1rem;
 }
 
 .col-side {
     background-color: #f3f3f3;
     box-sizing: border-box;
-    flex: 0 1 25%;
+    flex: 0 0 25%;
     padding: 0 1rem;
     text-align: center;
 }
@@ -91,6 +97,10 @@ main > .col {
 .col-side h1 {
     color: darkslateblue;
     text-align: center;
+}
+
+.col-side p {
+    text-align: left;
 }
 
 .col-side ul {
@@ -156,10 +166,7 @@ form button {
     width: 100%;
 }
 
-#returning {
-    display: none;
-}
-
+/* Tables */
 table {
     border: 2px solid darkslateblue;
     font-size: 1.25em;
@@ -170,6 +177,39 @@ table td {
     padding: 0.5rem;
 }
 
+/* Flight Card */
+.flight-card {
+    border: 4px solid darkseagreen;
+    border-radius: 20px;
+    background-color: lightgrey;
+    padding: 0 1rem;
+    margin: 0 2rem 1rem;
+}
+
+.flight-card h2 {
+    color: orangered;
+    margin: 0.75rem 0;
+}
+
+.flight-card h3 {
+    margin: 0;
+}
+
+.flight-card .row {
+    margin-bottom: 0.25rem;
+}
+
+.flight-card button {
+    background: darkcyan;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.25em;
+    height: 2em;
+    margin: 0 20%;
+}
+
+/* Passengers */
 #passengers {
     display: none;
 }
@@ -184,13 +224,14 @@ table td {
     cursor: pointer;
 }
 
+/* Random */
+#returning {
+    display: none;
+}
+
 img {
     height: 1.5rem;
     width: 1.5rem;
-}
-
-.ml-50 {
-    margin-left: 50% !important;
 }
 
 #error {
@@ -198,6 +239,10 @@ img {
     font-size: 1.25em;
     min-height: 1.25rem;
     text-align: center;
+}
+
+.p-0 {
+    padding: 0;
 }
 
 /* Footer */

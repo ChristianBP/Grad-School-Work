@@ -12,7 +12,7 @@
         <main class="row">
             <div class="col-side">
                 <h1>Flights</h1>
-                <table id="flight-info"></table>
+                <div id="available-flights"></div>
             </div>
             <form id="flight-form" class="col">
                 <div class="row">
@@ -23,59 +23,51 @@
                             <option value="roundtrip">Round Trip</option>
                         </select>
                     </div>
-                </div>
-
-                <div id="leaving">
-                    <div class="row">
-                        <div class="col">
-                            <label for="origin"><img id="origin-icon" src="images/house.svg"> Origin:</label>
-                            <input type="text" id="origin" name="origin">
-                        </div>
-                        <div class="col">
-                            <label for="destination"><img id="destination-icon" src="images/mountain-city.svg"> Destination:</label>
-                            <input type="text" id="destination" name="destination">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <label for="departure-date-leave"><img id="departure-icon" src="images/plane-departure.svg"> Departure Date:</label>
-                            <input type="date" id="departure-date-leave" name="departure-date-leave">
-                        </div>
-                        <div class="col">
-                            <label for="arrival-date-leave"><img id="arrival-icon" src="images/plane-arrival.svg"> Arrival Date:</label>
-                            <input type="date" id="arrival-date-leave" name="arrival-date-leave">
-                        </div>
+                    <div class="col">
+                        <label for="origin"><img id="origin-icon" src="images/house.svg"> Origin:</label>
+                        <input type="text" id="origin" name="origin">
                     </div>
                 </div>
-
-                <div id="returning">
-                    <div class="row">
-                        <div class="col">
-                            <label for="departure-date-return"><img id="return-departure-icon" src="images/plane-departure.svg"> Return Departure Date:</label>
-                            <input type="date" id="departure-date-return" name="departure-date-return">
-                        </div>
-                        <div class="col">
-                            <label for="arrival-date-return"><img id="return-arrival-icon" src="images/plane-departure.svg"> Return Arrival Date:</label>
-                            <input type="date" id="arrival-date-return" name="arrival-date-return">
-                        </div>
-                    </div>
-                </div>
-
-                <p id="error"></p>
 
                 <div class="row">
-                    <div class="col ml-50">
-                        <button type="submit">Submit</button>
+                    <div class="col p-0">
+                        <table id="flight-info"></table>
+                    </div>
+                    <div class="col p-0">
+                        <div class="row">
+                            <div class="col">
+                                <label for="destination"><img id="destination-icon" src="images/mountain-city.svg"> Destination:</label>
+                                <input type="text" id="destination" name="destination">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="departure-date-leave"><img id="departure-icon" src="images/plane-departure.svg"> Departure Date:</label>
+                                <input type="date" id="departure-date-leave" name="departure-date-leave">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col" id="returning">
+                                <label for="departure-date-return"><img id="return-departure-icon" src="images/plane-departure.svg"> Return Departure Date:</label>
+                                <input type="date" id="departure-date-return" name="departure-date-return">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit">Search</button>
+                                <p id="error"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </form>
             <div class="col-side">
                 <h3>Passengers</h3>
                 <img id="passengers-icon" src="images/person-walking-luggage.svg" alt="Passengers">
                 <form id="passengers">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-50">
                             <label for="adults-toggle"><img id="adults-icon" src="images/person.svg"> Adults</label>
                             <input type="checkbox" id="adults-toggle" name="adults-toggle">
                         </div>
@@ -86,7 +78,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
+                        <div class="col-50">
                             <label for="children-toggle"><img id="children-icon" src="images/child.svg"> Children</label>
                             <input type="checkbox" id="children-toggle" name="children-toggle">
                         </div>
@@ -97,7 +89,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
+                        <div class="col-50">
                             <label for="infants-toggle"><img id="infants-icon" src="images/baby.svg"> Infants</label>
                             <input type="checkbox" id="infants-toggle" name="infants-toggle">
                         </div>
