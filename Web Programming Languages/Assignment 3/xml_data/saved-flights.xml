@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flights>
+    <flight>
+        <flight-id>1</flight-id>
+        <origin>Dallas</origin>
+        <destination>Los Angeles</destination>
+        <departure-date>9/1/2024</departure-date>
+        <arrival-date>9/1/2024</arrival-date>
+        <departure-time>8:00</departure-time>
+        <arrival-time>10:30</arrival-time>
+        <price>250</price>
+        <adults>2</adults>
+        <children>1</children>
+        <infants>0</infants>
+    </flight>
+    <flight>
+        <flight-id>1</flight-id>
+        <origin>Dallas</origin>
+        <destination>Los Angeles</destination>
+        <departure-date>9/1/2024</departure-date>
+        <arrival-date>9/1/2024</arrival-date>
+        <departure-time>8:00</departure-time>
+        <arrival-time>10:30</arrival-time>
+        <price>250</price>
+        <adults>2</adults>
+        <children>1</children>
+        <infants>0</infants>
+    </flight>
+    <flight>
+        <flight-id>1</flight-id>
+        <origin>Dallas</origin>
+        <destination>Los Angeles</destination>
+        <departure-date>9/1/2024</departure-date>
+        <arrival-date>9/1/2024</arrival-date>
+        <departure-time>8:00</departure-time>
+        <arrival-time>10:30</arrival-time>
+        <price>250</price>
+        <adults>2</adults>
+        <children>1</children>
+        <infants>0</infants>
+    </flight>
+    <flight>
+        <flight-id>1</flight-id>
+        <origin>Dallas</origin>
+        <destination>Los Angeles</destination>
+        <departure-date>9/1/2024</departure-date>
+        <arrival-date>9/1/2024</arrival-date>
+        <departure-time>8:00</departure-time>
+        <arrival-time>10:30</arrival-time>
+        <price>250</price>
+        <adults>2</adults>
+        <children>1</children>
+        <infants>0</infants>
+    </flight>
+    <flight>
+        <flight-id>1</flight-id>
+        <origin>Dallas</origin>
+        <destination>Los Angeles</destination>
+        <departure-date>9/1/2024</departure-date>
+        <arrival-date>9/1/2024</arrival-date>
+        <departure-time>8:00</departure-time>
+        <arrival-time>10:30</arrival-time>
+        <price>250</price>
+        <adults>2</adults>
+        <children>1</children>
+        <infants>0</infants>
+    </flight>
+    <flight>
+        <flight-id>1</flight-id>
+        <origin>Dallas</origin>
+        <destination>Los Angeles</destination>
+        <departure-date>9/1/2024</departure-date>
+        <arrival-date>9/1/2024</arrival-date>
+        <departure-time>8:00</departure-time>
+        <arrival-time>10:30</arrival-time>
+        <price>250</price>
+        <adults>2</adults>
+        <children>1</children>
+        <infants>0</infants>
+    </flight>
+</flights>

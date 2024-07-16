@@ -1,7 +1,3 @@
-html, body, main {
-    height: 100%;
-}
-
 body {
     background-color: #fcfcfc;
     font-family: 'Trebuchet MS', Arial, sans-serif;
@@ -60,6 +56,11 @@ nav ul li a {
 }
 
 /* Main */
+main {
+    min-height: 100vh;
+    padding-bottom: calc(1rem + 75px) !important;
+}
+
 main > * {
     padding-top: 2rem !important;
 }
@@ -74,10 +75,27 @@ main > .col {
     margin-bottom: 1rem;
 }
 
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
 .col {
     box-sizing: border-box;
     flex: 0 1 100%;
     padding: 0 1rem;
+}
+
+.col-25 {
+    box-sizing: border-box;
+    flex: 0 0 25%;
+    padding: 0 1rem;
+
+}
+
+.col-33 {
+    box-sizing: border-box;
+    flex: 0 0 calc(100% / 3);
+    padding-top: 0 !important;
 }
 
 .col-50 {
@@ -90,7 +108,8 @@ main > .col {
     background-color: #f3f3f3;
     box-sizing: border-box;
     flex: 0 0 25%;
-    padding: 0 1rem;
+    overflow: auto;
+    padding: 1rem;
     text-align: center;
 }
 
@@ -177,36 +196,56 @@ table td {
     padding: 0.5rem;
 }
 
-/* Flight Card */
-.flight-card {
-    border: 4px solid darkseagreen;
-    border-radius: 20px;
+/* Cards */
+.card {
     background-color: lightgrey;
+    border: 4px solid black;
+    border-radius: 20px;
+    margin: 0 1rem 1rem;
     padding: 0 1rem;
-    margin: 0 2rem 1rem;
 }
 
-.flight-card h2 {
-    color: orangered;
+.card h2 {
     margin: 0.75rem 0;
 }
 
-.flight-card h3 {
+.card h3 {
     margin: 0;
 }
 
-.flight-card .row {
+.card .row {
     margin-bottom: 0.25rem;
 }
 
-.flight-card button {
-    background: darkcyan;
+.card button {
     border-radius: 10px;
     color: white;
     cursor: pointer;
     font-size: 1.25em;
     height: 2em;
     margin: 0 20%;
+}
+
+/* Flight Card */
+.flight-card {
+    border-color: darkseagreen;
+}
+
+.flight-card h2 {
+    color: orangered;
+}
+
+.flight-card button {
+    background: darkcyan;
+}
+
+/* Stay Card */
+.stay-card h2 {
+    color: crimson;
+}
+
+.stay-card button {
+    background: darkmagenta;
 }
 
 /* Passengers */
@@ -222,6 +261,10 @@ table td {
     height: 5rem;
     width: 5rem;
     cursor: pointer;
+}
+
+#passenger-form {
+    padding: 0 5rem;
 }
 
 /* Random */
@@ -245,13 +288,46 @@ img {
     padding: 0;
 }
 
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.side-borders {
+    border-left: 4px solid darkslateblue;
+    border-right: 4px solid darkslateblue;
+}
+
+.title {
+    background-color: papayawhip;
+    margin-top: 0;
+    padding: 1rem 0;
+    width: 100%;
+}
+
 /* Footer */
 footer {
     background-color: darkslategray;
     bottom: 0;
     color: white;
+    height: 75px;
     padding: 1rem 0;
     position: fixed;
     text-align: center;
     width: 100%;
+}
+
+/* jQuery UI */
+.ui-widget-header {
+    background-color: darkslateblue !important;
+    border: 1px solid darkslateblue !important;
+    color: white !important;
+}
+
+.ui-dialog-buttonset .ui-button {
+    background-color: darkcyan !important;
+    color: white !important;
 }

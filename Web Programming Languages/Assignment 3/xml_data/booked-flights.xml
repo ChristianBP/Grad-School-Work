@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flights>
+    <flight>
+        <booking-number>123546</booking-number>
+        <flight-id>1</flight-id>
+        <origin>Dallas</origin>
+        <destination>Los Angeles</destination>
+        <departure-date>9/1/2024</departure-date>
+        <arrival-date>9/1/2024</arrival-date>
+        <departure-time>8:00</departure-time>
+        <arrival-time>10:30</arrival-time>
+        <price>650</price>
+        <passengers>
+            <passenger>
+                <first-name>John</first-name>
+                <last-name>Smith</last-name>
+                <dob>1/1/2000</dob>
+                <ssn>123-45-6789</ssn>
+            </passenger>
+            <passenger>
+                <first-name>Jane</first-name>
+                <last-name>Doe</last-name>
+                <dob>2/2/2000</dob>
+                <ssn>987-65-4321</ssn>
+            </passenger>
+        </passengers>
+    </flight>
+</flights>

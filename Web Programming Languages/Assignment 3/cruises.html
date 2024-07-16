@@ -3,7 +3,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/mystyle.css"/>
-        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="jquery/jquery-3.7.1.min.js"></script>
         <script src="js/main.js"></script>
         <script src="js/cruises.js" type="module"></script>
     </head>
@@ -50,24 +50,58 @@
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col-50">
                         <label for="num-rooms">Number of Rooms:</label>
                         <input type="number" id="num-rooms" name="num-rooms" min="0" value="1">
                     </div>
                     <div class="col">
-                        <label for="num-passengers">Number of Passengers:</label>
-                        <input type="number" id="num-passengers" name="num-passengers" min="0" value="1">
+                        <button type="submit">Submit</button>
                     </div>
                 </div>
 
                 <p id="error"></p>
 
                 <div class="row">
-                    <div class="col ml-50">
-                        <button type="submit">Submit</button>
-                    </div>
                 </div>
             </form>
+            <div class="col-side">
+                <h3>Guests</h3>
+                <img id="passengers-icon" src="images/person-walking-luggage.svg" alt="Passengers">
+                <form id="passengers">
+                    <div class="row">
+                        <div class="col-50">
+                            <label for="adults-toggle"><img id="adults-icon" src="images/person.svg"> Adults</label>
+                            <input type="checkbox" id="adults-toggle" name="adults-toggle">
+                        </div>
+                        <div class="col adults">
+                            <label for="adults">Number</label>
+                            <input type="number" id="adults" name="adults" min="0" value="0">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-50">
+                            <label for="children-toggle"><img id="children-icon" src="images/child.svg"> Children</label>
+                            <input type="checkbox" id="children-toggle" name="children-toggle">
+                        </div>
+                        <div class="col children">
+                            <label for="children">Number</label>
+                            <input type="number" id="children" name="children" min="0" value="0">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-50">
+                            <label for="infants-toggle"><img id="infants-icon" src="images/baby.svg"> Infants</label>
+                            <input type="checkbox" id="infants-toggle" name="infants-toggle">
+                        </div>
+                        <div class="col infants">
+                            <label for="infants">Number</label>
+                            <input type="number" id="infants" name="infants" min="0" value="0">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </main>
         <footer></footer>
     </body>
