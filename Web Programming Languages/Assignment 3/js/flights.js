@@ -1,12 +1,12 @@
 import { validCities } from './locations.js';
 import { cardRow } from './utils.js';
 
-const showAvailableFlights = (origin, destination, departureDate, passengerCount) => {
+const showAvailableFlights = (origin, destination, departureDate, adults, children, infants) => {
     const xhttp = new XMLHttpRequest();
     xhttp.open('GET', 'xml_data/flights.xml', true);
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            const flightData = $(this.responseXML).find('flight').toArray().map(
+            let flightData = $(this.responseXML).find('flight').toArray().map(
                 flight => ({
                     origin: $(flight).find('origin').text(),
                     destination: $(flight).find('destination').text(),
@@ -20,25 +20,25 @@ const showAvailableFlights = (origin, destination, departureDate, passengerCount
                 })
             );
 
-            let threeDaysBefore = new Date(departureDate);
-            threeDaysBefore.setDate(departureDate.getDate() - 3);
-            let threeDaysAfter = new Date(departureDate);
-            threeDaysAfter.setDate(departureDate.getDate() + 3);
-
-            let filteredFlightData = flightData.filter(flight =>
+            flightData = flightData.filter(flight =>
                 flight.origin === origin &&
                 flight.destination === destination &&
-                flight.departureDate === departureDate.toLocaleDateString() &&
-                flight.availableSeats >= passengerCount
+                flight.availableSeats >= adults + children + infants
+            );
+
+            let filteredFlightData = flightData.filter(flight =>
+                flight.departureDate === departureDate.toLocaleDateString()
             );
 
             if (filteredFlightData.length === 0) {
+                let threeDaysBefore = new Date(departureDate);
+                threeDaysBefore.setDate(departureDate.getDate() - 3);
+                let threeDaysAfter = new Date(departureDate);
+                threeDaysAfter.setDate(departureDate.getDate() + 3);
+
                 filteredFlightData = flightData.filter(flight =>
-                    flight.origin === origin &&
-                    flight.destination === destination &&
                     new Date(flight.departureDate) >= threeDaysBefore &&
-                    new Date(flight.departureDate) <= threeDaysAfter &&
-                    flight.availableSeats >= passengerCount
+                    new Date(flight.departureDate) <= threeDaysAfter
                 );
             }
 
@@ -49,6 +49,27 @@ const showAvailableFlights = (origin, destination, departureDate, passengerCount
 
             $('#available-flights').empty();
             for (const flight of filteredFlightData) {
+                const addToCartButton = $('<button></button>')
+                    .addClass('col')
+                    .text('Add to Cart')
+                    .on('click', function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            type: 'POST',
+                            url: 'php/save_or_book_flight.php',
+                            data: {
+                                flightId: flight.flightId,
+                                adults: adults,
+                                children: children,
+                                infants: infants,
+                                action: 'save'
+                            },
+                            success: function () {
+                                alert('Added to Cart!');
+                            }
+                        });
+                    });
+
                 $('#available-flights').append(
                     $('<div></div>').addClass('card flight-card').append(
                         $('<h2></h2>').text(`${flight.origin} to ${flight.destination}`),
@@ -57,9 +78,7 @@ const showAvailableFlights = (origin, destination, departureDate, passengerCount
                         cardRow('Available Seats', flight.availableSeats),
                         cardRow('Price', `$${flight.price}`),
                         cardRow('ID', flight.flightId),
-                        $('<div></div>').addClass('row').append(
-                            $('<button></button>').addClass('col').text('Add to Cart')
-                        )
+                        $('<div></div>').addClass('row').append(addToCartButton)
                     )
                 );
             }
@@ -93,7 +112,6 @@ $(document).ready(function () {
         const adults = parseInt($('#adults').val()) || 0;
         const children = parseInt($('#children').val()) || 0;
         const infants = parseInt($('#infants').val()) || 0;
-        const passengerCount = adults + children + infants;
 
         const validDate = (date) => new Date('2024/09/01') <= date && date <= new Date('2024/12/01');
 
@@ -103,7 +121,7 @@ $(document).ready(function () {
                 'Departure date must be between Sep 1, 2024 and Dec 1, 2024.' :
                 categoriesChecked < 1 ?
                     'At least one passenger type must be selected.' :
-                    passengerCount < 1 ?
+                    adults + children + infants < 1 ?
                         'Number of passengers must be at least 1.' :
                         adults > 4 || children > 4 || infants > 4 ?
                             'Number of passengers for each category cannot be more than 4.' :
@@ -155,7 +173,7 @@ $(document).ready(function () {
             $('#flight-info').html(tableHtml);
             $('#flight-info').show();
 
-            showAvailableFlights(origin, destination, departureDateLeave, passengerCount);
+            showAvailableFlights(origin, destination, departureDateLeave, adults, children, infants);
         }
     });
 });

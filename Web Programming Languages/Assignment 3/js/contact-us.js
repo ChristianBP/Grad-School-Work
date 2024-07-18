@@ -29,7 +29,21 @@ $(document).ready(function() {
 
         if (!error) {
             $('#error').text('');
-            alert("Submitted!");
+            $.ajax({
+                url: 'php/contact_us.php',
+                method: 'POST',
+                data: {
+                    firstname: firstname,
+                    lastname: lastname,
+                    phonenumber: phonenumber,
+                    email: email,
+                    gender: $('input[name="gender"]:checked').val(),
+                    comment: comment
+                },
+                success: function() {
+                    alert("Saved!");
+                }
+            });
         }
         else {
             $('#error').text(error);
