@@ -1,16 +1,1 @@
-{
-    "hotels": [
-        {
-            "hotel_id": 1,
-            "hotel_name": "Hilton",
-            "city": "Austin",
-            "price_per_night": 100
-        },
-        {
-            "hotel_id": 2,
-            "hotel_name": "Marriott",
-            "city": "San Francisco",
-            "price_per_night": 150
-        }
-    ]
-}
+[{"hotel_id":13,"check_in_date":"9\/20\/2024","check_out_date":"9\/22\/2024","adults":3,"children":0,"infants":3,"num_rooms":2,"city":"Dallas","hotel_name":"The Adolphus","price_per_night":"80","total_price":"160"}]

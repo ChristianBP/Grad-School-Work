@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<flights/>
+<flights><flight><departure-flight-id>20</departure-flight-id><adults>1</adults><children>0</children><infants>0</infants><saving-number>669a2cbc2d76a</saving-number></flight><flight><departure-flight-id>20</departure-flight-id><adults>1</adults><children>0</children><infants>0</infants><return-flight-id>9</return-flight-id><saving-number>669a2cdcd9353</saving-number></flight></flights>

@@ -1,7 +1,7 @@
 import { validCities } from './locations.js';
 import { cardRow } from './utils.js';
 
-const showAvailableFlights = (origin, destination, departureDate, adults, children, infants) => {
+const showAvailableFlights = (origin, destination, departureDate, adults, children, infants, departureDateReturn, firstFlightId = null) => {
     const xhttp = new XMLHttpRequest();
     xhttp.open('GET', 'xml_data/flights.xml', true);
     xhttp.onreadystatechange = function () {
@@ -48,26 +48,33 @@ const showAvailableFlights = (origin, destination, departureDate, adults, childr
             }
 
             $('#available-flights').empty();
+            $('#available-flights').append($('<h2></h2>').text(firstFlightId ? "Return" : "Departure"));
             for (const flight of filteredFlightData) {
                 const addToCartButton = $('<button></button>')
                     .addClass('col')
                     .text('Add to Cart')
                     .on('click', function (e) {
                         e.preventDefault();
-                        $.ajax({
-                            type: 'POST',
-                            url: 'php/save_or_book_flight.php',
-                            data: {
-                                flightId: flight.flightId,
-                                adults: adults,
-                                children: children,
-                                infants: infants,
-                                action: 'save'
-                            },
-                            success: function () {
-                                alert('Added to Cart!');
-                            }
-                        });
+                        if (departureDateReturn) {
+                            showAvailableFlights(origin, destination, departureDateReturn, adults, children, infants, null, flight.flightId);
+                        }
+                        else {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'php/save_or_book_flight.php',
+                                data: {
+                                    departureFlightId: firstFlightId ? firstFlightId : flight.flightId,
+                                    returnFlightId: firstFlightId ? flight.flightId : null,
+                                    adults: adults,
+                                    children: children,
+                                    infants: infants,
+                                    action: 'save'
+                                },
+                                success: function () {
+                                    alert('Added to Cart!');
+                                }
+                            });
+                        }
                     });
 
                 $('#available-flights').append(
@@ -128,9 +135,9 @@ $(document).ready(function () {
                             false;
 
         var roundTripDetails = {};
-
+        var departureDateReturn = null;
         if ($('#trip-type').val() === 'roundtrip') {
-            const departureDateReturn = new Date($('#departure-date-return').val().replace(/-/g, '/'));
+            departureDateReturn = new Date($('#departure-date-return').val().replace(/-/g, '/'));
 
             error = error || (
                 !validDate(departureDateReturn) ?
@@ -173,7 +180,7 @@ $(document).ready(function () {
             $('#flight-info').html(tableHtml);
             $('#flight-info').show();
 
-            showAvailableFlights(origin, destination, departureDateLeave, adults, children, infants);
+            showAvailableFlights(origin, destination, departureDateLeave, adults, children, infants, departureDateReturn);
         }
     });
 });

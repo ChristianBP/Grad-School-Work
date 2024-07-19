@@ -1,12 +1,12 @@
 import { validCities } from './locations.js';
 import { cardRow } from './utils.js';
 
-const showAvailableHotels = (city) => {
+const showAvailableHotels = (city, checkInDate, checkOutDate, adults, children, infants, numRooms) => {
     const xhttp = new XMLHttpRequest();
-    xhttp.open('GET', 'json_data/available-hotels.json', true);
+    xhttp.open('GET', 'json_data/hotels.json', true);
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            const hotels = JSON.parse(this.responseText).hotels;
+            const hotels = JSON.parse(this.responseText);
             const filteredHotels = hotels.filter(hotel => hotel.city === city);
 
             if (filteredHotels.length === 0) {
@@ -16,15 +16,36 @@ const showAvailableHotels = (city) => {
 
             $('#available-hotels').empty();
             for (const hotel of filteredHotels) {
+                const addToCartButton = $('<button></button>')
+                    .addClass('col')
+                    .text('Add to Cart')
+                    .on('click', function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            type: 'POST',
+                            url: 'php/save_or_book_hotel.php',
+                            data: {
+                                hotel_id: hotel.hotel_id,
+                                check_in_date: checkInDate.toLocaleDateString(),
+                                check_out_date: checkOutDate.toLocaleDateString(),
+                                adults: adults,
+                                children: children,
+                                infants: infants,
+                                num_rooms: numRooms,
+                                action: 'save'
+                            },
+                            success: function () {
+                                alert('Added to Cart!');
+                            }
+                        });
+                    });
                 $('#available-hotels').append(
                     $('<div></div>').addClass('card stay-card').append(
                         $('<h2></h2>').text(`${hotel.hotel_name}`),
                         cardRow('City', hotel.city),
                         cardRow('Price Per Night', `$${hotel.price_per_night}`),
                         cardRow('ID', hotel.hotel_id),
-                        $('<div></div>').addClass('row').append(
-                            $('<button></button>').addClass('col').text('Add to Cart')
-                        )
+                        $('<div></div>').addClass('row').append(addToCartButton)
                     )
                 );
             }
@@ -86,7 +107,7 @@ $(document).ready(function() {
             $('#stay-info').html(tableHtml);
             $('#stay-info').show();
 
-            showAvailableHotels(city);
+            showAvailableHotels(city, checkInDate, checkOutDate, adults, children, infants, numRooms);
         }
     });
 });

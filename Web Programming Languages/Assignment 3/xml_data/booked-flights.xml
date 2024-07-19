@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<flights><flight><flight-id>21</flight-id><adults>1</adults><children>0</children><infants>0</infants><booking-number>6698b2a09b195</booking-number><passengers><passenger><firstname>Christian</firstname><lastname>Parker</lastname><dateofbirth>1212-12-12</dateofbirth><ssn>1111111</ssn></passenger></passengers></flight></flights>
+<flights><flight><departure-flight-id>20</departure-flight-id><adults>1</adults><children>0</children><infants>0</infants><return-flight-id>9</return-flight-id><booking-number>669a2d6953666</booking-number><passengers><passenger><firstname>Christian</firstname><lastname>Parker</lastname><dateofbirth>1212-12-12</dateofbirth><ssn>12121121</ssn></passenger></passengers></flight></flights>

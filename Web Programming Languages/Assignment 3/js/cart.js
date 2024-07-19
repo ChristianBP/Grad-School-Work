@@ -39,10 +39,25 @@ const loadFlightData = (flights) => {
     xhttp.send();
 
     return flights.map(flight => {
-        return {
-            ...flight,
-            ...flightData.find(f => f.flightId === flight.flightId)
+        let res = {
+            'departure': {
+                ...flight.departure,
+                ...flightData.find(f => f.flightId === flight.departure.flightId)
+            },
+            'adults': flight.adults,
+            'children': flight.children,
+            'infants': flight.infants,
+            'passengers': flight.passengers,
+            'savingNumber': flight.savingNumber,
+            'bookingNumber': flight.bookingNumber
         };
+        if (flight.returning) {
+            res['returning'] = {
+                ...flight.returning,
+                ...flightData.find(f => f.flightId === flight.returning.flightId)
+            };
+        }
+        return res;
     });
 }
 
@@ -52,13 +67,25 @@ const loadSavedFlights = () => {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             const flights = $(this.responseXML).find('flight').toArray().map(
-                flight => ({
-                    'flightId': $(flight).find('flight-id').text(),
-                    'adults': parseInt($(flight).find('adults').text()),
-                    'children': parseInt($(flight).find('children').text()),
-                    'infants': parseInt($(flight).find('infants').text()),
-                    'savingNumber': $(flight).find('saving-number').text()
-                })
+                flight => {
+                    const departureFlightId = $(flight).find('departure-flight-id');
+                    const returnFlightId = $(flight).find('return-flight-id');
+                    let res = {
+                        'departure': {
+                            'flightId': departureFlightId.text()
+                        },
+                        'adults': parseInt($(flight).find('adults').text()),
+                        'children': parseInt($(flight).find('children').text()),
+                        'infants': parseInt($(flight).find('infants').text()),
+                        'savingNumber': $(flight).find('saving-number').text(),
+                    };
+                    if (returnFlightId.length > 0) {
+                        res['returning'] = {
+                            'flightId': returnFlightId.text(),
+                        };
+                    }
+                    return res;
+                }
             );
 
             const flightData = loadFlightData(flights);
@@ -100,7 +127,8 @@ const loadSavedFlights = () => {
                                 type: 'POST',
                                 url: 'php/save_or_book_flight.php',
                                 data: {
-                                    flightId: flight.flightId,
+                                    departureFlightId: flight.departure.flightId,
+                                    returnFlightId: flight.returning ? flight.returning.flightId : null,
                                     adults: flight.adults,
                                     children: flight.children,
                                     infants: flight.infants,
@@ -117,15 +145,25 @@ const loadSavedFlights = () => {
                     });
 
                 $('#saved-flights').append(
-                    $('<form></form>').addClass('card flight-card col-25').append(
-                        $('<h2></h2>').text(`${flight.origin} to ${flight.destination}`),
-                        cardRow('Flight ID', flight.flightId),
-                        cardRow('Departure', `${flight.departureTime} ${flight.departureDate}`),
-                        cardRow('Arrival', `${flight.arrivalTime} ${flight.arrivalDate}`),
+                    $('<form></form>').addClass('card flight-card col').append(
+                        $('<h2></h2>').text(`${flight.departure.origin} to ${flight.departure.destination}`),
+                        cardRow('Flight ID', flight.departure.flightId),
+                        cardRow('Departure', `${flight.departure.departureTime} ${flight.departure.departureDate}`),
+                        cardRow('Arrival', `${flight.departure.arrivalTime} ${flight.departure.arrivalDate}`),
                         cardRow('Adults', flight.adults),
                         cardRow('Children', flight.children),
                         cardRow('Infants', flight.infants),
-                        cardRow('Total Price', `$${flight.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`),
+                        cardRow('Total Price', `$${flight.departure.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`),
+                        flight.returning ? [
+                            $('<h2></h2>').text(`${flight.returning.origin} to ${flight.returning.destination}`),
+                            cardRow('Flight ID', flight.returning.flightId),
+                            cardRow('Departure', `${flight.returning.departureTime} ${flight.returning.departureDate}`),
+                            cardRow('Arrival', `${flight.returning.arrivalTime} ${flight.returning.arrivalDate}`),
+                            cardRow('Adults', flight.adults),
+                            cardRow('Children', flight.children),
+                            cardRow('Infants', flight.infants),
+                            cardRow('Total Price', `$${flight.returning.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`)
+                        ] : [],
                         $('<div></div>').addClass('row').append(bookButton)
                     )
                 );
@@ -141,14 +179,26 @@ const loadBookedFlights = () => {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             const flights = $(this.responseXML).find('flight').toArray().map(
-                flight => ({
-                    'bookingNumber': $(flight).find('booking-number').text(),
-                    'flightId': $(flight).find('flight-id').text(),
-                    'adults': parseInt($(flight).find('adults').text()),
-                    'children': parseInt($(flight).find('children').text()),
-                    'infants': parseInt($(flight).find('infants').text()),
-                    'passengers': $(flight).find('passenger'),
-                })
+                flight => {
+                    const departureFlightId = $(flight).find('departure-flight-id');
+                    const returnFlightId = $(flight).find('return-flight-id');
+                    let res = {
+                        'departure': {
+                            'flightId': departureFlightId.text()
+                        },
+                        'adults': parseInt($(flight).find('adults').text()),
+                        'children': parseInt($(flight).find('children').text()),
+                        'infants': parseInt($(flight).find('infants').text()),
+                        'passengers': $(flight).find('passenger'),
+                        'bookingNumber': $(flight).find('booking-number').text()
+                    };
+                    if (returnFlightId.length > 0) {
+                        res['returning'] = {
+                            'flightId': returnFlightId.text(),
+                        };
+                    }
+                    return res;
+                }
             );
 
             const flightData = loadFlightData(flights);
@@ -188,14 +238,133 @@ const loadBookedFlights = () => {
                     });
 
                 $('#booked-flights').append(
-                    $('<form></form>').addClass('card flight-card col-25').append(
-                        $('<h2></h2>').text(`${flight.origin} to ${flight.destination}`),
-                        cardRow('Booking Number', flight.bookingNumber),
-                        cardRow('Flight ID', flight.flightId),
-                        cardRow('Departure', `${flight.departureTime} ${flight.departureDate}`),
-                        cardRow('Arrival', `${flight.arrivalTime} ${flight.arrivalDate}`),
-                        cardRow('Total Price', `$${flight.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`),
-                        $('<div></div>').addClass('row').append(passengerInfoButton)
+                    $('<form></form>').addClass('card flight-card col').append(
+                        $('<h2></h2>').text(`${flight.departure.origin} to ${flight.departure.destination}`),
+                        cardRow('Flight ID', flight.departure.flightId),
+                        cardRow('Departure', `${flight.departure.departureTime} ${flight.departure.departureDate}`),
+                        cardRow('Arrival', `${flight.departure.arrivalTime} ${flight.departure.arrivalDate}`),
+                        cardRow('Total Price', `$${flight.departure.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`),
+                        flight.returning ? [
+                            $('<h2></h2>').text(`${flight.returning.origin} to ${flight.returning.destination}`),
+                            cardRow('Flight ID', flight.returning.flightId),
+                            cardRow('Departure', `${flight.returning.departureTime} ${flight.returning.departureDate}`),
+                            cardRow('Arrival', `${flight.returning.arrivalTime} ${flight.returning.arrivalDate}`),
+                            cardRow('Total Price', `$${flight.returning.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`)
+                        ] : [],
+                        $('<div></div>').addClass('row').append(passengerInfoButton),
+                        cardRow('Booking Number', flight.bookingNumber)
+                    )
+                );
+            }
+        }
+    }
+    xhttp.send();
+}
+
+const loadHotelData = (hotels) => {
+    let hotelData = [];
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('GET', 'json_data/hotels.json', false);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            hotelData = JSON.parse(this.responseText);
+        }
+    }
+    xhttp.send();
+
+    return hotels.map(hotel => {
+        return {
+            ...hotel,
+            ...hotelData.find(h => h.hotel_id === hotel.hotel_id)
+        };
+    });
+}
+
+const loadSavedHotels = () => {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('GET', 'json_data/saved-hotels.json', true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            const hotels = loadHotelData(JSON.parse(this.responseText));
+
+            for (const hotel of hotels) {
+                const total_price = hotel.price_per_night * (new Date(hotel.check_out_date) - new Date(hotel.check_in_date)) / (1000 * 60 * 60 * 24);
+
+                const bookButton = $('<button></button>')
+                    .addClass('col')
+                    .text('Book')
+                    .attr('type', 'submit')
+                    .on('click', function (e) {
+                        e.preventDefault();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'php/save_or_book_hotel.php',
+                            data: {
+                                hotel_id: hotel.hotel_id,
+                                city: hotel.city,
+                                hotel_name: hotel.hotel_name,
+                                check_in_date: hotel.check_in_date,
+                                check_out_date: hotel.check_out_date,
+                                adults: hotel.adults,
+                                children: hotel.children,
+                                infants: hotel.infants,
+                                num_rooms: hotel.num_rooms,
+                                price_per_night: hotel.price_per_night,
+                                total_price: total_price,
+                                savingNumber: hotel.savingNumber,
+                                action: 'book'
+                            },
+                            success: function () {
+                                alert('Booked hotel successfully!');
+                                location.reload();
+                            }
+                        });
+                    });
+
+                $('#saved-hotels').append(
+                    $('<form></form>').addClass('card hotel-card col').append(
+                        $('<h2></h2>').text(`${hotel.hotel_name}`),
+                        cardRow('Hotel ID', hotel.hotel_id),
+                        cardRow('City', `${hotel.city}`),
+                        cardRow('Adults', hotel.adults),
+                        cardRow('Children', hotel.children),
+                        cardRow('Infants', hotel.infants),
+                        cardRow('Check In Date', hotel.check_in_date),
+                        cardRow('Check Out Date', hotel.check_out_date),
+                        cardRow('Number of Rooms', hotel.num_rooms),
+                        cardRow('Price Per Night', `$${hotel.price_per_night}`),
+                        cardRow('Total Price', `$${total_price}`),
+                        $('<div></div>').addClass('row').append(bookButton)
+                    )
+                );
+            }
+        }
+    }
+    xhttp.send();
+}
+
+const loadBookedHotels = () => {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('GET', 'json_data/booked-hotels.json', true);
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            const hotels = JSON.parse(this.responseText);
+
+            for (const hotel of hotels) {
+                $('#booked-hotels').append(
+                    $('<div></div>').addClass('card hotel-card col').append(
+                        $('<h2></h2>').text(`${hotel.hotel_name}`),
+                        cardRow('Hotel ID', hotel.hotel_id),
+                        cardRow('City', `${hotel.city}`),
+                        cardRow('Adults', hotel.adults),
+                        cardRow('Children', hotel.children),
+                        cardRow('Infants', hotel.infants),
+                        cardRow('Check In Date', hotel.check_in_date),
+                        cardRow('Check Out Date', hotel.check_out_date),
+                        cardRow('Number of Rooms', hotel.num_rooms),
+                        cardRow('Price Per Night', `$${hotel.price_per_night}`),
+                        cardRow('Total Price', `$${hotel.total_price}`),
                     )
                 );
             }
@@ -207,4 +376,6 @@ const loadBookedFlights = () => {
 $(document).ready(function () {
     loadSavedFlights();
     loadBookedFlights();
+    loadSavedHotels();
+    loadBookedHotels();
 });
