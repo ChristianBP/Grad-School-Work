@@ -42,10 +42,14 @@ if ($action == 'save') {
     $hotel['price_per_night'] = $price_per_night;
     $hotel['total_price'] = $totalPrice;
 
-    $savingNumber = $_POST['savingNumber'];
+    $savingNumber = $_POST['saving_number'];
     $savedHotelsData = json_decode(file_get_contents('../json_data/saved-hotels.json'), true);
-    $savedHotelDataIndex = array_search(['hotel_id' => $hotelId, 'saving_number' => $savingNumber], $savedHotelsData);
-    unset($savedHotelsData[$savedHotelDataIndex]);
+    foreach ($savedHotelsData as $key => $hotelData) {
+        if ($hotelData['hotel_id'] == $hotelId && $hotelData['saving_number'] == $savingNumber) {
+            unset($savedHotelsData[$key]);
+        }
+    }
+    $savedHotelsData = array_values($savedHotelsData);
 
     file_put_contents('../json_data/saved-hotels.json', json_encode($savedHotelsData));
 }

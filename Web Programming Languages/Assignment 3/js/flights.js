@@ -56,7 +56,7 @@ const showAvailableFlights = (origin, destination, departureDate, adults, childr
                     .on('click', function (e) {
                         e.preventDefault();
                         if (departureDateReturn) {
-                            showAvailableFlights(origin, destination, departureDateReturn, adults, children, infants, null, flight.flightId);
+                            showAvailableFlights(destination, origin, departureDateReturn, adults, children, infants, null, flight.flightId);
                         }
                         else {
                             $.ajax({

@@ -40,16 +40,11 @@ const loadFlightData = (flights) => {
 
     return flights.map(flight => {
         let res = {
+            ...flight,
             'departure': {
                 ...flight.departure,
                 ...flightData.find(f => f.flightId === flight.departure.flightId)
-            },
-            'adults': flight.adults,
-            'children': flight.children,
-            'infants': flight.infants,
-            'passengers': flight.passengers,
-            'savingNumber': flight.savingNumber,
-            'bookingNumber': flight.bookingNumber
+            }
         };
         if (flight.returning) {
             res['returning'] = {
@@ -190,7 +185,8 @@ const loadBookedFlights = () => {
                         'children': parseInt($(flight).find('children').text()),
                         'infants': parseInt($(flight).find('infants').text()),
                         'passengers': $(flight).find('passenger'),
-                        'bookingNumber': $(flight).find('booking-number').text()
+                        'bookingNumber': $(flight).find('booking-number').text(),
+                        'returnBookingNumber': $(flight).find('return-booking-number').text()
                     };
                     if (returnFlightId.length > 0) {
                         res['returning'] = {
@@ -200,8 +196,10 @@ const loadBookedFlights = () => {
                     return res;
                 }
             );
+            console.log(flights);
 
             const flightData = loadFlightData(flights);
+            console.log(flightData);
 
             for (const flight of flightData) {
                 const passengerInfoButton = $('<button></button>')
@@ -244,15 +242,16 @@ const loadBookedFlights = () => {
                         cardRow('Departure', `${flight.departure.departureTime} ${flight.departure.departureDate}`),
                         cardRow('Arrival', `${flight.departure.arrivalTime} ${flight.departure.arrivalDate}`),
                         cardRow('Total Price', `$${flight.departure.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`),
+                        cardRow('Booking Number', flight.bookingNumber),
                         flight.returning ? [
                             $('<h2></h2>').text(`${flight.returning.origin} to ${flight.returning.destination}`),
                             cardRow('Flight ID', flight.returning.flightId),
                             cardRow('Departure', `${flight.returning.departureTime} ${flight.returning.departureDate}`),
                             cardRow('Arrival', `${flight.returning.arrivalTime} ${flight.returning.arrivalDate}`),
-                            cardRow('Total Price', `$${flight.returning.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`)
+                            cardRow('Total Price', `$${flight.returning.price * (flight.adults + (flight.children * .7) + (flight.infants * .1))}`),
+                            cardRow('Return Booking Number', flight.returnBookingNumber),
                         ] : [],
                         $('<div></div>').addClass('row').append(passengerInfoButton),
-                        cardRow('Booking Number', flight.bookingNumber)
                     )
                 );
             }
@@ -312,7 +311,7 @@ const loadSavedHotels = () => {
                                 num_rooms: hotel.num_rooms,
                                 price_per_night: hotel.price_per_night,
                                 total_price: total_price,
-                                savingNumber: hotel.savingNumber,
+                                saving_number: hotel.saving_number,
                                 action: 'book'
                             },
                             success: function () {

@@ -74,6 +74,8 @@ $(document).ready(function() {
                 'City must be a city in Texas or California.' :
             !validDate(checkInDate) || !validDate(checkOutDate) ?
                 'Check-in and check-out dates must be between Sep 1, 2024 and Dec 1, 2024.' :
+            checkInDate.getTime() >= checkOutDate.getTime() ?
+                'Check-out date must be after check-in date.' :
             adults + children + infants < 1 ?
                 'Number of guests must be at least 1.' :
             false;

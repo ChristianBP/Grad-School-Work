@@ -47,15 +47,14 @@ if($action == 'save') {
 
     $savingNumber = $_POST['savingNumber'];
     $savedFlightsData = simplexml_load_file('../xml_data/saved-flights.xml');
-    $savedFlightData = $savedFlightsData->xpath("/flights/flight[flight-id='$departureFlightId' and saving-number='$savingNumber']")[0];
+    $savedFlightData = $savedFlightsData->xpath("//flight[departure-flight-id='$departureFlightId' and saving-number='$savingNumber']")[0];
     unset($savedFlightData[0]);
 
     if(!empty($returnFlightId)) {
         $returnFlightData = $flightsData->xpath("/flights/flight[flight-id='$returnFlightId']")[0];
         $returnFlightData->{'available-seats'} = ((int) $returnFlightData->{'available-seats'}) - ($adults + $children + $infants);
 
-        $returnSavedFlightData = $savedFlightsData->xpath("/flights/flight[flight-id='$returnFlightId' and saving-number='$savingNumber']")[0];
-        unset($returnSavedFlightData[0]);
+        $flight->addChild('return-booking-number', uniqid());
     }
 
     $flightsData->asXML('../xml_data/flights.xml');

@@ -74,7 +74,7 @@
         <arrival-date>9/7/2024</arrival-date>
         <departure-time>13:00</departure-time>
         <arrival-time>15:30</arrival-time>
-        <available-seats>85</available-seats>
+        <available-seats>83</available-seats>
         <price>270</price>
     </flight>
     <flight>
@@ -96,7 +96,7 @@
         <arrival-date>9/9/2024</arrival-date>
         <departure-time>15:00</departure-time>
         <arrival-time>17:30</arrival-time>
-        <available-seats>105</available-seats>
+        <available-seats>104</available-seats>
         <price>280</price>
     </flight>
     <flight>
@@ -228,7 +228,7 @@
         <arrival-date>9/20/2024</arrival-date>
         <departure-time>9:00</departure-time>
         <arrival-time>11:30</arrival-time>
-        <available-seats>8</available-seats>
+        <available-seats>7</available-seats>
         <price>230</price>
     </flight>
     <flight>
@@ -334,11 +334,11 @@
         <flight-id>31</flight-id>
         <origin>San Francisco</origin>
         <destination>Austin</destination>
-        <departure-date>9/7/2024</departure-date>
-        <arrival-date>9/7/2024</arrival-date>
+        <departure-date>9/10/2024</departure-date>
+        <arrival-date>9/10/2024</arrival-date>
         <departure-time>13:00</departure-time>
         <arrival-time>18:30</arrival-time>
-        <available-seats>85</available-seats>
+        <available-seats>84</available-seats>
         <price>270</price>
     </flight>
     <flight>
