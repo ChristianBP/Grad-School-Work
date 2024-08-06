@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/mystyle.css"/>
+        <script src="jquery/jquery-3.7.1.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/login.js"></script>
+    </head>
+    <body>
+        <header></header>
+        <main class="row">
+            <div class="col-side">
+                <h1>Login</h1>
+                <form id="login-form">
+                    <div class="row">
+                        <div class="col">
+                            <label for="phonenumber">Phone Number:</label>
+                            <input type="text" id="phonenumber" name="phonenumber" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit">Login</button>
+                            <p id="error"></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer></footer>
+    </body>
+</html>

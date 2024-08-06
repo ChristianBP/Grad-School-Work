@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/mystyle.css"/>
+        <link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css"/>
+        <script src="jquery/jquery-3.7.1.min.js"></script>
+        <script src="jquery/jquery-ui.min.js"></script>
+        <script src="js/my-account.js"></script>
+        <script src="js/main.js"></script>
+    </head>
+    <body>
+        <header></header>
+        <main class="row">
+            <div class="col-side">
+                <div id="admin-panel">
+                    <h2>Admin Panel</h2>
+                    <div class="row">
+                        <button id="load-flights">Load Flights</button>
+                    </div>
+                    <div class="row">
+                        <button id="load-hotels">Load Hotels</button>
+                    </div>
+                    <div class="row">
+                        <button id="sep-to-oct-flights">Booked Flights Departing from Texas (Sep-Oct 2024)</button>
+                    </div>
+                    <div class="row">
+                        <button id="sep-to-oct-hotels">Booked Hotels in Texas (Sep-Oct 2024)</button>
+                    </div>
+                    <div class="row">
+                        <button id="expensive-hotels">Expensive Hotels</button>
+                    </div>
+                    <div class="row">
+                        <button id="infant-flights">Booked Flights with Infants</button>
+                    </div>
+                    <div class="row">
+                        <button id="infant-child-flights">Booked Flights with Infant and 5 Children</button>
+                    </div>
+                    <div class="row">
+                        <button id="expensive-flights">Expensive Flights</button>
+                    </div>
+                    <div class="row">
+                        <button id="texas-no-infant-flights">Booked Flights from Texas with No Infants</button>
+                    </div>
+                    <div class="row">
+                        <button id="california-flights">Booked Flights Arriving in California (Sep-Oct 2024)</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col my-account">
+                <div class="row">
+                    <input class="col-25" type="text" id="flight-booking-id" placeholder="Enter Booking ID"/>
+                    <button class="col-25" id="flights-by-booking-id">Flights by Booking ID</button>
+                </div>
+                <div class="row">
+                    <input class="col-25" type="text" id="hotel-booking-id" placeholder="Enter Booking ID"/>
+                    <button class="col-25" id="hotels-by-booking-id">Hotels by Booking ID</button>
+                </div>
+                <div class="row">
+                    <input class="col-25" type="text" id="passenger-booking-id" placeholder="Enter Booking ID"/>
+                    <button class="col-25" id="flight-passengers-by-booking-id">Flight Passengers by Booking ID</button>
+                </div>
+                <div class="row">
+                    <div class="col-25"></div>
+                    <button class="col-25" id="booked-flights-sep">Booked Flights September 2024</button>
+                </div>
+                <div class="row">
+                    <div class="col-25"></div>
+                    <button class="col-25" id="booked-hotels-sep">Booked Hotels September 2024</button>
+                </div>
+                <div class="row">
+                    <input class="col-25" type="text" id="ssn" placeholder="Enter SSN"/>
+                    <button class="col-25" id="booked-flights-by-ssn">Booked Flights by SSN</button>
+                </div>
+            </div>
+        </main>
+        <footer></footer>
+    </body>
+</html>

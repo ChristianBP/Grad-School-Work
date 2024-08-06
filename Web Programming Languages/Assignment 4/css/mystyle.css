@@ -1,0 +1,387 @@
+body {
+    background-color: #fcfcfc;
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+input, select, textarea, button {
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: cadetblue;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+#style-settings {
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+#style-settings label, #style-settings input, #style-settings select {
+    display: block;
+    margin: 0.5rem;
+}
+
+#datetime, #userinfo, #logout {
+    clear: right;
+    float: right;
+    margin-top: 0.5rem;
+}
+
+#logout {
+    background-color: azure;
+    border: 2px solid red;
+    border-radius: 5px;
+    color: red;
+    cursor: pointer;
+    display: none;
+    font-size: 1em;
+    margin-right: 1rem;
+    padding: 5px;
+    width: 8em;
+}
+
+#logged-in-menu {
+    display: none;
+}
+
+#userinfo {
+    font-size: 1.25em;
+}
+
+#admin-panel {
+    display: none;
+}
+
+#admin-panel button {
+    background-color: crimson;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    margin: auto;
+    padding: 1rem;
+    flex: 0 1 50%;
+}
+
+nav div.col-12:has(a):hover {
+    background-color: darkslategray;
+    border-radius: 5px;
+}
+
+nav div.col-12 a {
+    color: white;
+    display: block;
+    font-size: 1.5em;
+    padding: 1rem;
+    text-decoration: none;
+}
+
+/* Main */
+main {
+    min-height: 100vh;
+    padding-bottom: calc(1rem + 75px) !important;
+}
+
+main > * {
+    padding-top: 2rem !important;
+}
+
+main > .col {
+    padding-left: 3rem !important;
+}
+
+/* Flex */
+.row {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.col {
+    box-sizing: border-box;
+    flex: 0 1 100%;
+    padding: 0 1rem;
+}
+
+.col-12 {
+    box-sizing: border-box;
+    flex: 0 0 12%;
+    padding: 0 1rem;
+}
+
+.col-25 {
+    box-sizing: border-box;
+    flex: 0 0 25%;
+    padding: 0 1rem;
+}
+
+.col-33 {
+    box-sizing: border-box;
+    flex: 0 0 calc(100% / 3);
+    padding-top: 0 !important;
+}
+
+.col-50 {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    padding: 0 1rem;
+}
+
+.col-side {
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+    flex: 0 0 25%;
+    overflow: auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+.col-side h1 {
+    color: darkslateblue;
+    text-align: center;
+}
+
+.col-side p {
+    text-align: left;
+}
+
+.col-side ul {
+    color: crimson;
+    font-size: 1.5em;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Forms */
+form {
+    flex: 0 1 50%;
+}
+
+form input, form textarea, form select {
+    border-radius: 10px;
+    font-size: 1.25em;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+form input[type="checkbox"] {
+    height: 1.5rem;
+}
+
+form input[type="radio"] {
+    appearance: none;
+    background-color: gold;
+    height: 1.75rem;
+    margin-right: 0.5rem;
+    position: relative;
+    top: 0.25rem;
+    width: 2.5rem;
+}
+
+form input[type="radio"]:checked::before {
+    background-color: darkslateblue;
+    border-radius: 33%;
+    content: "";
+    height: 1rem;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1rem;
+}
+
+form label {
+    display: inline-block;
+    font-size: 1.5em;
+    line-height: 1.75rem;
+    margin: 0.5rem;
+}
+
+form button {
+    background-color: darkslateblue;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 1rem;
+    width: 100%;
+}
+
+/* Tables */
+table {
+    border: 2px solid darkslateblue;
+    font-size: 1.25em;
+    margin: 0 auto;
+}
+
+table td {
+    padding: 0.5rem;
+}
+
+/* Cards */
+.card {
+    background-color: lightgrey;
+    border: 4px solid black;
+    border-radius: 20px;
+    margin: 0 1rem 1rem;
+    padding: 0 1rem;
+}
+
+.card h2 {
+    margin: 0.75rem 0;
+}
+
+.card h3 {
+    margin: 0;
+}
+
+.card .row {
+    margin-bottom: 0.25rem;
+}
+
+.card button {
+    background-color: darkslateblue;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.25em;
+    height: 2em;
+    margin: 0 20%;
+}
+
+/* Flight Card */
+.flight-card {
+    border-color: darkseagreen;
+}
+
+.flight-card h2 {
+    color: orangered;
+}
+
+.flight-card button {
+    background: darkcyan;
+}
+
+/* Stay Card */
+.stay-card h2 {
+    color: crimson;
+}
+
+.stay-card button {
+    background: darkmagenta;
+}
+
+/* Passengers */
+#passengers {
+    display: none;
+}
+
+#passengers > .row > :last-child {
+    display: none;
+}
+
+#passengers-icon {
+    height: 5rem;
+    width: 5rem;
+    cursor: pointer;
+}
+
+#passenger-form, #guest-form {
+    padding: 0 5rem;
+}
+
+/* Random */
+#returning {
+    display: none;
+}
+
+img {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+#error {
+    color: red;
+    font-size: 1.25em;
+    min-height: 1.25rem;
+    text-align: center;
+}
+
+.p-0 {
+    padding: 0;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.side-borders {
+    border-left: 4px solid darkslateblue;
+    border-right: 4px solid darkslateblue;
+}
+
+.title {
+    background-color: papayawhip;
+    margin-top: 0;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+/* Footer */
+footer {
+    background-color: darkslategray;
+    bottom: 0;
+    color: white;
+    height: 75px;
+    padding: 1rem 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+/* jQuery UI */
+.ui-widget-header {
+    background-color: darkslateblue !important;
+    border: 1px solid darkslateblue !important;
+    color: white !important;
+}
+
+.ui-dialog-buttonset .ui-button {
+    background-color: darkcyan !important;
+    color: white !important;
+}
+
+.ui-dialog-title {
+    white-space: initial !important;
+}
+
+/* My Account */
+.my-account input {
+    padding: 1rem;
+    font-size: 1.2em;
+}
+
+.my-account button {
+    background-color: lightslategray;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-left: 1rem;
+    padding: 1rem;
+}
