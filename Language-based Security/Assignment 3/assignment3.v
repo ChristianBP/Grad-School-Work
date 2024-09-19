@@ -100,36 +100,45 @@ Theorem matches_plus_or:
   forall s r1 r2, matches (Plus r1 r2) s = matches r1 s || matches r2 s.
 Proof.
   (* 3. Complete the proof. *)
-  intros.
+  intros s.
   induction s.
     - (* s = nil *)
       simpl. reflexivity.
     - (* s = a :: s *)
-      simpl.
-Admitted.
-
-Search true.
-Print app_comm_cons.
-
-Lemma matches_nil_r:
-  forall r, matches r nil = matches_nil r.
-Proof.
-  intros. simpl. reflexivity.
+      simpl. intros. simpl. apply IHs.
 Qed.
+
+Print app_comm_cons.
+(*
+app_comm_cons =
+fun (A : Type) (x y : list A) (a : A) => eq_refl
+     : forall (A : Type) (x y : list A) (a : A), a :: x ++ y = (a :: x) ++ y
+*)
+Search (_ ++ nil).
 
 Theorem matches_app:
   forall s1 s2 r1 r2, matches r1 s1 = true -> matches r2 s2 = true ->
     matches (Cat r1 r2) (s1++s2) = true.
 Proof.
   (* 4. Complete the proof. *)
-  intros.
+  intros s1 s2.
   induction s1.
-    - (* s1 = nil *)
-      simpl. induction s2.
-      + (* s2 = nil *)
-        simpl. rewrite <- H. rewrite <- andb_true_r. rewrite <- H0. reflexivity.
-      + (* s2 = a :: s2 *)
-        rewrite <- H. rewrite matches_nil_r. simpl.
-
-        rewrite <- H. rewrite <- andb_true_r. rewrite <- H0. simpl. 
+    - induction s2.
+      + intros. simpl. inversion H. rewrite H2. simpl. assumption.
+      + intros. simpl. inversion H. rewrite H2. inversion H0.
+        rewrite matches_plus_or; rewrite H3. rewrite orb_true_r. reflexivity.
+    - induction s2.
+      + intros. rewrite <- app_comm_cons. rewrite app_nil_r. rewrite app_nil_r in IHs1. simpl.
+        destruct matches_nil.
+          rewrite matches_plus_or. specialize IHs1 with (r1:=rem r1 a).
+          rewrite IHs1.
+            reflexivity.
+            simpl in H. assumption.
+            assumption.
+          specialize IHs1 with (r1:=rem r1 a).
+          apply IHs1. simpl in H. assumption. assumption.
+      + intros. rewrite <- app_comm_cons. simpl. destruct matches_nil. rewrite matches_plus_or. rewrite IHs1.
+        reflexivity.
+        simpl in H. assumption. assumption.
+        rewrite IHs1. reflexivity. simpl in H. assumption. assumption.
 Qed.
