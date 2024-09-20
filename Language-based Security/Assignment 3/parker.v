@@ -47,12 +47,6 @@ Definition bool_eq (b1 b2:bool) :=
   | _, _ => false
   end.
 
-Definition is_empty (r:rexp) :=
-  match r with
-    | Empty => true
-    | _ => false
-  end.
-
 (* 8. Define "rem" here. *)
 Fixpoint rem (r:rexp) (o:bool) : rexp :=
   match r with
