@@ -20,7 +20,7 @@ Inductive rexp (A:Set) : Type :=
   | Cat (r1 r2 : rexp A)
   | Star (r1 : rexp A).
 
-(* 2. Make type parameter A of rexp be implicit. *)
+(* 2. Make type parameter A of rexp implicit. *)
 Arguments Empty {A}.
 Arguments Epsilon {A}.
 Arguments Sym {A}.
@@ -29,7 +29,7 @@ Arguments Cat {A}.
 Arguments Star {A}.
 
 Definition myrexp :=
-  Cat (Star Empty) (Plus (Plus (Sym(true)) (Sym(false))) Epsilon).
+  Cat (Star Empty) (Plus (Plus (Sym(false)) (Sym(true))) Epsilon).
 Definition myrexp2 :=
   Cat (Star Empty) (Plus (Plus (Sym(4)) (Sym(12))) Epsilon).
 
@@ -46,14 +46,13 @@ Fixpoint matches_nil {A:Set} (r:rexp A) : bool :=
 Example myrexp_matches_nil:
   matches_nil myrexp = true.
 Proof.
-  (* 5. Complete the proof. *)
-  simpl. reflexivity.
+  easy.
 Qed.
 
 Lemma matches_nil_cat2:
   forall A (r:rexp A) , matches_nil (Cat r r) = matches_nil r.
 Proof.
-  simpl. intros. now destruct matches_nil.
+  intros. simpl. now destruct matches_nil.
 Qed.
 
 (* 4. Redefine rem and matches to use eqdec (defined above). *)
