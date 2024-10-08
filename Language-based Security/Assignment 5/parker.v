@@ -68,7 +68,9 @@ Proof.
   (* 4. Complete the proof. *)
   intros.
   induction l.
-  - simpl in H. Search (_ -> False). apply Decidable.not_true_iff in H.
+  - apply Forall_forall. intros. apply H in H1. simpl in H1. contradiction.
+  - inversion H0; subst. apply Forall_forall. intros. apply H in H1. simpl in H1. destruct H1. now rewrite <- H1.
+    
 Qed.
 
 Corollary Forall_rev:
