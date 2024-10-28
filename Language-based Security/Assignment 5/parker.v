@@ -14,13 +14,15 @@ Theorem Forall_forall:
     Forall P l <-> (forall x, In x l -> P x).
 Proof.
   (* 1. Complete the proof. *)
-  split; intros; induction l; try easy.
+  split; intros; induction l.
+  - inversion H0.
   - inversion H; subst. simpl in H0. destruct H0.
-    + now rewrite H0 in H3.
-    + now apply IHl in H4.
+    + rewrite H0 in H3. assumption.
+    + apply IHl in H4; assumption.
+  - apply Forall_nil.
   - apply Forall_cons.
-    + apply H. apply in_eq.
-    + apply IHl. intros. apply H. simpl. now right.
+    + apply H, in_eq.
+    + apply IHl. intros. apply H. simpl. right. assumption.
 Qed.
 
 Theorem Forall_app:
@@ -28,15 +30,17 @@ Theorem Forall_app:
     Forall P (l1++l2) <-> Forall P l1 /\ Forall P l2.
 Proof.
   (* 2. Complete the proof. *)
-  split; intros; induction l1; induction l2; try easy.
-  - split; now rewrite app_nil_r in H.
-  - split; inversion H; subst.
-    all: apply IHl1 in H3.
-    apply Forall_cons.
-    all: now destruct H3.
-  - rewrite app_nil_r. now destruct H.
-  - inversion H; subst. inversion H0; subst. simpl.
-    apply Forall_cons; apply IHl1 || idtac; easy.
+  split; intros; induction l1; induction l2; simpl.
+  - split; apply Forall_nil.
+  - split. apply Forall_nil. simpl in H. assumption.
+  - split; rewrite app_nil_r in H. assumption. apply Forall_nil.
+  - split; inversion H; subst; apply IHl1 in H3. apply Forall_cons.
+    all: destruct H3; assumption.
+  - apply Forall_nil.
+  - destruct H; assumption.
+  - rewrite app_nil_r. destruct H. assumption.
+  - inversion H; inversion H0; subst.
+    apply Forall_cons; try apply IHl1; try split; assumption.
 Qed.
 
 Theorem Forall_map:
@@ -44,10 +48,9 @@ Theorem Forall_map:
     Forall (fun x => P (f x)) l <-> Forall P (map f l).
 Proof.
   (* 3. Complete the proof. *)
-  split; induction l; intros; simpl; try easy.
-  all: apply Forall_cons.
+  split; induction l; intros; simpl; constructor.
   all: inversion H; subst.
-  all: easy || now apply IHl.
+  all: try apply IHl; assumption.
 Qed.
 
 Theorem Forall_noadd:
@@ -56,7 +59,7 @@ Theorem Forall_noadd:
 Proof.
   (* 4. Complete the proof. *)
   intros. apply Forall_forall. intros. apply H in H1.
-  now apply Forall_forall with (x:=x) in H0.
+  eapply Forall_forall. exact H0. assumption.
 Qed.
 
 Corollary Forall_rev:
@@ -64,7 +67,7 @@ Corollary Forall_rev:
 Proof.
   (* 5. Complete the proof. *)
   split; intros; apply Forall_forall; intros.
-  all: apply Forall_forall with (x:=x) in H.
-  all: rewrite in_rev in H0.
-  all: now try rewrite rev_involutive in H0.
+  all: eapply Forall_forall.
+  exact H. rewrite in_rev in H0. assumption.
+  exact H. rewrite in_rev in H0. rewrite rev_involutive in H0. assumption.
 Qed.
