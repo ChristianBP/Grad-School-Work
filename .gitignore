@@ -6,3 +6,9 @@
 *.synctex.gz
 *.blg
 *.bbl
+
+checkpoints/
+output/
+*.edges
+*.feat
+*.featnames
