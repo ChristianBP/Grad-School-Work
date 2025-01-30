@@ -10,12 +10,12 @@ print_endline ("\nQuestion 1");;
 
 (* 1.a *)
 type fos =
-  (* | True | False *)
+  | True | False
   | Not of fos
   | Or of fos * fos
   | Var of string
   | Forall of string * fos
-  (* | Exists of string * fos *)
+  | Exists of string * fos
 ;;
 
 (* 1.b *)
@@ -31,12 +31,12 @@ List.exists ((String.equal) "a") ["a"; "b"; "c"; "d"]
 
 let rec freevars s =
   match s with
-  (* | True | False -> [] *)
+  | True | False -> []
   | Not s1 -> freevars s1
   | Or (s1, s2) -> freevars s1 @ freevars s2
   | Var x -> [x]
   | Forall (x, s1) -> List.filter (fun a -> not (String.equal a x)) (freevars s1)
-  (* | Exists (x, s1) -> List.filter (fun a -> not (String.equal a x)) (freevars s1) *)
+  | Exists (x, s1) -> List.filter (fun a -> not (String.equal a x)) (freevars s1)
 ;;
 
 List.iter (fun x -> Printf.printf "%s " x) (freevars mysentence);
@@ -51,14 +51,18 @@ print_endline ("");;
 (* 1.d *)
 print_endline ("\n1.d)");;
 
+let removevar l v =
+  List.filter (fun a -> not (String.equal a v)) l
+
 let rec istrue tfv s =
   match s with
-  (* | True | False -> [] *)
+  | True -> true
+  | False -> false
   | Not s1 -> not (istrue tfv s1)
   | Or (s1, s2) -> (istrue tfv s1 || istrue tfv s2)
   | Var x -> List.exists ((String.equal) x) tfv
-  | Forall (_, s1) -> istrue tfv s1
-  (* | Exists (x, s1) -> List.filter (fun a -> not (String.equal a x)) (freevars s1) *)
+  | Forall (x, s1) -> (istrue (removevar tfv x) s1) && (istrue (x :: (removevar tfv x)) s1)
+  | Exists (x, s1) -> (istrue (removevar tfv x) s1) || (istrue (x :: (removevar tfv x)) s1)
 ;;
 
 let tautology s =
@@ -70,8 +74,31 @@ print_endline ("");;
 Printf.printf "%B" (tautology freevars_test);
 print_endline ("");;
 
+let mysentence2 =
+  Forall ("x", Or (Or (True, False), Not (Var "x")));;
+
+Printf.printf "%s %B" "tautology mysentence2: " (tautology mysentence2);
+print_endline ("");;
+
 (* 1.e *)
 print_endline ("\n1.e)");;
+
+let rec string_of_fos s =
+  match s with
+  | True -> "T"
+  | False -> "F"
+  | Not s1 -> "~" ^ (string_of_fos s1)
+  | Or (s1, s2) -> "(" ^ (string_of_fos s1) ^ ")\\/(" ^ (string_of_fos s2) ^ ")"
+  | Var x -> x
+  | Forall (x, s1) -> "A" ^ x ^ ".(" ^ (string_of_fos s1) ^ ")"
+  | Exists (x, s1) -> "E" ^ x ^ ".(" ^ (string_of_fos s1) ^ ")"
+;;
+
+Printf.printf "%s %s" "string_of_fos mysentence: " (string_of_fos mysentence);
+print_endline ("");;
+
+Printf.printf "%s %s" "string_of_fos mysentence2: " (string_of_fos mysentence2);
+print_endline ("");;
 
 (* Question 2 *)
 print_endline ("\nQuestion 2");;
