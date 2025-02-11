@@ -1,0 +1,11 @@
+a := 0;
+b := 1;
+
+while !(arg0 <= 0) do (
+  temp := a + b;
+  a := b;
+  b := temp;
+  arg0 := arg0 - 1
+);
+
+ret := a

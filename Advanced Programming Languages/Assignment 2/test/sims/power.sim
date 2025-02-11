@@ -1,0 +1,5 @@
+ret := 1;
+while !(arg1 <= 0) do (
+  ret := ret * arg0;
+  arg1 := arg1 - 1
+)

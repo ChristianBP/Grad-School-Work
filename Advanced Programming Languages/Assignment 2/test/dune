@@ -1,0 +1,4 @@
+(test
+ (name test_parker)
+ (deps (glob_files sims/*.sim))
+ (libraries alcotest parker))
