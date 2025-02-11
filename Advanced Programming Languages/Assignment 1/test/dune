@@ -1,2 +1,4 @@
 (test
- (name test_Assignment1))
+ (name test_Assignment1)
+ (modules test_Assignment1)
+ (libraries parker alcotest))

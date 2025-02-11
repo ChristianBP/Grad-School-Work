@@ -77,7 +77,13 @@ print_endline ("");;
 let mysentence2 =
   Forall ("x", Or (Or (True, False), Not (Var "x")));;
 
+let mysentence3 =
+  Exists ("x", Or (Or (True, False), Not (Var "x")));;
+
 Printf.printf "%s %B" "tautology mysentence2: " (tautology mysentence2);
+print_endline ("");;
+
+Printf.printf "%s %B" "tautology mysentence3: " (tautology mysentence3);
 print_endline ("");;
 
 (* 1.e *)
@@ -98,6 +104,9 @@ Printf.printf "%s %s" "string_of_fos mysentence: " (string_of_fos mysentence);
 print_endline ("");;
 
 Printf.printf "%s %s" "string_of_fos mysentence2: " (string_of_fos mysentence2);
+print_endline ("");;
+
+Printf.printf "%s %s" "string_of_fos mysentence3: " (string_of_fos mysentence3);
 print_endline ("");;
 
 (* Question 2 *)

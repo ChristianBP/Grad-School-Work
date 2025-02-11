@@ -5,11 +5,11 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github ChristianBP/Grad-School-Work))
 
-(authors "Author Name")
+(authors "Christian Parker")
 
-(maintainers "Maintainer Name")
+(maintainers "Christian Parker")
 
 (license LICENSE)
 
@@ -19,7 +19,7 @@
  (name Assignment1)
  (synopsis "A short synopsis")
  (description "A longer description")
- (depends ocaml dune)
+ (depends ocaml dune alcotest)
  (tags
   (topics "to describe" your project)))
 
