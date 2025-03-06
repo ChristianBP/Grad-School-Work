@@ -1,0 +1,244 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage[left=2cm, right=2cm]{geometry}
+
+\title{CS 6371 - Assignment 4}
+\author{Christian Parker \\ CXP220034@utdallas.edu}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+    \item % Question 1
+    \begin{enumerate}
+        \item % Question 1a
+        Denotationally,
+
+        \begin{equation}
+            C \llbracket c_1 ; c2 \rrbracket = \{ (\sigma, C \llbracket c_2 \rrbracket (C \llbracket c_1 \rrbracket (\sigma))) \mid \sigma \in \Sigma \}
+        \end{equation}
+
+        By definition, \( C \llbracket c_1 ; c_2 \rrbracket \) is confidentiality-preserving if the following property holds:
+
+        \begin{equation}
+            \begin{aligned}
+                \forall \sigma_1, \sigma_2 & \in \Sigma. \big((C \llbracket c_1 \rrbracket \sigma_1) \mid_L = (C \llbracket c_1 \rrbracket \sigma_2) \mid_L \big) \\
+                &\Longrightarrow (C \llbracket c_2 \rrbracket (C \llbracket c_1 \rrbracket \sigma_1) \mid_L = C \llbracket c_2 \rrbracket (C \llbracket c_1 \rrbracket \sigma_2) \mid_L)
+            \end{aligned}
+        \end{equation}
+
+        If we assume \( c_1 \) and \( c_2 \) are confidentiality-preserving:
+
+        \begin{equation}
+            \forall \sigma_1, \sigma_2 \in \Sigma. \big((\sigma_1 \mid_L = \sigma_2 \mid_L) \Longrightarrow ((C \llbracket c_1 \rrbracket \sigma_1) \mid_L = (C \llbracket c_1 \rrbracket \sigma_2) \mid_L)\big)
+        \end{equation}
+
+        \begin{equation}
+            \forall \sigma_3, \sigma_4 \in \Sigma. \big((\sigma_3 \mid_L = \sigma_4 \mid_L) \Longrightarrow ((C \llbracket c_2 \rrbracket \sigma_3) \mid_L = (C \llbracket c_2 \rrbracket \sigma_4) \mid_L) \big)
+        \end{equation}
+
+        We apply assumption 4 to assumption 3, with
+        \( \sigma_3 = C \llbracket c_1 \rrbracket \sigma_1 \)
+        and
+        \( \sigma_4 = C \llbracket c_1 \rrbracket \sigma_2 \)
+        to conclude:
+
+        \begin{equation}
+            \begin{aligned}
+                \forall \sigma_1, \sigma_2 & \in \Sigma. \big((C \llbracket c_1 \rrbracket \sigma_1) \mid_L = (C \llbracket c_1 \rrbracket \sigma_2) \mid_L \big) \\
+                & \Longrightarrow (C \llbracket c_2 \rrbracket (C \llbracket c_1 \rrbracket \sigma_1) \mid_L = C \llbracket c_2 \rrbracket (C \llbracket c_1 \rrbracket \sigma_2) \mid_L)
+            \end{aligned}
+        \end{equation}
+
+        \((\sigma_1 \mid_L = \sigma_2 \mid_L)\) by assumption.
+        (The confidentiality-preserving property says nothing about states whose low-confidentiality variables don't match.)
+
+        Therefore, \( C \llbracket c_1 ; c_2 \rrbracket \) is confidentiality-preserving.
+        \( \square \)
+
+        \item % Question 1b
+        Consider variables \(x, y \in \sigma^{\leftarrow} \) such that \(y \in \sigma \mid_L^{\leftarrow} \) and \(x \notin \sigma \mid_L^{\leftarrow} \)
+
+        Given these variables, the following program is not confidentiality-preserving:
+
+        \begin{equation}
+            c = \text{if } x \leq 1 \text{ then } y := 1 \text{ else } y := 0
+        \end{equation}
+
+        For example, consider the initial states \(\sigma_1 = \{(x, 0), (y, 0)\} \)
+        and \(\sigma_2 = \{(x, 2), (y, 0)\} \). In this case,
+
+        \begin{equation}
+            \begin{aligned}
+                C \llbracket c \rrbracket (\sigma_1) = \{(x, 0), (y, 1)\} \\
+                C \llbracket c \rrbracket (\sigma_2) = \{(x, 2), (y, 0)\}
+            \end{aligned}
+        \end{equation}
+
+        Since \( \sigma_1 \mid_L = \sigma_2 \mid_L = \{ (y, 0) \}\), but \( C \llbracket c \rrbracket (\sigma_1) \mid_L \neq C \llbracket c \rrbracket (\sigma_2) \mid_L \), the program is not confidentiality-preserving.
+    \end{enumerate}
+
+    \item % Question 2
+    \begin{enumerate}
+        \item % Question 2a
+        \begin{equation}
+            \begin{aligned}
+                F(g) = \lambda x.( x \leq 2 \rightarrow x - 1
+                    & \mid x > 2 \text{ and } x \text{ is odd} \rightarrow (x - 3) \cdot g(x - 1) \cdot g(x + 1) \\
+                    & \mid x > 2 \text{ and } x \text{ is even} \rightarrow g(x/2) + \text{sgn}(g(x/2)))
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 2b
+        \begin{equation}
+            h(x) =
+            \begin{cases}
+                log_2(x) & \text{if } log_2(x) \in \mathbb{Z} \\
+                0 & \text{otherwise}
+            \end{cases}
+        \end{equation}
+
+        \item % Question 2c
+        \textit{Proof.} Define property \(P\) by \(P(g) \equiv \forall x \in g^\leftarrow . g(x)=h(x)\).
+        We wish to prove \(P(f)\). Define functional F as above, and observe that \(fix(F) = f\) by
+        the definition of recursion. Thus, to prove \(P(f)\) it suffices to prove
+        \(P(fix(F))\) by fixed-point induction.
+        \\~\\
+        \textbf{Base Case:} \(P(\bot)\) holds vacuously.
+        \\~\\
+        \textbf{Inductive Hypothesis:} Assume that \(P(g)\) holds for some arbitrary function \(g\).
+        That is, assume that \(\forall x_0 \in g^\leftarrow , g(x_0)=h(x_0)\).
+        \\~\\
+        \textbf{Inductive Case:} We will prove that \(P (F (g))\) holds.
+        Let \(x \in F (g)^\leftarrow\) be given.
+        Looking at the definition of \(F\), there are three cases to consider:
+        \\~\\
+        \textbf{Case 1:} Suppose \(x \leq 2\). Then by definition of \(F\),
+        \begin{equation}
+            \begin{aligned}
+                & F(g)(x) = x - 1 \\
+                & F(g)(1) = 0 = log_2(1) = h(1) \\
+                & F(g)(2) = 1 = log_2(2) = h(2)
+            \end{aligned}
+        \end{equation}
+        \\~\\
+        \textbf{Case 2:} Suppose \(x > 2\) and \(x\) is odd. Then by definition of F,
+        \begin{equation}
+            F(g)(x) = (x-3) \cdot g(x-1) \cdot g(x+1)
+        \end{equation}
+
+        In this case, \(x - 1\) and \(x + 1\) will be even numbers with difference 2.
+        If we start from 1, every \(log_2\) will be double the previous (1, 2, 4, 8, 16, ...).
+        Therefore, the only integers with difference 2 for which \(log_2\) is an integer are 2 and 4.
+        In this case, \(x = 3\) and \(x - 3 = 0\), so \(F(g)(3) = 0 = h(3)\).
+        For every other case, \(log_2\) of either \(x - 1\) or \(x + 1\) will not be an integer.
+        Therefore, applying the inductive hypothesis would yield 0 for at least one of them and
+        \(F(g)(x) = 0 = h(x)\).
+        \\~\\
+        \textbf{Case 3:} Suppose \(x > 2\) and \(x\) is even. Then by definition of F,
+        \begin{equation}
+            F(g)(x) = g(x/2) + sgn(g(x/2))
+        \end{equation}
+        There are two subcases to consider:
+        \\~\\
+        \textbf{Subcase 1:} Suppose \(log_2(x/2)\) is not an integer. By inductive hypothesis, \(g(x/2) = 0\);
+        thus \(F(g)(x) = 0 + sgn(0) = 0 = h(x)\).
+        \\~\\
+        \textbf{Subcase 2:} Suppose \(log_2(x/2)\) is an integer. By inductive hypothesis,
+        \(F(g)(x) = log_2(x/2) + sgn(log_2(x/2))\).
+        Clearly \(sgn(log_2(x/2)) = 1\) since \(x > 2\).
+        Therefore, \(F(g)(x) = log_2(x/2) + 1 = log_2(x) = h(x)\).
+        \(\square\)
+    \end{enumerate}
+
+    \item % Question 3
+    \begin{enumerate}
+        \item % Question 3a
+        \begin{equation}
+            \begin{aligned}
+                \Gamma(f) =
+                &\{(\sigma, \sigma) \mid 1 > \sigma(x)\}\ \cup \\
+                &\{(\sigma, f(\sigma[y \mapsto 1 - \sigma(y)][x \mapsto \sigma(x) - 1])) \mid 1 \leq \sigma(x) \}
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 3b
+        \textit{Proof.} Property \(P'(f)\) implies \(P(f)\) because \(P\) is merely the
+        special case of \(P'\) when \(\sigma(y) = 0\).
+        Proving \(P'(C \llbracket c \rrbracket)\) therefore suffices to prove
+        \(P(C \llbracket c \rrbracket)\).
+        We will prove \(P'(C \llbracket c \rrbracket)\) by fixed-point induction over \(\Gamma\).
+
+        By definition of \(C\), \(C \llbracket c \rrbracket = fix(\Gamma)\) where \(\Gamma\) is defined in part a.
+        \\~\\
+        We can therefore prove \(P'(C \llbracket c \rrbracket)\) by fixed point induction over \(\Gamma\).
+        \\~\\
+        \textbf{Base Case:} \(P'(\bot)\) holds vacuously.
+        \\~\\
+        \textbf{Inductive Hypothesis:} Let \(g : \Sigma \rightharpoonup \Sigma\) be an arbitrary
+        function satisfying \(P'\). That is, assume
+        \begin{equation}
+            \forall (\sigma_0, \sigma_0') \in g, \Big((\sigma_0(x) \geq 0
+            \land \sigma_0(y) \in \{0, 1\})
+            \Longrightarrow \sigma_0'(y) =
+            \begin{cases}
+                \sigma_0(y) & \text{if } \sigma_0(x) \text{ is even} \\
+                1 - \sigma_0(y) & \text{if } \sigma_0(x) \text{ is odd}
+            \end{cases}\Big)
+        \end{equation}
+        \\~\\
+        \textbf{Inductive Case:} Let \((\sigma, \sigma') \in \Gamma(g)\) be given.
+        Assume \(\sigma(x) \geq 0\) and \(\sigma(y) \in \{0, 1\}\).
+        \\~\\
+        \textbf{Case 1:} Assume \(1 > \sigma(x)\). By definition of \(\Gamma\), \(\sigma' = \sigma\).
+        Since \(0 \leq \sigma(x) < 1\), we infer that \(\sigma(x) = 0\).
+        Zero is even and \(\sigma'(y) = \sigma(y)\), therefore the property holds.
+        \\~\\
+        \textbf{Case 2:} Assume \(1 \leq \sigma(x)\).
+        By definition of \(\Gamma\), \(\sigma' = g(\sigma_2)\)
+        where \(\sigma_2 = \sigma[y \mapsto 1 - \sigma(y)][x \mapsto \sigma(x) - 1]\)
+        We apply the inductive hypothesis with \(\sigma_0 = \sigma_2\) and \(\sigma_0' = \sigma'\):
+        \begin{itemize}
+            \item
+            \(\sigma_2(x) \geq 0\) because \(\sigma_2(x) = \sigma(x) - 1\) and \(\sigma(x) \geq 1\)
+            \item
+            \(\sigma_2(y) \in \{0, 1\}\) because \(\sigma(y) \in \{0, 1\}\)
+            and \(\sigma_2(y) = 1 - \sigma(y)\)
+        \end{itemize}
+        From the inductive hypothesis, we infer that
+        \begin{equation}
+            \begin{aligned}
+                \sigma'(y) & =
+                \begin{cases}
+                    \sigma_2(y) & \text{if } \sigma_2(x) \text{ is even} \\
+                    1 - \sigma_2(y) & \text{if } \sigma_2(x) \text{ is odd}
+                \end{cases} \\
+                & =
+                \begin{cases}
+                    1 - \sigma(y) & \text{if } \sigma_2(x) \text{ is even} \\
+                    1 - (1 - \sigma(y)) & \text{if } \sigma_2(x) \text{ is odd}
+                \end{cases} \\
+                & =
+                \begin{cases}
+                    1 - \sigma(y) & \text{if } \sigma_2(x) \text{ is even} \\
+                    \sigma(y) & \text{if } \sigma_2(x) \text{ is odd}
+                \end{cases}
+            \end{aligned}
+        \end{equation}
+        Since \(\sigma_2(x) = \sigma(x) - 1\), \(\sigma_2(x)\) is even when \(\sigma(x)\) is odd, and vice versa. Thus,
+        \begin{equation}
+            \sigma'(y) =
+            \begin{cases}
+                \sigma(y) & \text{if } \sigma(x) \text{ is even} \\
+                1 - \sigma(y) & \text{if } \sigma(x) \text{ is odd}
+            \end{cases}
+        \end{equation}
+        Therefore, \(P'(C \llbracket c \rrbracket)\) holds.
+        \(\square\)
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
