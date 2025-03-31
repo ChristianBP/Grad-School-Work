@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage[left=2cm, right=2cm]{geometry}
+
+\title{Homework 2 - Problem 1 \\ CS 6347}
+\author{Christian Parker \\ CXP220034}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate} % Problem 1
+    \item[1.] % Problem 1.1
+        The smallest \(2n\)-cycle with \(n \geq 2\) is the 4-cycle graph.
+        When \(0 < k < 2\), every vertex has only one color option.
+        Since every vertex in the 4-cyle graph has two neighbors and k-coloring
+        requires neighboring vertices to be different colors, the graph cannot be colored.
+    \item[2.] % Problem 1.2
+    Given the new potential function, the MAP assignment would be:
+    \[
+        \hat{X} = \arg\max_{X} \frac{1}{Z} \prod_{i \in V} e^{w_{x_i}} \prod_{(i,j) \in E} 1_{x_i \neq x_j}
+    \]
+    To determine the maximum estimate, we only need to find the valid assignment that maximizes
+    the potential function \(\phi_i(x_i) = e^{w_{x_i}}\) across all vertices. Z is the same
+    for all color assignments and the indicator function simply determines if the coloring
+    is valid and doesn't contribute the probability beyond that. Therefore, the estimate is
+    maximized when \(\prod_{i \in V} e^{w_{x_i}}\) is maximized. This function increases
+    exponentially with \(w_{x_i}\) and \(w_a = a\). Therefore, we can simplify
+    the problem to the following:
+    \[
+        \hat{X} = \arg\max_{X} \prod_{i \in V} x_i \prod_{(i,j) \in E} 1_{x_i \neq x_j}
+    \]
+    This MAP assignment will assign \(x_i = k\) to as many vertices as possible,
+    followed by \(k-1\), and so on. The fewest colors required for a 2n-cycle graph
+    is two as each vertex will be assigned one color while both of it's neighbors are
+    assigned the other. So, the MAP assignment for any 2n-cycle graph would
+    be the graph such that every vertex alternates between \(k\) and \(k-1\).
+
+    \item[3.] % Problem 1.3
+    The marginal probability distribution over any variable \(x_i\) is given by:
+    \[
+        p(x_i) = \sum_{X \backslash x_i} \Bigg( \frac{1}{Z} \prod_{i \in V} e^{x_i} \prod_{(i,j) \in E} 1_{x_i \neq x_j} \Bigg)
+    \]
+    For example, if \(x_1 = 1\), then the valid colorings would be:
+    \[
+        \begin{array}{c|c|c|c|c}
+            x_1 & x_2 & x_3 & x_4 & \prod_{i \in V} e^{x_i} \\
+            \hline
+            1 & 2 & 1 & 2 & e^6 \\
+            1 & 2 & 1 & 3 & e^7 \\
+            1 & 2 & 3 & 1 & e^7 \\
+            1 & 2 & 3 & 2 & e^8 \\
+
+            1 & 3 & 1 & 2 & e^7 \\
+            1 & 3 & 1 & 3 & e^8 \\
+            1 & 3 & 2 & 1 & e^7 \\
+            1 & 3 & 2 & 3 & e^9 \\
+        \end{array}
+    \]
+    Therefore:
+    \begin{equation}
+        \begin{aligned}
+            p(x_1=1) &= \sum_{X \backslash x_1} \Bigg( \frac{1}{Z} \prod_{i \in V} e^{x_i} \prod_{(i,j) \in E} 1_{x_i \neq x_j} \Bigg) \\
+            &= \frac{1}{Z} \Big( e^6 + e^7 + e^7 + e^8 + e^7 + e^8 + e^7 + e^9 \Big) \\
+            &= \frac{1}{Z} \Big( e^6 + 4e^7 + 2e^8 + e^9 \Big)
+        \end{aligned}
+    \end{equation}
+    Repeating this for all possible values of \(x_i\) will give the marginal
+    probability distribution over \(x_i\).
+\end{enumerate}
+
+\end{document}
