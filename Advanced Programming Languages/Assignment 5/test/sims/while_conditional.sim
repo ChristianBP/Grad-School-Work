@@ -1,0 +1,6 @@
+int ret;
+ret := 0;
+
+while 5 do (
+    ret := ret + 1
+)

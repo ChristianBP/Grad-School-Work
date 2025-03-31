@@ -1,0 +1,14 @@
+// Calculates GCD using the Euclidean Algorithm
+int ret;
+ret := 0;
+if (arg0 <= 0) then
+  ret := arg1
+else (
+  while !(arg1 <= 1 && -1 <= arg1) do (
+    if (arg0 <= arg1) then
+      arg1 := arg1 - arg0
+    else
+      arg0 := arg0 - arg1
+  );
+  ret := arg0
+)
