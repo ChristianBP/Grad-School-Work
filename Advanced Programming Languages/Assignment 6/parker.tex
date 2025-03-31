@@ -1,0 +1,188 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage[left=2cm, right=2cm]{geometry}
+
+\title{CS 6371 - Assignment 6}
+\author{Christian Parker \\ CXP220034@utdallas.edu}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+    \item % Question 1
+    \begin{enumerate}
+        \item % Question 1a
+        \begin{equation}
+            \begin{aligned}
+                e &= (or\ (not\ true)\ false) \\
+                &= ((\lambda a.\lambda b.(a\ ?\ true : b))\ (not\ true)\ false) \\
+                &= ((\lambda a.\lambda b.((a)(true)(b)))\ (not\ true)\ false) \\
+                &= ((\lambda a.\lambda b.((a)(true)(b)))\ ((\lambda b.(b\ ?\ false : true))\ true)\ false) \\
+                &= ((\lambda a.\lambda b.((a)(true)(b)))\ ((\lambda b.((b)(false)(true)))\ true)\ false) \\
+                &= ((\lambda a.\lambda b.((a)(\lambda x.\lambda y.x)(b)))\ ((\lambda b.((b)(false)(\lambda x.\lambda y.x)))\ (\lambda x.\lambda y.x))\ false) \\
+                &= ((\lambda a.\lambda b.((a)(\lambda x.\lambda y.x)(b)))\ ((\lambda b.((b)(\lambda x.\lambda y.y)(\lambda x.\lambda y.x)))\ (\lambda x.\lambda y.x))\ (\lambda x.\lambda y.y)) \\
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 1b
+        \begin{equation}
+            \begin{aligned}
+                &((\lambda a.\lambda b.((a)(\lambda x.\lambda y.x)(b)))
+                    \ ((\lambda b.((b)(\lambda x.\lambda y.y)(\lambda x.\lambda y.x)))
+                        (\lambda x.\lambda y.x))
+                    \ (\lambda x.\lambda y.y)) \\
+                \rightarrow_{1} &((\lambda b.(
+                        ((\lambda b.((b)(\lambda x.\lambda y.y)(\lambda x.\lambda y.x)))
+                            (\lambda x.\lambda y.x))
+                        (\lambda x.\lambda y.x)(b)))
+                    \ (\lambda x.\lambda y.y)) \\
+                \rightarrow_{1} &(((\lambda b.((b)(\lambda x.\lambda y.y)(\lambda x.\lambda y.x)))
+                            (\lambda x.\lambda y.x))
+                        \ (\lambda x.\lambda y.x)
+                        \ (\lambda x.\lambda y.y)) \\
+                \rightarrow_{1} &(((
+                            (\lambda x.\lambda y.x)
+                            (\lambda x.\lambda y.y)
+                            (\lambda x.\lambda y.x))
+                        \ (\lambda x.\lambda y.x))
+                        \ (\lambda x.\lambda y.y)) \\
+                \rightarrow_{1} &(((
+                            (\lambda y.(\lambda x.\lambda y.y))
+                            (\lambda x.\lambda y.x))
+                        \ (\lambda x.\lambda y.x))
+                        \ (\lambda x.\lambda y.y)) \\
+                \rightarrow_{1} &((
+                            (\lambda x.\lambda y.y)
+                        \ (\lambda x.\lambda y.x))
+                        \ (\lambda x.\lambda y.y)) \\
+                \rightarrow_{1} &((\lambda y.y)
+                        \ (\lambda x.\lambda y.y)) \\
+                \rightarrow_{1} &(\lambda x.\lambda y.y) \\
+            \end{aligned}
+        \end{equation}
+        
+    \end{enumerate}
+
+    \item % Question 2
+    \begin{enumerate}
+        \item % Question 2a
+        \begin{equation}
+            \begin{aligned}
+                isempty = \lambda \ell.\ not\ (\pi_1\ \ell) \\
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 2b
+        \begin{equation}
+            \begin{aligned}
+                head = \lambda \ell.\ \pi_1\ (\pi_2\ \ell) \\
+                tail = \lambda \ell.\ \pi_2\ (\pi_2\ \ell) \\
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 2c
+        \begin{equation}
+            \begin{aligned}
+                cons = \lambda e. \lambda \ell.(pair\ true\ (pair\ e\ \ell)) \\
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 2d
+        \begin{equation}
+            \begin{aligned}
+                length = Y(\lambda f. \lambda \ell.(isempty\ \ell\ ?\ 0_\mathbb{N} : succ_\mathbb{N} (f\ (tail\ \ell)))) \\
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 2e
+        \begin{equation}
+            \begin{aligned}
+                rev &= Y(\lambda f.(\lambda a. \lambda \ell.(isempty\ \ell\ ?\ [] : f\ ((head\ \ell) :: a)\ (tail\ \ell))))\ ([]) \\
+                append\_helper &= Y(\lambda f.(\lambda \ell_1. \lambda \ell_2.(isempty\ \ell_2\ ?\ \ell_1 : f\ ((head\ \ell_2) :: \ell_1)\ (tail\ \ell_2)))) \\
+                append &= \lambda \ell_1. \lambda \ell_2. (append\_helper\ \ell_2\ (rev\ \ell_1)) \\
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 2f
+        \begin{equation}
+            \begin{aligned}
+                map &= Y(\lambda m. \lambda a. \lambda f. \lambda \ell.(isempty\ \ell\ ?\ a : m\ ((f\ (head\ \ell)) :: a)\ f\ (tail\ \ell)))\ ([]) \\
+            \end{aligned}
+        \end{equation}
+
+        \item % Question 2g
+        \begin{equation}
+            \begin{aligned}
+                fold\_left &= Y(\lambda g. \lambda f. \lambda a. \lambda \ell.(isempty\ \ell\ ?\ a : g\ (f)\ (f\ a\ (head\ \ell))\ (tail\ \ell))) \\
+            \end{aligned}
+        \end{equation}
+    \end{enumerate}
+
+    \item % Question 3
+    \begin{enumerate}
+        \item % Question 3
+        \textbf{Theorem.} If \(e \Downarrow e''\) and \(e \rightarrow_1 e'\) then \(e' \Downarrow e''\).
+
+        Assume there exists a derivation \(D_L\) of \(e \Downarrow e''\) and a derivation \(D_S\) of
+        \(e \rightarrow_1 e'\).
+        We will prove by structural induction over the Small-step Semantics of Lambda Calculus
+        that there exists a derivation \(D_L'\) of \(e' \Downarrow e''\).
+        \\~\\
+        \textbf{Inductive Hypothesis.} If \(e_0 \Downarrow e_0''\) has a derivation smaller than \(D_L\)
+        and \(e_0 \rightarrow_1 e_0'\) has a derivation smaller than \(D_S\),
+        then \(e_0' \Downarrow e_0''\).
+        \\~\\
+        \textbf{Inductive Cases.}
+
+        \begin{enumerate}
+            \item[]\textbf{Case 1.}
+            Assume \(D_S = (\lambda v.e_1) e_2 \rightarrow_1 e_1[e_2/v]\)
+            and \(D_L = (\lambda v.e_1) e_2 \Downarrow e''\).
+
+            We must prove that \(e_1[e_2/v] \Downarrow e''\).
+            \\~\\
+            Apply L2 to \(D_L\):
+            \begin{equation}
+                \begin{aligned}
+                    \cfrac{\lambda v.e_1 \Downarrow \lambda v.e_1 \qquad e_1[e_2/v] \Downarrow e''}
+                    {(\lambda v.e_1) e_2 \Downarrow e''}
+                \end{aligned}
+            \end{equation}
+
+            By assumption, \(e_1[e_2/v] \Downarrow e''\).
+            \\~\\
+            \item[]\textbf{Case 2.}
+            Assume:
+            \begin{equation}
+                \begin{aligned}
+                    D_S &= \cfrac{\cfrac{D_0}{e_1 \rightarrow_1 e_1'}}{e_1 e_2 \rightarrow_1 e_1' e_2} \\
+                    D_L &= \cfrac{\cfrac{D_1}
+                                {e_1 \Downarrow \lambda v.e} \qquad \cfrac{D_2}
+                                {e [e_2 / v] \Downarrow e''}}
+                            {e_1 e_2 \Downarrow e''} \\
+                \end{aligned}
+            \end{equation}
+
+            In order to prove that \(e_1' e_2 \Downarrow e''\), it is sufficient to prove it's derivation
+            based on L2.
+            \\~\\
+            \begin{equation}
+                \cfrac{\cfrac{D_1'}{e_1' \Downarrow \lambda v.e} \qquad \cfrac{D_2'}{e[e_2/v] \Downarrow e''}}
+                    {e_1' e_2 \Downarrow e''}
+            \end{equation}
+
+            \(D_2' = D_2\) and is thereby proved by assumption.
+            \\~\\
+            We apply the inductive hypothesis with \(D_0 < D_S\), \(D_1 < D_L\), \(e_0 = e_1\),
+            \(e_0' = e_1'\), \(e_0'' = \lambda v.e\).
+
+            Therefore, \(\cfrac{D_1'}{e_1' \Downarrow \lambda v.e}\). Both \(D_1'\) and \(D_2'\) are
+            proven, thus \(e_1' e_2 \Downarrow e''\). \(\square\)
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
