@@ -122,66 +122,63 @@
     \end{enumerate}
 
     \item % Question 3
+    \textbf{Theorem.} If \(e \Downarrow e''\) and \(e \rightarrow_1 e'\) then \(e' \Downarrow e''\).
+    \\~\\
+    \textbf{Proof.}
+    There exists a derivation \(D_L\) of \(e \Downarrow e''\) and a derivation \(D_S\) of
+    \(e \rightarrow_1 e'\).
+    \\~\\
+    We will prove \(e' \Downarrow e''\) by structural induction on \(D_S\).
+    \\~\\ 
+    \textbf{Inductive Hypothesis.} If \(e_0 \Downarrow e_0''\) has a derivation smaller than \(D_L\)
+    and \(e_0 \rightarrow_1 e_0'\) has a derivation smaller than \(D_S\),
+    then \(e_0' \Downarrow e_0''\).
+    \\~\\
+    \textbf{Inductive Cases.}
+
     \begin{enumerate}
-        \item % Question 3
-        \textbf{Theorem.} If \(e \Downarrow e''\) and \(e \rightarrow_1 e'\) then \(e' \Downarrow e''\).
+        \item[]\textbf{Case 1.}
+        Suppose \(D_S = (\lambda v.e_1) e_2 \rightarrow_1 e_1[e_2/v]\)
+        and \(D_L = (\lambda v.e_1) e_2 \Downarrow e''\).
 
-        Assume there exists a derivation \(D_L\) of \(e \Downarrow e''\) and a derivation \(D_S\) of
-        \(e \rightarrow_1 e'\).
-        We will prove by structural induction over the Small-step Semantics of Lambda Calculus
-        that there exists a derivation \(D_L'\) of \(e' \Downarrow e''\).
+        We must prove \(e_1[e_2/v] \Downarrow e''\).
         \\~\\
-        \textbf{Inductive Hypothesis.} If \(e_0 \Downarrow e_0''\) has a derivation smaller than \(D_L\)
-        and \(e_0 \rightarrow_1 e_0'\) has a derivation smaller than \(D_S\),
-        then \(e_0' \Downarrow e_0''\).
+        \(D_L\) has derivation:
+        \begin{equation}
+            \begin{aligned}
+                \cfrac{\lambda v.e_1 \Downarrow \lambda v.e_1 \qquad e_1[e_2/v] \Downarrow e''}
+                {(\lambda v.e_1) e_2 \Downarrow e''}
+            \end{aligned}
+        \end{equation}
+
+        By assumption from \(D_L\), \(e_1[e_2/v] \Downarrow e''\).
         \\~\\
-        \textbf{Inductive Cases.}
+        \item[]\textbf{Case 2.}
+        Suppose:
+        \begin{equation}
+            \begin{aligned}
+                D_S &= \cfrac{\cfrac{D_0}{e_1 \rightarrow_1 e_1'}}{e_1 e_2 \rightarrow_1 e_1' e_2} \\
+                D_L &= \cfrac{\cfrac{D_1}
+                            {e_1 \Downarrow \lambda v.e} \qquad \cfrac{D_2}
+                            {e [e_2 / v] \Downarrow e''}}
+                        {e_1 e_2 \Downarrow e''} \\
+            \end{aligned}
+        \end{equation}
 
-        \begin{enumerate}
-            \item[]\textbf{Case 1.}
-            Assume \(D_S = (\lambda v.e_1) e_2 \rightarrow_1 e_1[e_2/v]\)
-            and \(D_L = (\lambda v.e_1) e_2 \Downarrow e''\).
+        In order to prove \(e_1' e_2 \Downarrow e''\), it is sufficient to prove it's derivation.
+        \\~\\
+        \begin{equation}
+            \cfrac{\cfrac{D_1'}{e_1' \Downarrow \lambda v.e} \qquad \cfrac{D_2'}{e[e_2/v] \Downarrow e''}}
+                {e_1' e_2 \Downarrow e''}
+        \end{equation}
 
-            We must prove that \(e_1[e_2/v] \Downarrow e''\).
-            \\~\\
-            Apply L2 to \(D_L\):
-            \begin{equation}
-                \begin{aligned}
-                    \cfrac{\lambda v.e_1 \Downarrow \lambda v.e_1 \qquad e_1[e_2/v] \Downarrow e''}
-                    {(\lambda v.e_1) e_2 \Downarrow e''}
-                \end{aligned}
-            \end{equation}
+        We apply the inductive hypothesis with \(D_0 < D_S\), \(D_1 < D_L\), \(e_0 = e_1\),
+        \(e_0' = e_1'\), \(e_0'' = \lambda v.e\).
 
-            By assumption, \(e_1[e_2/v] \Downarrow e''\).
-            \\~\\
-            \item[]\textbf{Case 2.}
-            Assume:
-            \begin{equation}
-                \begin{aligned}
-                    D_S &= \cfrac{\cfrac{D_0}{e_1 \rightarrow_1 e_1'}}{e_1 e_2 \rightarrow_1 e_1' e_2} \\
-                    D_L &= \cfrac{\cfrac{D_1}
-                                {e_1 \Downarrow \lambda v.e} \qquad \cfrac{D_2}
-                                {e [e_2 / v] \Downarrow e''}}
-                            {e_1 e_2 \Downarrow e''} \\
-                \end{aligned}
-            \end{equation}
-
-            In order to prove that \(e_1' e_2 \Downarrow e''\), it is sufficient to prove it's derivation
-            based on L2.
-            \\~\\
-            \begin{equation}
-                \cfrac{\cfrac{D_1'}{e_1' \Downarrow \lambda v.e} \qquad \cfrac{D_2'}{e[e_2/v] \Downarrow e''}}
-                    {e_1' e_2 \Downarrow e''}
-            \end{equation}
-
-            \(D_2' = D_2\) and is thereby proved by assumption.
-            \\~\\
-            We apply the inductive hypothesis with \(D_0 < D_S\), \(D_1 < D_L\), \(e_0 = e_1\),
-            \(e_0' = e_1'\), \(e_0'' = \lambda v.e\).
-
-            Therefore, \(\cfrac{D_1'}{e_1' \Downarrow \lambda v.e}\). Both \(D_1'\) and \(D_2'\) are
-            proven, thus \(e_1' e_2 \Downarrow e''\). \(\square\)
-        \end{enumerate}
+        Therefore, \(e_1' \Downarrow \lambda v.e\). \(D_1'\) and \(D_2'\) are
+        proven, thus \(e_1' e_2 \Downarrow e''\).
+        \\~\\
+        \(D_2'\) by assumption \(D_2\). \(\square\)
     \end{enumerate}
 \end{enumerate}
 
