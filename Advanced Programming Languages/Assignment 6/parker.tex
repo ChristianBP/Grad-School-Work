@@ -100,8 +100,8 @@
         \item % Question 2e
         \begin{equation}
             \begin{aligned}
-                rev &= Y(\lambda f.(\lambda a. \lambda \ell.(isempty\ \ell\ ?\ [] : f\ ((head\ \ell) :: a)\ (tail\ \ell))))\ ([]) \\
-                append\_helper &= Y(\lambda f.(\lambda \ell_1. \lambda \ell_2.(isempty\ \ell_2\ ?\ \ell_1 : f\ ((head\ \ell_2) :: \ell_1)\ (tail\ \ell_2)))) \\
+                rev &= Y(\lambda f.(\lambda a. \lambda \ell.(isempty\ \ell\ ?\ a : f\ ((head\ \ell) :: a)\ (tail\ \ell))))\ ([]) \\
+                append\_helper &= Y(\lambda f.(\lambda \ell_2. \lambda \ell_1.(isempty\ \ell_1\ ?\ \ell_2 : f\ ((head\ \ell_1) :: \ell_2)\ (tail\ \ell_1)))) \\
                 append &= \lambda \ell_1. \lambda \ell_2. (append\_helper\ \ell_2\ (rev\ \ell_1)) \\
             \end{aligned}
         \end{equation}
@@ -109,7 +109,8 @@
         \item % Question 2f
         \begin{equation}
             \begin{aligned}
-                map &= Y(\lambda m. \lambda a. \lambda f. \lambda \ell.(isempty\ \ell\ ?\ a : m\ ((f\ (head\ \ell)) :: a)\ f\ (tail\ \ell)))\ ([]) \\
+                map\_helper &= Y(\lambda m. \lambda a. \lambda f. \lambda \ell.(isempty\ \ell\ ?\ a : m\ ((f\ (head\ \ell)) :: a)\ f\ (tail\ \ell)))\ ([]) \\
+                map &= \lambda f. \lambda \ell.\ rev\ ( map\_helper\ f\ \ell ) \\
             \end{aligned}
         \end{equation}
 
@@ -129,7 +130,7 @@
     \(e \rightarrow_1 e'\).
     \\~\\
     We will prove \(e' \Downarrow e''\) by structural induction on \(D_S\).
-    \\~\\ 
+    \\~\\
     \textbf{Inductive Hypothesis.} If \(e_0 \Downarrow e_0''\) has a derivation smaller than \(D_L\)
     and \(e_0 \rightarrow_1 e_0'\) has a derivation smaller than \(D_S\),
     then \(e_0' \Downarrow e_0''\).
@@ -138,47 +139,50 @@
 
     \begin{enumerate}
         \item[]\textbf{Case 1.}
-        Suppose \(D_S = (\lambda v.e_1) e_2 \rightarrow_1 e_1[e_2/v]\)
-        and \(D_L = (\lambda v.e_1) e_2 \Downarrow e''\).
+        Suppose \(D_S\) ends in S1.
+        Then \(e = (\lambda v.e_1) e_2\) and \(e' = e_1[e_2/v]\).
 
-        We must prove \(e_1[e_2/v] \Downarrow e''\).
+        We must show \(e_1[e_2/v] \Downarrow e''\).
         \\~\\
-        \(D_L\) has derivation:
+        Since \(e = (\lambda v.e_1) e_2\), \(D_L\) must have the following form:
+
         \begin{equation}
             \begin{aligned}
-                \cfrac{\lambda v.e_1 \Downarrow \lambda v.e_1 \qquad e_1[e_2/v] \Downarrow e''}
+                D_L = \cfrac{\lambda v.e_1 \Downarrow \lambda v.e_1 \qquad e_1[e_2/v] \Downarrow e''}
                 {(\lambda v.e_1) e_2 \Downarrow e''}
             \end{aligned}
         \end{equation}
-
-        By assumption from \(D_L\), \(e_1[e_2/v] \Downarrow e''\).
+        \(e_1[e_2/v] \Downarrow e''\) is shown by \(D_L\).
         \\~\\
         \item[]\textbf{Case 2.}
-        Suppose:
+        Suppose \(D_S\) ends in S2.
+        Then \(D_S\) has the form:
         \begin{equation}
-            \begin{aligned}
-                D_S &= \cfrac{\cfrac{D_0}{e_1 \rightarrow_1 e_1'}}{e_1 e_2 \rightarrow_1 e_1' e_2} \\
-                D_L &= \cfrac{\cfrac{D_1}
-                            {e_1 \Downarrow \lambda v.e} \qquad \cfrac{D_2}
-                            {e [e_2 / v] \Downarrow e''}}
-                        {e_1 e_2 \Downarrow e''} \\
-            \end{aligned}
+            D_S = \cfrac{\cfrac{D_0}{e_1 \rightarrow_1 e_1'}}{e_1 e_2 \rightarrow_1 e_1' e_2} \\
         \end{equation}
 
-        In order to prove \(e_1' e_2 \Downarrow e''\), it is sufficient to prove it's derivation.
+        We must show \(e_1' e_2 \Downarrow e''\).
+        Since \(e = e_1 e_2\), \(D_L\) must have the following form:
+
+        \begin{equation}
+            D_L = \cfrac{\cfrac{D_1}
+                        {e_1 \Downarrow \lambda v.e} \qquad \cfrac{D_2}
+                        {e [e_2 / v] \Downarrow e''}}
+                    {e_1 e_2 \Downarrow e''} \\
+        \end{equation}
+
+        Observe that \(e_1' e_2 \Downarrow e''\) has derivation:
         \\~\\
         \begin{equation}
-            \cfrac{\cfrac{D_1'}{e_1' \Downarrow \lambda v.e} \qquad \cfrac{D_2'}{e[e_2/v] \Downarrow e''}}
+            \cfrac{\cfrac{D_1'}{e_1' \Downarrow \lambda v.e} \qquad \cfrac{D_2}{e[e_2/v] \Downarrow e''}}
                 {e_1' e_2 \Downarrow e''}
         \end{equation}
 
         We apply the inductive hypothesis with \(D_0 < D_S\), \(D_1 < D_L\), \(e_0 = e_1\),
-        \(e_0' = e_1'\), \(e_0'' = \lambda v.e\).
+        \(e_0' = e_1'\), and \(e_0'' = \lambda v.e\).
 
-        Therefore, \(e_1' \Downarrow \lambda v.e\). \(D_1'\) and \(D_2'\) are
-        proven, thus \(e_1' e_2 \Downarrow e''\).
-        \\~\\
-        \(D_2'\) by assumption \(D_2\). \(\square\)
+        Therefore, \(e_1' \Downarrow \lambda v.e\), which is \(D_1'\).
+        We conclude \(e_1' e_2 \Downarrow e''\) from its derivation. \(\square\)
     \end{enumerate}
 \end{enumerate}
 
