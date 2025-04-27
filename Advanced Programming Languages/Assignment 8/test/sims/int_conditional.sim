@@ -1,0 +1,6 @@
+int var;
+var := 10;
+
+if var
+then var := 0
+else var := var * 2

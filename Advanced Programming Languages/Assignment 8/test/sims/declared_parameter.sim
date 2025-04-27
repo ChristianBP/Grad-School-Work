@@ -1,0 +1,9 @@
+int x;
+
+fun(int->int) already_declared;
+already_declared := fun(int x) {
+  int ret; ret := x
+};
+
+int ret;
+ret := factorial(3)

@@ -1,0 +1,8 @@
+fun(int->int) declaration_function_mismatch;
+
+declaration_function_mismatch := fun(int x, int y) {
+  int ret; ret := x
+};
+
+int ret;
+ret := declaration_function_mismatch(3)

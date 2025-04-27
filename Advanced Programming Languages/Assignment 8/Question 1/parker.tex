@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[left=2cm, right=2cm]{geometry}
+
+\title{CS 6371 - Assignment 8}
+\author{Christian Parker \\ CXP220034@utdallas.edu}
+
+\begin{document}
+
+\maketitle
+\begin{enumerate}
+    \item % Question 1
+    \((\forall \alpha. (\alpha \times \alpha)) + (\forall \alpha. (\alpha \to unit))\)
+
+    \[\textbf{in}_2^{(\forall \alpha.(\alpha \times \alpha)) + (\forall \alpha.(\alpha \to unit))}(\Lambda \alpha. \lambda x{:} \alpha. ())\]
+
+    \item % Question 2
+    \(\forall \alpha. ((\alpha \times \alpha) + (\alpha \to unit))\)
+
+    \[\Lambda \alpha. (\textbf{in}_2^{(\alpha \times \alpha) + (\alpha \to unit)}(\lambda x{:} \alpha. ()))\]
+
+    \item % Question 3
+    \(\forall \alpha. \forall \beta. ((\alpha + \beta) \to ((\alpha \times int) + (bool \times \beta)))\)
+
+    \begin{align*}
+        \Lambda \alpha. \Lambda \beta. \Bigg( \lambda x{:} \alpha + \beta. \Big( \textbf{case}\ x\ \textbf{of}\
+        \textbf{in}_1^{\alpha + \beta} (y) &\to \textbf{in}_1^{(\alpha \times int) + (bool \times \beta)}\big((y, 3)\big) \\
+        \textbf{in}_2^{\alpha + \beta} (z) &\to \textbf{in}_2^{(\alpha \times int) + (bool \times \beta)}\big((true, z)\big) \Big) \Bigg) &
+    \end{align*}
+
+    \item % Question 4
+    \(\forall \beta. (void \to \beta)\)
+
+    \[\Lambda \beta. \lambda x {:} void. (x[\beta])\]
+
+    \item % Question 5
+    \(\tau = \forall \alpha. \forall \beta. ((\alpha \to \beta) \to (\beta \to \alpha))\)
+
+    \begin{align*}
+        & \mathcal{I}(\forall \alpha. \forall \beta. ((\alpha \to \beta) \to (\beta \to \alpha))) \\
+        =\ & \forall \alpha {:} bool,\ \mathcal{I}(\forall \beta. ((\alpha \to \beta) \to (\beta \to \alpha))) \\
+        =\ & \forall \alpha {:} bool,\ \forall \beta {:} bool,\ \mathcal{I}((\alpha \to \beta) \to (\beta \to \alpha)) \\
+        =\ & \forall \alpha {:} bool,\ \forall \beta {:} bool,\ \mathcal{I}(\alpha \to \beta) \Rightarrow \mathcal{I}(\beta \to \alpha) \\
+        =\ & \forall \alpha {:} bool,\ \forall \beta {:} bool,\ (\alpha \Rightarrow \beta) \Rightarrow (\beta \Rightarrow \alpha) \\
+    \end{align*}
+
+    This property does not hold for \(\alpha = F\) and \(\beta = T\), therefore \(\mathcal{I}(\tau) = F\).
+
+    \begin{alignat*}{2}
+        \forall \alpha {:} bool,\ \forall \beta {:} bool,\ (\alpha & \Rightarrow \beta) \Rightarrow (\beta & \Rightarrow \alpha) \\
+        \ (F & \Rightarrow T) \Rightarrow (T & \Rightarrow F) \\
+        =\ T & \Rightarrow F \\
+        =\ F \\
+    \end{alignat*}
+
+    Thus, we conclude that \(\tau\) is uninhabited.
+\end{enumerate}
+
+\end{document}

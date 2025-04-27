@@ -1,0 +1,8 @@
+fun(bool->int) invalid_input_type;
+
+invalid_input_type := fun(bool x) {
+  int ret; ret := 5
+};
+
+int ret;
+ret := invalid_input_type(3)

@@ -1,0 +1,8 @@
+fun(int->int) uninitialized_ret_function;
+
+uninitialized_ret_function := fun(int x) {
+  int ret; int y; y := x
+};
+
+int ret;
+ret := uninitialized_ret_function(3)

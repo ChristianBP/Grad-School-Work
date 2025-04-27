@@ -1,0 +1,2 @@
+int ret;
+ret := true + 10

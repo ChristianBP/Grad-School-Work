@@ -1,0 +1,8 @@
+fun(int * int->int) fewer_params;
+
+fewer_params := fun(int x, int y) {
+  int ret; ret := x
+};
+
+int ret;
+ret := fewer_params(3)

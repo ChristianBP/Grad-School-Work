@@ -1,0 +1,8 @@
+fun(int->int) undeclared_ret_function;
+
+undeclared_ret_function := fun(int x) {
+  int y; y := x
+};
+
+int ret;
+ret := undeclared_ret_function(3)
