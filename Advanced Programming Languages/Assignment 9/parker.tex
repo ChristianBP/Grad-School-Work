@@ -1,0 +1,110 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{enumerate}
+\usepackage[left=1cm, right=1cm]{geometry}
+
+\title{CS 6371 - Assignment 9}
+\author{Christian Parker \\ CXP220034@utdallas.edu}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}[1)]
+    \item % Question 1
+    \begin{align*}
+        \begin{prooftree}
+            \hypo{D_1}
+            \hypo{D_2}
+            \infer2[(3)]{\{x = \bar{i}\}\ c_3\ \{C\}}
+            \infer0[(4)]{\{C\}\ \text{y:=y+x}\ \{y = max(0, 2 \bar{i})\}}
+            \infer2[(2)]{\{x = \bar{i}\}\ c_3\text{; y:=y+x}\ \{y = max(0, 2 \bar{i})\}}
+        \end{prooftree}
+    \end{align*}
+
+    \begin{align*}
+        &D_1 =
+        \begin{prooftree}
+            \hypo{\vDash A \Rightarrow A'}
+            \infer0[(4)]{\{A'\}\ \text{y:=}-\text{x}\ \{C\}}
+            \hypo{\vDash C \Rightarrow C}
+            \infer3[(6)]{\{x = \bar{i}\ \land\ x \leq 0\}\ \text{y:=}-\text{x}\ \{C\}}
+        \end{prooftree}
+    \end{align*}
+
+    \begin{align*}
+        &D_2 =
+        \begin{prooftree}
+            \hypo{\vDash B \Rightarrow B'}
+            \infer0[(4)]{\{B'\}\ \text{y:=x}\ \{C\}}
+            \hypo{\vDash C \Rightarrow C}
+            \infer3[(6)]{\{x = \bar{i}\ \land\ \neg (x \leq 0)\}\ \text{y:=x}\ \{C\}}
+        \end{prooftree}
+    \end{align*}
+
+    \begin{align*}
+        c_3 &= \text{(if x \textless= 0 then y:=-x else y:=x)} \\
+        C &\equiv y = max(0, 2 \bar{i})[y + x / y] \\
+        A &\equiv x = \bar{i}\ \land\ x \leq 0 \\
+        A' &\equiv C[-x/y] \\
+        B &\equiv x = \bar{i}\ \land\ \neg(x \leq 0) \\
+        B' &\equiv C[x/y]
+    \end{align*}
+
+    \item % Question 2
+    \begin{align*}
+        \begin{prooftree}
+            \hypo{\vDash A \Rightarrow I}
+            \hypo{\vDash I \land b \Rightarrow I'}
+            \infer0[(4)]{\{I'\}\ x:=x + 1\ \{C\}}
+            \hypo{\vDash C \Rightarrow C}
+            \infer3[(6)]{\{I \land b\}\ x:=x + 1\ \{C\}}
+            \infer0[(4)]{\{C\}\ y:=y - 1\ \{I\}}
+            \infer2[(2)]{\{I \land b\}\ (x:=x + 1; y:=y - 1)\ \{I\}}
+            \infer1[(5)]{\{I\}\ c_2\ \{\neg b \land I\}}
+            \hypo{\vDash \neg b \land I \Rightarrow B}
+            \infer3[(6)]{\{A\}\ c_2\ \{B\}}
+        \end{prooftree}
+    \end{align*}
+
+    \begin{align*}
+        c_2 &= \text{(while x\textless=y - 1 do (x:=x + 1; y:=y - 1))} \\
+        b &= (x \leq y-1) \\
+        A &\equiv (x = 0) \land (y = \bar{n}) \land (\bar{n} \geq 0) \\
+        B &\equiv y = \lfloor \bar{n}/2 \rfloor \\
+        C &\equiv I[y-1/y] \\
+        I &\equiv (x + y = \bar{n})\ \land\ (y \geq \lfloor \bar{n} / 2 \rfloor) \\
+        I' &\equiv C[x+1/x] \\
+        &\equiv (x + 1 + y - 1 = \bar{n})\ \land\ (y - 1 \geq \lfloor \bar{n} / 2 \rfloor) \\
+    \end{align*}
+
+    \item % Question 3
+    \begin{enumerate}
+        \item % Question 3a
+        \begin{align*}
+            A &\equiv (y = \bar{n}) \land (\bar{n} > 0) \land (z = 0) \\
+            B &\equiv z = \lfloor log_2\ \bar{n} \rfloor \\
+            I &\equiv z = \lfloor log_2\ \bar{n} \rfloor - \lfloor log_2\ y \rfloor \land y > 0 \\
+            I' &\equiv z + 1 = \lfloor log_2\ \bar{n} \rfloor - \lfloor log_2\ \lfloor \frac{y}{2} \rfloor \rfloor
+            \land \lfloor \frac{y}{2} \rfloor > 0 \\
+            b &= 2 \leq y \\
+            \neg b &= 2 > y
+        \end{align*}
+
+        \item % Question 3b
+        \begin{align*}
+            A &\equiv (y = \bar{n}) \land (\bar{n} \geq 0) \land (t = 1) \land (z = 0) \\
+            B &\equiv z = \bar{n} \\
+            I &\equiv (y \cdot t + z = \bar{n}) \land y \geq 0 \\
+            I' &\equiv (\lfloor \frac{y}{2} \rfloor \cdot 2t + z + t (y\ \%\ 2) = \bar{n})
+            \land \lfloor \frac{y}{2} \rfloor \geq 0 \\
+            b &= 1 \leq y \\
+            \neg b &= 1 > y
+        \end{align*}
+
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
