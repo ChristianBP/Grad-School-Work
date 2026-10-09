@@ -1,0 +1,413 @@
+
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage[left=2cm, right=2cm]{geometry}
+
+\title{Assignment 3}
+\author{Christian Parker \\ CXP22004}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    % Problem 1
+    \item \ % Add a space to force a left alignment for the number.
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \multicolumn{11}{c}{\textbf{Dilation}} \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        \end{tabular}
+    \end{center}
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \multicolumn{11}{c}{\textbf{Erosion}} \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{blue!20}1 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        \end{tabular}
+    \end{center}
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \multicolumn{11}{c}{\textbf{Opening}} \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        \end{tabular}
+    \end{center}
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \multicolumn{11}{c}{\textbf{Closing}} \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & 0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & 0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        \end{tabular}
+    \end{center}
+
+    % Problem 2
+    \item
+    First, we calculate the closing using the following structuring element (with origin in the center):
+
+    \begin{center}
+        \textbf{Structuring Element (SE)} \\
+        \begin{tabular}{|c|c|c|}
+        \hline
+        1 & 1 & 1 \\
+        \hline
+        1 & 1 & 1 \\
+        \hline
+        1 & 1 & 1 \\
+        \hline
+        \end{tabular}
+    \end{center}
+
+    This fills in all the gaps that a 3x3 square cannot fit into and results in this image:
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \multicolumn{11}{c}{\textbf{Closing of I using SE (K)}} \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & \cellcolor{blue!20}1 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cellcolor{blue!20}1 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        \hline
+        \end{tabular}
+    \end{center}
+
+    Now we use the following structuring element (with origin in the center) to calculate the opening of image K:
+
+    \begin{center}
+        \textbf{Structuring Element (SE2)} \\
+        \begin{tabular}{|c|c|c|}
+        \hline
+        1 & 1 & 0 \\
+        \hline
+        1 & 0 & 0 \\
+        \hline
+        0 & 0 & 0 \\
+        \hline
+        \end{tabular}
+    \end{center}
+
+    The result of this operation is the image J. The opening removes pixels from the image wherever the structuring element
+    cannot fit inside the image. The right angle shape of SE2 easily fits everywhere except the bottom right corner where
+    it cuts off the two bottom-rightmost two pixels.
+
+    % Problem 3
+    \item
+    The optimal threshold will be at the intensity where the probability of assigning the pixel to object or background
+    is equal:
+
+    \[
+        \frac{1}{2}p_1(T)=\frac{1}{2}p_2(T)
+    \]
+    \[
+        p_1(T)=p_2(T)
+    \]
+
+    If the PDFs are equal anywhere, it will be within the overlap at \(4 \leq x \leq 6\). Therefore, we
+    substitute \(p_1(T)\) and \(p_2(T)\) as:
+
+    \[
+        -\frac{T}{18} + \frac{1}{3}=\frac{2}{25}T - \frac{8}{25}
+    \]
+
+    And simplify:
+    \[
+        \frac{6 - T}{18}=\frac{2T-8}{25}
+    \]
+    \[
+        150 - 25T = 36T - 144
+    \]
+    \[
+        294 = 61T
+    \]
+    \[
+        T = \frac{294}{61}
+    \]
+
+    The optimal threshold is at \(T=4.82\).
+
+    % Problem 4
+    \item
+
+    \begin{enumerate}
+        % Problem 4a
+        \item
+
+        After one iteration the cluster assignment for each point is:
+        \begin{center}
+            \textbf{Cluster Assignment (1 iteration)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Point & Cluster Number \\
+            \hline
+            (-3, 4) & 1 \\
+            \hline
+            (-2, 1) & 3 \\
+            \hline
+            (-2, -4) & 2 \\
+            \hline
+            (0, -3) & 2 \\
+            \hline
+            (0, 0) & 3 \\
+            \hline
+            (2, 2) & 3 \\
+            \hline
+            (3, 1) & 3 \\
+            \hline
+            (4, 2) & 3 \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+        And the cluster centers are at:
+        \begin{center}
+            \textbf{Cluster Centers (1 iteration)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Cluster Number & Center \\
+            \hline
+            1 & (-3, 4) \\
+            \hline
+            2 & (-1, -3.5) \\
+            \hline
+            3 & (1.4, 1.2) \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+        After convergence, the cluster assignments will be:
+        \begin{center}
+            \textbf{Cluster Assignment (Convergence)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Point & Cluster Number \\
+            \hline
+            (-3, 4) & 1 \\
+            \hline
+            (-2, 1) & 1 \\
+            \hline
+            (-2, -4) & 2 \\
+            \hline
+            (0, -3) & 2 \\
+            \hline
+            (0, 0) & 3 \\
+            \hline
+            (2, 2) & 3 \\
+            \hline
+            (3, 1) & 3 \\
+            \hline
+            (4, 2) & 3 \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+        And the cluster centers are at:
+        \begin{center}
+            \textbf{Cluster Centers (Convergence)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Cluster Number & Center \\
+            \hline
+            1 & (-2.5, 2.5) \\
+            \hline
+            2 & (-1, -3.5) \\
+            \hline
+            3 & (2.25, 1.25) \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+        % Problem 4b
+        \item
+        After convergence, the cluster assignments will be:
+        \begin{center}
+            \textbf{Cluster Assignment (Convergence)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Point & Cluster Number \\
+            \hline
+            (-3, 4) & 1 \\
+            \hline
+            (-2, 1) & 1 \\
+            \hline
+            (-2, -4) & 2 \\
+            \hline
+            (0, -3) & 2 \\
+            \hline
+            (0, 0) & 2 \\
+            \hline
+            (2, 2) & 3 \\
+            \hline
+            (3, 1) & 3 \\
+            \hline
+            (4, 2) & 3 \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+        And the cluster centers are at:
+        \begin{center}
+            \textbf{Cluster Centers (Convergence)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Cluster Number & Center \\
+            \hline
+            1 & (-2.5, 2.5) \\
+            \hline
+            2 & (-0.67, -2.33) \\
+            \hline
+            3 & (3, 1.67) \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+        % Problem 4c
+        \item
+        The positions of the initial cluster centers can affect the number of iterations before convergence, the final cluster assignments,
+        and the locations of the final cluster centers. The initial cluster centers from (a) took 3 iterations compared to (b)'s
+        2 iterations. The point at (0,0) ends up in cluster 3 in (a), but cluster 2 in (b). This coincides with the different final cluster centers
+        we see for clusters 2 and 3. If we assume that the initial centers for clusters 1 and 2 are fixed, then the final assignment for (0,0)
+        appears to be based on whether the initial position for cluster 3 is closer to the pair of points with negative y-values or the triplet with
+        positive x and y-values.
+
+        % Problem 4d
+        \item \ % Add a space to force a left alignment for the number.
+        \begin{center}
+            \textbf{Membership Assignments for (-3,4)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Cluster Number & Assignment \\
+            \hline
+            1 & 1 \\
+            \hline
+            2 & 0 \\
+            \hline
+            3 & 0 \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+        \begin{center}
+            \textbf{Membership Assignments for (0,0)} \\
+            \begin{tabular}{|c|c|}
+            \hline
+            Cluster Number & Assignment \\
+            \hline
+            1 & .159 \\
+            \hline
+            2 & .442 \\
+            \hline
+            3 & .398 \\
+            \hline
+            \end{tabular}
+        \end{center}
+
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}
