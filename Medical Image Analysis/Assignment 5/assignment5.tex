@@ -1,0 +1,46 @@
+
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage[left=2cm, right=2cm]{geometry}
+\usepackage{tikz-network}
+
+\title{Assignment 5}
+\author{Christian Parker \\ CXP22004}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    % Problem 1
+    \item
+
+
+    % Problem 3
+    \item[3.]
+        \begin{tikzpicture}[vertex/.style={fill=white}]
+            \Vertex[x=2.5,y=1.5,label=s,color=white]{s}
+            \Vertex[x=0,y=0,label=1,color=white]{1}
+            \Vertex[x=2.5,y=0,label=2,color=white]{2}
+            \Vertex[x=5,y=0,label=3,color=white]{3}
+            \Vertex[x=2.5,y=-1.5,label=4,color=white]{4}
+            \Vertex[x=2.5,y=-3,label=t,color=white]{t}
+
+            \Edge[Direct,label=8](s)(1)
+            \Edge[Direct,label=13](s)(2)
+            \Edge[Direct,label=4](s)(3)
+            \Edge[Direct,bend=10,label=7](1)(2)
+            \Edge[Direct,bend=10,label=9](1)(4)
+            \Edge[Direct,label=20](1)(t)
+            \Edge[Direct,bend=10,label=5](2)(1)
+            \Edge[Direct,bend=10,label=7](2)(3)
+            \Edge[Direct,bend=10,label=8](3)(2)
+            \Edge[Direct,bend=10,label=10](3)(4)
+            \Edge[Direct,label=4](3)(t)
+            \Edge[Direct,bend=10,label=6](4)(1)
+            \Edge[Direct,bend=10,label=12](4)(3)
+        \end{tikzpicture}
+
+\end{enumerate}
+
+\end{document}
