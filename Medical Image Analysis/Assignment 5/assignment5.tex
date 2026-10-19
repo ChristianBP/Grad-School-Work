@@ -3,6 +3,7 @@
 \usepackage[table]{xcolor}
 \usepackage[left=2cm, right=2cm]{geometry}
 \usepackage{tikz-network}
+\usepackage{amsmath}
 
 \title{Assignment 5}
 \author{Christian Parker \\ CXP22004}
@@ -14,10 +15,23 @@
 \begin{enumerate}
     % Problem 1
     \item
+    \[
+        P(J|I) = \frac{P(I,J)}{P(I)} = \frac{1}{Z'} e^{\frac{-E(I,J)}{T}}
+    \]
+    \[
+        E(I,J) = c \sum_{\alpha}{(I_{\alpha} - J_{\alpha})^2} + \sum_{\{\alpha \~{} \beta\}}{(J_{\alpha} - J_{\beta})^2}
+    \]
 
+    \begin{align*}
+        p &= P(J_{\alpha} = 1 | \alpha J) \\
+        &= \frac{e^{\frac{-c (I_{\alpha} - 1)^2 - \sum_{\beta : \alpha ~ \beta}{(1 - J_{\beta})^2}}{T}}}{e^{\frac{-c \sum_{\alpha}{(I_{\alpha} - 1)^2} - \sum_{\beta : \alpha ~ \beta}{(1 - J_{\beta})^2}}{T}} + e^{\frac{-c \sum_{\alpha}{(I_{\alpha})^2} - \sum_{\beta : \alpha ~ \beta}{(J_{\beta})^2}}{T}}}
+    \end{align*}
+
+    % Problem 1
+    \item
 
     % Problem 3
-    \item[3.]
+    \item
         \begin{tikzpicture}[vertex/.style={fill=white}]
             \Vertex[x=2.5,y=1.5,label=s,color=white]{s}
             \Vertex[x=0,y=0,label=1,color=white]{1}
