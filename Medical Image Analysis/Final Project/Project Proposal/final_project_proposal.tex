@@ -1,0 +1,63 @@
+
+\documentclass{article}
+\usepackage[left=2cm, right=2cm]{geometry}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+\title{Final Project Proposal \\ \Large Brain Tumor Segmentation in Multimodal MR Images}
+\author{Christian Parker \\ CXP22004}
+
+\begin{document}
+
+\maketitle
+
+\section*{Data}
+For this project I will consider the BraTS 2026 Brain Metastases dataset.
+The dataset includes four types of MR images:
+
+\begin{enumerate}
+    \item
+        Pre-contrast T1-weighted (T1W)
+    \item
+        Post-contrast T1-weighted (T1C)
+    \item
+        T2-weighted (T2W)
+    \item
+        T2-weighted Fluid Attenuated Inversion Recovery (FLAIR)
+\end{enumerate}
+
+Four labels are used to delineate segments of the tumor:
+
+\begin{enumerate}
+    \item
+    Nonenhancing tumor core (NETC): All portions of tumor core without contrast enhancement that are enclosed by enhancing tumor (ET). It represents the bulk of the tumor, which is what is typically considered for surgical excision.
+    \item
+    Surrounding non-enhancing FLAIR hyperintensity (SNFH): Peritumoral edematous and infiltrated tissue, defined by the abnormal hyperintense signal envelope on the T2 FLAIR volumes, which includes the infiltrative non enhancing tumor, as well as vasogenic edema in the peritumoral region. Non tumor related FLAIR signal abnormality such as prior infarcts or microvascular ischemic white matter changes are NOT included.
+    \item
+    Enhancing Tumor (ET): All tumor portions with noticeable contrast enhancement on postcontrast T1-weighted images. Adjacent blood vessels, bleeding or intrinsic T1 hyperintensity are NOT included in this label.
+    \item
+    Resection Cavity (RC): Delineates the resection of region within the brain in post-treatment cases. \cite{bratsmets2026task1}
+\end{enumerate}
+
+\section*{Goals}
+My first goal will be to develop a model that takes a T1W image as input and outputs
+the segmentation of the RC region.
+Once I've verified success on this simpler problem,
+I'll modify the model to use all image types as input and all labels as output.
+
+In the BraTS 2026 Challenge, all but one of the submissions that made it to final testing
+achieved a Dice Similarity Coefficient (DSC) greater than 0.90 \cite{JiaZhi_MultiConsortium_MICCAISAT2026}.
+Therefore, I believe it a reasonable goal to achieve a DSC greater than 0.70 on my project.
+
+\section*{Work}
+The most common framework used by top submissions was nnU-Net \cite{isensee2018nnunetselfadaptingframeworkunetbased}.
+nnU-Net was built for biomedical image segmentation and allows for rapid configuration
+and training of U-Nets (U shaped convolutional neural networks).
+Based on this, my first approach will be to create my own U-Net using MATLAB.
+If I complete my first goal of RC segmentation, I will continue building and
+configuring the U-net myself. Otherwise, I'll explore nnU-Net to see if it can
+provide better results.
+
+\bibliographystyle{plain}
+\bibliography{references}
+\end{document}

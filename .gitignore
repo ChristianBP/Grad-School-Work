@@ -1,11 +1,14 @@
 *.pyc
+
+# Latex
 *.aux
+*.blg
+*.bbl
 *.fdb_latexmk
 *.fls
 *.log
+*.out
 *.synctex.gz
-*.blg
-*.bbl
 
 # Big Data Management
 checkpoints/
