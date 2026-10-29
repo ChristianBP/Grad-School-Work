@@ -1,0 +1,79 @@
+
+\documentclass{article}
+\usepackage[left=2cm, right=2cm]{geometry}
+\usepackage{amsmath}
+
+\title{Assignment 6}
+\author{Christian Parker \\ CXP22004}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    % Problem 1
+    \item
+    \begin{enumerate}
+        \item
+        \begin{align*}
+            J(u) &= \int_{0}^{1} (u(x) - u_0 (x))^2 dx + \lambda \int_{0}^{1} (u'(x))^2 dx \\
+            &= \int_{0}^{1} (u - u_0)^2 + \lambda (u')^2 dx \\
+            F(x, u, u') &= (u - u_0)^2 + \lambda (u')^2 \\
+            \frac{\delta F}{\delta u} &= 2(u - u_0) \\
+            \frac{\delta F}{\delta u'} &= 2 \lambda u'
+        \end{align*}
+
+        The Euler-Lagrange equation is:
+        \begin{align*}
+            \frac{\delta F}{\delta u} - \frac{d}{dx} \frac{\delta F}{\delta u'} &= 0 \\
+            2(u - u_0) - \frac{d}{dx} 2 \lambda u' &= 0 \\
+            u - u_0 - \lambda u'' &= 0 \\
+            u - \lambda u'' &= u_0
+        \end{align*}
+    \end{enumerate}
+
+    % Problem 2
+    \item
+    \begin{align*}
+        E(u) &= \alpha \int_{\Omega} | \nabla u | dxdy + \int_{\Omega} (u - u_0 \cdot ln(u)) dxdy \\
+        &= \int_{\Omega} \alpha | \nabla u | + u - u_0 \cdot ln(u)\ dxdy \\
+        F(u, u_x, u_y) &= \alpha | \nabla u | + u - u_0 \cdot ln(u) \\
+        \frac{\delta F}{\delta u} &= 1 - \frac{u_0}{u} \\
+        \frac{\delta F}{\delta \nabla u} &= \left( \frac{\delta F}{\delta u_x}, \frac{\delta F}{\delta u_y} \right) \\
+        &= \left( \alpha \frac{\delta}{\delta u_x} \sqrt{u_x^2 + u_y^2}, \alpha \frac{\delta}{\delta u_y} \sqrt{u_x^2 + u_y^2} \right) \\
+        &= \alpha \left( \frac{2 u_x}{2 \sqrt{u_x^2 + u_y^2}}, \frac{2 u_y}{2 \sqrt{u_x^2 + u_y^2}} \right) \\
+        &= \alpha \frac{(u_x, u_y)}{\sqrt{u_x^2 + u_y^2}} \\
+        &= \alpha \frac{\nabla u}{| \nabla u |}
+    \end{align*}
+
+    The Euler-Lagrange equation is:
+    
+
+    \begin{align*}
+        \frac{\delta F}{\delta u} - \operatorname{div} \left( \frac{\delta F}{\delta \nabla u} \right) &= 0 \\
+        1 - \frac{u_0}{u} - \operatorname{div} \left( \alpha \frac{\nabla u}{| \nabla u |} \right) &= 0 \\
+    \end{align*}
+
+    % Problem 3
+    \item
+    \begin{enumerate}
+        \item[(c)]
+        Graph cut performed the best, providing a clear outline of the tumor region. The Image
+        Segmenter required drawing lines on the foreground and background before running the
+        graph cut algorithm. The drawing I made outlined the tumor fairly well. This headstart
+        is likely why this algorithm performed so well.
+
+        Both active contour methods performed worse than the graph cut method.
+        The Chan-Vese method was highly sensitive to the input mask.
+        If the mask was too big, it would mask the entire brain rather than just the tumor region.
+        In contrast, the edge method mask remained within the tumor for every mask I tried.
+        However, the mask was always noticeably smaller than the tumor.
+        
+        With a proper mask, the Chan-Vese method provided better coverage than the edge method.
+        The tumor was generally outlined well, with some additional tendrils
+        reaching out to nearby bright spots that weren't part of the tumor.
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{document}
